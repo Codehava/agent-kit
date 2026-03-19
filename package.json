@@ -1,0 +1,26 @@
+{
+  "name": "codehava-agent-kit",
+  "version": "1.0.0",
+  "description": "Codehava Agent Kit - CLI to initialize agent templates, workflows, and skills",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "codehava-agent-kit": "./bin/cli.js"
+  },
+  "scripts": {
+    "start": "node ./bin/cli.js"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0"
+  },
+  "keywords": [
+    "agent",
+    "kit",
+    "cli",
+    "codehava"
+  ],
+  "author": "Ivan Fan",
+  "license": "MIT"
+}

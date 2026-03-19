@@ -1,0 +1,9 @@
+# NPM Ignore Definitions
+# Mencegah file-file referensi/sampah ikut ter-publish ke registry NPM yang bisa membuat ukuran package bengkak!
+
+tmp-repos/
+vibe-docs-export/
+test-run/
+analysis_results.md
+.DS_Store
+*.log

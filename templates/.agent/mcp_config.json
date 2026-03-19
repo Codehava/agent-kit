@@ -1,0 +1,129 @@
+{
+  "_comment": "MCP Server config untuk Google Antigravity — project ini",
+  "_instructions": [
+    "Cara install: Antigravity → ... menu (kiri atas) → MCP Servers → Manage MCP Servers → View raw config",
+    "Copy-paste JSON ini, ganti placeholder [VALUE] dengan nilai asli",
+    "Restart Antigravity setelah update config",
+    "JANGAN commit file ini jika sudah ada credentials — tambahkan ke .gitignore"
+  ],
+  "_tiers": {
+    "tier1_wajib": ["context7", "github"],
+    "tier2_sangat_berguna": ["postgresql", "playwright", "sentry", "docker"],
+    "tier3_opsional": ["firecrawl", "notion", "slack"]
+  },
+
+  "mcpServers": {
+
+    "context7": {
+      "_tier": "TIER 1 — WAJIB",
+      "_description": "Inject docs real-time 9.000+ library langsung ke context agent. Solusi untuk Prisma 7 / Next.js 16 breaking changes.",
+      "_usage": "Tambahkan 'use context7' di akhir prompt, atau 'use library /vercel/next.js' untuk spesifik.",
+      "_libraries_relevan": [
+        "/vercel/next.js",
+        "/prisma/prisma",
+        "/better-auth/better-auth",
+        "/taskforcesh/bullmq",
+        "/socketio/socket.io",
+        "/flutter/flutter"
+      ],
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "env": {
+        "CONTEXT7_API_KEY": "[OPTIONAL — daftar gratis di context7.com/dashboard untuk higher rate limits]"
+      }
+    },
+
+    "github": {
+      "_tier": "TIER 1 — WAJIB",
+      "_description": "Buat issue, baca PR, cek commits, manage labels langsung dari IDE tanpa buka browser.",
+      "_usage": "Contoh: 'Create a GitHub issue for this bug', 'Show open PRs', 'List issues labeled bug'",
+      "_setup": "Generate Personal Access Token di github.com/settings/tokens — scope: repo, read:org",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "[GITHUB_PAT — github.com/settings/tokens]"
+      }
+    },
+
+    "postgresql": {
+      "_tier": "TIER 2 — SANGAT BERGUNA",
+      "_description": "Baca schema PostgreSQL, test query, inspect data langsung dari IDE. Agent tahu nama kolom yang benar.",
+      "_usage": "Contoh: 'Show schema of orders table', 'Run this query and check result', 'What indexes exist on user table?'",
+      "_warning": "Gunakan DATABASE_URL development/staging, JANGAN production untuk MCP",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "DATABASE_URL": "[postgresql://devuser:devpassword@localhost:5432/myapp_dev]"
+      }
+    },
+
+    "playwright": {
+      "_tier": "TIER 2 — SANGAT BERGUNA",
+      "_description": "Browser automation — agent buka browser, isi form, screenshot, test UI otomatis. E2E testing tanpa tulis test manual.",
+      "_usage": "Contoh: 'Test the checkout flow', 'Screenshot the dashboard', 'Fill and submit the login form'",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "env": {}
+    },
+
+    "sentry": {
+      "_tier": "TIER 2 — SANGAT BERGUNA",
+      "_description": "Baca production errors dari Sentry langsung ke context IDE. Fix bug tanpa buka browser.",
+      "_usage": "Contoh: 'Show latest errors in production', 'What's causing this Sentry issue ID?'",
+      "_setup": "Buat Sentry Auth Token di sentry.io/settings/auth-tokens",
+      "command": "npx",
+      "args": ["-y", "@sentry/mcp-server@latest"],
+      "env": {
+        "SENTRY_AUTH_TOKEN": "[SENTRY_AUTH_TOKEN — sentry.io/settings/auth-tokens]",
+        "SENTRY_ORG": "[nama-org-sentry]",
+        "SENTRY_PROJECT": "[nama-project-sentry]"
+      }
+    },
+
+    "docker": {
+      "_tier": "TIER 2 — SANGAT BERGUNA",
+      "_description": "Manage Docker containers, inspect logs, restart services langsung dari IDE. Berguna untuk debug PostgreSQL/Redis di Coolify.",
+      "_usage": "Contoh: 'Show running containers', 'Get logs from postgres container', 'Restart redis container'",
+      "command": "npx",
+      "args": ["-y", "@docker/mcp-server"],
+      "env": {}
+    },
+
+    "firecrawl": {
+      "_tier": "TIER 3 — OPSIONAL",
+      "_description": "Web scraping — ambil docs, riset kompetitor, scrape data untuk seed database. Handles JavaScript-rendered pages.",
+      "_usage": "Contoh: 'Scrape docs from xendit.co/api', 'Get competitor pricing from their website'",
+      "_setup": "Daftar di firecrawl.dev untuk API key (ada free tier)",
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "[FIRECRAWL_API_KEY — app.firecrawl.dev/account/api-keys]"
+      }
+    },
+
+    "notion": {
+      "_tier": "TIER 3 — OPSIONAL",
+      "_description": "Akses Notion pages/databases dari IDE. Berguna jika PRD atau backlog di Notion.",
+      "_usage": "Contoh: 'Show current sprint tasks from Notion', 'Create a new task in backlog database'",
+      "_setup": "Buat Notion Integration di notion.so/my-integrations, share workspace ke integration",
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "NOTION_API_KEY": "[NOTION_API_KEY — notion.so/my-integrations]"
+      }
+    },
+
+    "slack": {
+      "_tier": "TIER 3 — OPSIONAL",
+      "_description": "Search, read, dan kirim Slack messages dari IDE. Berguna untuk check diskusi tim tentang bug tertentu.",
+      "_usage": "Contoh: 'Search Slack for messages about payment bug', 'Post update to #dev channel'",
+      "_setup": "Buat Slack App di api.slack.com/apps dengan scope: channels:read, chat:write, search:read",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "[xoxb-... — api.slack.com/apps → OAuth & Permissions]",
+        "SLACK_TEAM_ID": "[T... — Slack workspace ID]"
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+# Git Ignore Definitions
+
+node_modules/
+tmp-repos/
+vibe-docs-export/
+test-run/
+.DS_Store
+*.log

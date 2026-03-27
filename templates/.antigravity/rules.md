@@ -67,3 +67,14 @@ const token = (await headers()).get('x-callback-token')
 
 - Saat coding Prisma 7, Next.js 16, Better Auth, BullMQ, Socket.io:
   tambahkan `use context7` di prompt untuk mendapat docs terbaru
+
+## 🧠 Skill & Agent Auto-Discovery (WAJIB DIBACA AI)
+
+Project ini memiliki PULUHAN skill di `.agent/skills/` dan PULUHAN agent persona di `.agent/agents/`. User **TIDAK PERLU** menghafal atau mengetikkan namanya secara manual!
+
+Sebagai AI cerdas pengelola repository, setiap kali user memberikan perintah (misal: "buat fitur auth", "setup routing", "buat koneksi Xendit", "evaluasi security"):
+1. **Identifikasi Persona (Agent):** Buka dan baca rujukan `templates/.agent/AGENTS_INDEX.md`. Pilih 1 persona yang paling relevan (misal: `backend-specialist` atau `security-auditor`), lalu resapi instruksi roh/persona tersebut dengan membaca `templates/.agent/agents/[NAMA_AGENT].md`.
+2. **Identifikasi Skill Teknis:** Buka dan baca rujukan `templates/.agent/SKILLS_INDEX.md`. Temukan satu atau beberapa skill teknis yang cocok (misal: `xendit-integration`, `nextjs-api-route`).
+3. **Load Context & Execute:** Baca aturan lengkap skill tersebut di `templates/.agent/skills/[NAMA_SKILL]/SKILL.md` **SEBELUM** memulai eksekusi.
+
+Lakukan ketiga tahapan *Auto-Discovery* ini secara proaktif di belakang layar. Ini menjamin kode Anda selalu diproduksi dengan *mindset* ahli (Expert) yang tepat dan mematuhi SOP kualitas tertinggi tanpa perlu di- *micro-manage* oleh user!

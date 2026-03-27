@@ -159,4 +159,4 @@ Generate dokumen dengan struktur berikut:
 - Fokus pada konteks **Indonesia**: pasar lokal, payment local (Xendit/Midtrans), regulasi UU PDP
 - Jika user belum menyebut kompetitor, suggest yang paling relevan berdasarkan deskripsi ide
 - Estimasi angka harus realistis, bukan overly optimistic
-- Setelah generate, reminder user: "Simpan file ini, lalu jalankan `/vibe-prd` untuk langkah berikutnya"
+- **SKILL CHAINING:** Setelah riset selesai di-generate, JANGAN BERHENTI. Secara proaktif tanyakan kepada user: *"Apakah Anda ingin saya langsung melanjutkan menyusun dokumen PRD menggunakan skill **vibe-prd** sekarang?"* Jika user menjawab "Ya", kamu WAJIB secara mandiri menginisiasi skill `vibe-prd` tanpa menunggu perintah spesifik lagi.

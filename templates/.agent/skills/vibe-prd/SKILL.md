@@ -225,4 +225,4 @@ Generate PRD sekarang? (yes/no)
 - Jika user menyebutkan fitur yang terlalu kompleks untuk MVP, masukkan ke P1 dan jelaskan kenapa
 - Payment section: muncul hanya jika user konfirmasi ada transaksi keuangan
 - **STRUKTUR DOKUMEN WAJIB**: Selaraskan dan lengkapi hierarki PRD yang dihasilkan dengan elemen-elemen profesional dari `docs/SRS-Template.md`.
-- Setelah generate, reminder: "Simpan PRD ini, lalu jalankan `/vibe-techdesign` untuk langkah berikutnya"
+- **SKILL CHAINING:** Setelah dokumen PRD selesai dibuat, JANGAN BERHENTI. Secara proaktif tanyakan kepada user: *"PRD sudah siap! Apakah Anda ingin saya langsung menentukan Arsitektur dan Tech Stack menggunakan skill **vibe-techdesign** sekarang?"* Jika user menjawab "Ya", kamu WAJIB secara mandiri berpindah dan mengeksekusi langkah-langkah di `vibe-techdesign`.

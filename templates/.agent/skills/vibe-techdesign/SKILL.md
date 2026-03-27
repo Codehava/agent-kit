@@ -192,4 +192,4 @@ Dan **API Endpoints awal**:
 - ERD harus mencerminkan user stories di PRD — bukan generic template
 - Setelah generate, tambahkan entry ke `docs/06-DEVELOPMENT-LOG.md`:
   `[KEPUTUSAN] Stack [AppName] dipilih: [ringkasan stack] — Alasan: [ringkasan]`
-- Reminder user: "Tech design sudah jadi. Jalankan `/vibe-buildplan` untuk buat rencana sprint."
+- **SKILL CHAINING:** Setelah Tech Design selesai dibuat, JANGAN BERHENTI. Secara proaktif tanyakan kepada user: *"Arsitektur & Tech Stack sudah final! Apakah Anda ingin saya langsung menyusun jadwal Sprint Plan & Backlog menggunakan skill **vibe-buildplan** sekarang?"* Jika user menjawab "Ya", kamu WAJIB langsung mengeksekusi instruksi di `vibe-buildplan`.

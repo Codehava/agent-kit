@@ -4,8 +4,8 @@ description: Mulai fitur baru dengan benar — buat spec, branch Git, dan siapka
 
 1. Tanya user: "Nama fitur ini apa? Deskripsi singkat tujuannya?"
 
-2. Cek apakah sudah ada spec di folder `specs/` untuk fitur ini.
-   Jika belum ada, buat spec baru dengan format `NNN-nama-fitur.md` mengikuti template di `specs/README.md`.
+2. **Wajib BDD Spec:** Cek apakah sudah ada spec di folder `specs/` untuk fitur ini.
+   Jika belum ada, **PANGGIL SKILL `feature-spec-writer`** sekarang juga untuk membuat spec baru dengan format `NNN-nama-fitur.md`. Pastikan spec mencakup *Acceptance Criteria (Given-When-Then), 4 UI States, dan Data Contract JSON* sebelum lanjut coding!
 
 3. Tanya user: "Fitur ini terkait REQ ID berapa dari PRD? (contoh: REQ-020)"
    Tambahkan referensi REQ ID ke spec.

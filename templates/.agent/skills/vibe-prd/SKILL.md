@@ -138,33 +138,35 @@ Generate PRD sekarang? (yes/no)
 
 ---
 
-## 4. User Stories
+## 4. User Stories & Acceptance Criteria
 
-> Format: Sebagai [siapa], saya ingin [aksi], agar [tujuan].
+> Format User Story: Sebagai [siapa], saya ingin [aksi], agar [tujuan].
+> Format Acceptance Criteria: **Given-When-Then** (BDD Format)
 > ID REQ-XXX untuk traceability ke backlog dan kode.
 
 ### [Nama Persona 1]
 - [ ] **REQ-001** Sebagai [persona 1], saya ingin [aksi dari F01], agar [tujuan]
+  - **AC (Success):** Given [kondisi awal], When [aksi trigger], Then [hasil yang diharapkan]
+  - **AC (Error):** Given [kondisi salah], When [aksi], Then [pesan error]
+  - **UI States:** [Definisikan Loading, Empty, Error, Success State]
 - [ ] **REQ-002** Sebagai [persona 1], saya ingin [aksi dari F02], agar [tujuan]
-- [ ] **REQ-003** Sebagai [persona 1], saya ingin [lanjutan], agar [tujuan]
+  - *... (ulangi struktur AC di atas)*
 
 ### [Nama Persona 2]
 - [ ] **REQ-010** Sebagai [persona 2], saya ingin [aksi], agar [tujuan]
-- [ ] **REQ-011** Sebagai [persona 2], saya ingin [aksi], agar [tujuan]
+  - *... (ulangi struktur AC di atas)*
 
 ### Pembayaran (jika ada)
 - [ ] **REQ-020** Sebagai pembeli, saya ingin membayar via [metode], agar transaksi mudah
-- [ ] **REQ-021** Sebagai [penerima dana], saya ingin dana masuk otomatis, agar tidak perlu manual transfer
-- [ ] **REQ-022** Sebagai admin, saya ingin melihat semua transaksi, agar bisa rekonsiliasi
+- [ ] **REQ-021** Sebagai admin, saya ingin melihat semua transaksi, agar bisa rekonsiliasi
 
-### Notifikasi
-- [ ] **REQ-030** Sebagai pengguna, saya ingin dapat notifikasi saat [event penting], agar tidak ketinggalan
-- [ ] **REQ-031** Sebagai pengguna, saya ingin dapat email konfirmasi [aksi], agar ada bukti
+### Notifikasi & Edge Cases
+- [ ] **REQ-030** Sebagai pengguna, saya ingin dapat notifikasi saat [event penting].
+  - **Edge Case Mitigasi:** Jika notifikasi gagal/API timeout, tampilkan di in-app notification fall-back.
 
 ### UU PDP — Hak Pengguna (Wajib)
 - [ ] **REQ-040** Sebagai pengguna, saya ingin dapat menghapus akun dan semua data saya
-- [ ] **REQ-041** Sebagai pengguna, saya ingin dapat mengunduh semua data pribadi saya
-- [ ] **REQ-042** Sebagai pengguna, saya ingin dapat mencabut consent marketing kapan saja
+- [ ] **REQ-041** Sebagai pengguna, saya ingin mengunduh data pribadi saya
 
 ---
 

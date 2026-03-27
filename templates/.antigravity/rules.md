@@ -38,8 +38,9 @@ const token = (await headers()).get('x-callback-token')
 - Data sensitif (NIK, rekening) disimpan terenkripsi dengan pgcrypto
 - Firebase: hanya gunakan `firebase_messaging` — JANGAN aktifkan Analytics/Crashlytics
 
-## Sebelum coding
+## Sebelum coding (Human-in-the-Loop)
 
+- **WAJIB Validasi:** JANGAN langsung menulis file yang panjang secara agresif. Buat *Implementation Plan* singkat di chat, dan MINTA USER mengetik "Lanjut/Approve" sebelum kamu diizinkan mengedit/membuat file.
 - Cek komponen yang ada di `/components/ui/` sebelum buat baru
 - Untuk fitur size M atau L: cek apakah ada spec di `specs/` dulu
 - Satu fokus per sesi — jangan ubah hal di luar scope yang diminta
@@ -54,8 +55,12 @@ const token = (await headers()).get('x-callback-token')
 ## Adaptive Memory & Checkbox Task Tracking (Senjata Utama AI)
 
 - **Checkbox Workflow**: Setiap kali user memberikan perintah untuk membuat atau memperbaiki fitur, kamu WAJIB memecahkannya menjadi langkah-langkah detail di `docs/task_on_hand.md` dengan format Checkbox (`[ ] Step 1`, `[ ] Step 2`). Kamu harus mengeksekusi instruksi tersebut SATU PER SATU secara berurutan dan mengubah statusnya menjadi `[x]` setiap kodenya selesai! Jangan pernah melompat langkah!
-- **Troubleshooting Log**: Setiap menemukan error dan berhasil memperbaikinya, kamu WAJIB mencatatnya di `docs/troubleshooting.md` (Pesan Error, Penyebab, Solusi). Ini mencegah pengulangan kesalahan yang sama di sesi berikutnya.
-- **Template Code**: Saat disuruh membuat komponen/file baru, SELALU periksa apakah ada referensi *snippet* di `templates/.agent/snippets/` dan teladani struktur kodenya 100%.
+- **Troubleshooting Log & 3L5W Framework**: Jika menemukan ERROR, **JANGAN HANYA** asal *fix* isi 1 file lalu lapor selesai. Terapkan SOP "3 Legs 5 Whys": 
+  1. **5 Whys Analysis:** Temukan akar masalah terdalamnya.
+  2. **Search & Destroy:** Gunakan fitur IDE Search (atau grep_search) untuk memeriksa SELURUH codebase. Caritahu apakah pengulangan sintaks/pattern buruk yang persis sama juga ada di *komponen* atau *file* lain yang belum disentuh.
+  3. **Global Mitigation:** Perbaiki file saat ini beserta seluruh temuan relevan lainnya, dan buat proteksi logika (misal: Zod, Null checks) untuk memblokirnya secara struktural. 
+  4. **Log it:** Beri catatan RCA di `docs/troubleshooting.md`.
+- **Template Code**: Saat disuruh membuat komponen/file baru, SELALU periksa referensi di `templates/.agent/snippets/` dan tiru strukturnya.
 - Di setiap awal sesi, kamu WAJIB membaca `docs/task_on_hand.md` dan `docs/recap.md` (jika ada) untuk *loading context*.
 
 ## Context7

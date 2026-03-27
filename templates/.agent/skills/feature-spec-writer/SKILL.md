@@ -35,10 +35,24 @@ sebelum memulai implementasi fitur besar (size M atau L).
 ## Tujuan
 [1-2 kalimat: masalah yang diselesaikan]
 
-## Acceptance Criteria
-- [ ] [kriteria konkret dan testable — bukan "user bisa lihat", tapi "GET /api/x returns 200 dengan field y"]
-- [ ] [kriteria 2]
-- [ ] [kriteria 3]
+## Acceptance Criteria (BDD Format)
+> Wajib mendeskripsikan kriteria dengan format Given-When-Then.
+
+- [ ] **Scenario 1 (Success Path):** 
+  - **Given** [kondisi awal]
+  - **When** [trigger aksi]
+  - **Then** [hasil akhir / state UI / komponen yang dirender]
+- [ ] **Scenario 2 (Error Handling):**
+  - **Given** [kondisi bermasalah, misal: server timeout]
+  - **When** [trigger aksi]
+  - **Then** [perilaku fallback / error boundary yang muncul]
+
+## UX / UI States
+Wajib definisikan tampilan untuk 4 kondisi ini:
+- **Loading State:** [Bentuk skeleton / spinner]
+- **Empty State:** [Tampilan jika tak ada data]
+- **Error State:** [Tampilan retry / error boundary]
+- **Success State:** [Data normal yang tampil]
 
 ## File yang Akan Diubah/Dibuat
 - [ ] `app/(dashboard)/[path]/page.tsx` — [deskripsi perubahan]
@@ -46,11 +60,16 @@ sebelum memulai implementasi fitur besar (size M atau L).
 - [ ] `lib/[module]/index.ts` — [helper baru]
 - [ ] `prisma/schema.prisma` — [perubahan model jika ada]
 
-## API Endpoints
-| Method | Path | Request | Response |
-|--------|------|---------|----------|
-| GET | /api/[x] | — | `{ data: X[] }` |
-| POST | /api/[x] | `{ field: type }` | `{ data: X }` |
+## Data Contract / API Endpoints
+*Tuliskan JSON Requests/Responses secara konkrit (Mockup JSON).*
+
+| Method | Path | Request JSON | Response JSON |
+|--------|------|--------------|---------------|
+| POST | /api/[x] | `{ "field": "string" }` | `200 OK`: `{ "data": {...} }` |
+
+## Edge Cases & Mitigasi Taktis
+- **Skenario Terburuk:** [Misal user spam klik]
+- **Mitigasi:** [Misal disable button dan debounce API]
 
 ## Perubahan Database
 [Jika ada — describe schema changes]

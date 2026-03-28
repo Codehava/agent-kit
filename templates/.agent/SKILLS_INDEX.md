@@ -1,56 +1,14 @@
-# Master Skills Index
+# Auto-Discovery Routing Mechanism
 
-AI, whenever you are assigned a task, scan this list to find relevant skills. If a skill seems relevant to the task, read its full `SKILL.md` file located at `templates/.agent/skills/<skill-name>/SKILL.md` BEFORE coding.
+> [!WARNING]
+> STATIC INDEX OBSOLETE: We explicitly removed the hardcoded `SKILLS_INDEX.md` mapping file because maintaining an index for over 455 Elite Web & Mobile skills is technically impossible and computationally expensive for LLM Context Windows.
 
-- **api-patterns**: allowed-tools: Read, Write, Edit, Glob, Grep --- 
-- **app-builder**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent --- 
-- **architecture**: allowed-tools: Read, Glob, Grep --- 
-- **bash-linux**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash --- 
-- **behavioral-modes**: allowed-tools: Read, Glob, Grep --- 
-- **better-auth-patterns**:   Use when implementing authentication, authorization, session management,   login/register flows, Google OAuth, or protected routes. Triggers on 
-- **brainstorming**: allowed-tools: Read, Glob, Grep --- 
-- **bullmq-worker**:   Use when creating background jobs, queues, workers, or scheduling tasks.   Also use when connecting background job results to Socket.io realtime events 
-- **clean-code**: allowed-tools: Read, Write, Edit version: 2.0 
-- **code-review-checklist**: allowed-tools: Read, Glob, Grep --- 
-- **database-design**: allowed-tools: Read, Write, Edit, Glob, Grep --- 
-- **deployment-procedures**: allowed-tools: Read, Glob, Grep, Bash --- 
-- **documentation-templates**: allowed-tools: Read, Glob, Grep --- 
-- **drizzle-orm-patterns**:   Use when writing Drizzle ORM database code, migrations, or schema design. Very useful for Edge and Serverless database environments like Turso, Neon, or Cloudflare D1. Triggers on drizzle, schema, migration, orm, query, insert, select, postgres, sqlite. --- 
-- **feature-spec-writer**:   Use when planning a new feature before coding, creating a feature brief,   or writing acceptance criteria. Triggers on "plan this feature", "write a spec", 
-- **frontend-design**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash --- 
-- **game-development**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash --- 
-- **geo-fundamentals**: allowed-tools: Read, Glob, Grep --- 
-- **i18n-localization**: allowed-tools: Read, Glob, Grep --- 
-- **intelligent-routing**: version: 1.0.0 --- 
-- **lint-and-validate**: allowed-tools: Read, Glob, Grep, Bash --- 
-- **mcp-builder**: allowed-tools: Read, Write, Edit, Glob, Grep --- 
-- **mobile-design**: allowed-tools: Read, Glob, Grep, Bash --- 
-- **neo-storage**:   Use when uploading, downloading, deleting files, or generating presigned URLs   with NEO Object Storage (Biznet Gio). Triggers on "upload file", "object storage", 
-- **nextjs-api-route**:   Use when creating or modifying Next.js App Router API routes (route.ts files),   Server Actions, or Server Components that fetch data. Triggers on "api route", 
-- **nextjs-react-expert**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash --- 
-- **nodejs-best-practices**: allowed-tools: Read, Write, Edit, Glob, Grep --- 
-- **parallel-agents**: allowed-tools: Read, Glob, Grep --- 
-- **performance-profiling**: allowed-tools: Read, Glob, Grep, Bash --- 
-- **plan-writing**: allowed-tools: Read, Glob, Grep --- 
-- **powershell-windows**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash --- 
-- **prisma-7-patterns**:   Use when writing ANY Prisma database code, creating models, running queries,   setting up the Prisma client, or running migrations. Triggers on "prisma", 
-- **python-patterns**: allowed-tools: Read, Write, Edit, Glob, Grep --- 
-- **rag-vector-db**:   Use when building AI applications that require memory, semantic search, embeddings, document chat, or connecting an LLM to a private dataset (RAG). Triggers on rag, vector, embedding, pinecone, qdrant, pgvector, similarity search. --- 
-- **red-team-tactics**: allowed-tools: Read, Glob, Grep --- 
-- **rust-pro**:   features, and production-ready systems programming. Expert in the latest Rust   ecosystem including Tokio, axum, and cutting-edge crates. Use PROACTIVELY for 
-- **seo-fundamentals**: allowed-tools: Read, Glob, Grep --- 
-- **server-management**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash --- 
-- **systematic-debugging**: allowed-tools: Read, Glob, Grep --- 
-- **tailwind-patterns**: allowed-tools: Read, Write, Edit, Glob, Grep --- 
-- **tdd-workflow**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash --- 
-- **testing-patterns**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash --- 
-- **uu-pdp-feature-check**:   Use when building any feature that collects, stores, displays, or processes   user personal data. Triggers on "user data", "personal info", "profile", 
-- **vibe-buildplan**:   Use after vibe-techdesign. Generates sprint plan and initial backlog from PRD.   Triggers on "buat sprint plan", "breakdown task", "berapa sprint", 
-- **vibe-prd**:   Use after vibe-research, or when starting to define product requirements.   Triggers on "buat PRD", "definisikan fitur", "apa yang harus dibangun", 
-- **vibe-research**:   Use at the START of a new project, before PRD or coding.   Triggers on "riset aplikasi ini", "research dulu", "validasi ide", 
-- **vibe-stitch-prompt**:   Use when the user wants to generate a UI design prompt for Google Stitch   based on the existing PRD and UI Guidelines. Triggers on "buat prompt stitch", 
-- **vibe-techdesign**:   Use after vibe-prd, or when deciding architecture and stack.   Triggers on "pilih stack", "desain arsitektur", "database apa yang cocok", 
-- **vulnerability-scanner**: allowed-tools: Read, Glob, Grep, Bash --- 
-- **web-design-guidelines**: metadata:   author: vercel 
-- **webapp-testing**: allowed-tools: Read, Write, Edit, Glob, Grep, Bash --- 
-- **xendit-integration**:   Use when working with Xendit payment integration: creating payment links,   handling webhooks, implementing split payment, or managing disbursements. 
+## Instructions for AI
+
+You MUST NOT rely on an index file to discover skills. You are equipped with the **Auto-Discovery Engine**.
+
+**Protocol:**
+1. Determine the relevant keywords from the user request (e.g. `seo`, `auth`, `aws`, `stripe`, `react`).
+2. Run a keyword search on the directory using `find` or `grep_search` against `.agent/skills/`.
+3. Pick the matched directory, read its `SKILL.md` silently, then fulfill the prompt using its expert context.
+4. Notify the user: `🤖 Auto-Discovery: Mengaktifkan skill @[skill-name]...`

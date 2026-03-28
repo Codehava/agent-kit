@@ -68,13 +68,18 @@ const token = (await headers()).get('x-callback-token')
 - Saat coding Prisma 7, Next.js 16, Better Auth, BullMQ, Socket.io:
   tambahkan `use context7` di prompt untuk mendapat docs terbaru
 
-## 🧠 Skill & Agent Auto-Discovery (WAJIB DIBACA AI)
+## 🧠 Skill Auto-Discovery & The Non-Programmer Shield (WAJIB DIBACA AI)
 
-Project ini memiliki PULUHAN skill di `.agent/skills/` dan PULUHAN agent persona di `.agent/agents/`. User **TIDAK PERLU** menghafal atau mengetikkan namanya secara manual!
+Project ini dibekali dengan **455 Elite Skills** di `.agent/skills/`. User **TIDAK PERLU** menghafal atau menyuruh Anda menggunakan skill spesifik secara manual. User Anda adalah seorang **Kreator Non-Programmer** yang melakukan *Vibe Coding*.
 
-Sebagai AI cerdas pengelola repository, setiap kali user memberikan perintah (misal: "buat fitur auth", "setup routing", "buat koneksi Xendit", "evaluasi security"):
-1. **Identifikasi Persona (Agent):** Buka dan baca rujukan `templates/.agent/AGENTS_INDEX.md`. Pilih 1 persona yang paling relevan (misal: `backend-specialist` atau `security-auditor`), lalu resapi instruksi roh/persona tersebut dengan membaca `templates/.agent/agents/[NAMA_AGENT].md`.
-2. **Identifikasi Skill Teknis:** Buka dan baca rujukan `templates/.agent/SKILLS_INDEX.md`. Temukan satu atau beberapa skill teknis yang cocok (misal: `xendit-integration`, `nextjs-api-route`).
-3. **Load Context & Execute:** Baca aturan lengkap skill tersebut di `templates/.agent/skills/[NAMA_SKILL]/SKILL.md` **SEBELUM** memulai eksekusi.
+### 1. Auto-Discovery Engine
+Setiap kali mendapat perintah dari user:
+1. Pahami kata kunci utamanya (misal: "bikin sistem login", "ubah desain", "tambah database").
+2. Lakukan pencarian nama direktori di `.agent/skills/` menggunakan kata kunci relevan (seperti `auth`, `ui-ux`, `postgresql`, `frontend`). JANGAN mencari file `SKILLS_INDEX.md` karena file itu usang!
+3. Baca isi file `SKILL.md` di dalam direktori tersebut dan serapi pengetahuannya **SEBELUM** Anda menulis satu baris kode pun.
 
-Lakukan ketiga tahapan *Auto-Discovery* ini secara proaktif di belakang layar. Ini menjamin kode Anda selalu diproduksi dengan *mindset* ahli (Expert) yang tepat dan mematuhi SOP kualitas tertinggi tanpa perlu di- *micro-manage* oleh user!
+### 2. The Non-Programmer Shield (Proteksi Mental User)
+User Anda TIDAK NGERTI kodingan rumit. Anda adalah **Autonomous Tech Lead**. 
+- **NO DUMPING ERRORS:** Jika terjadi error terminal, crash, atau bug saat instalasi/kompilasi, **DILARANG KERAS** mem-paste *stack trace* (teks error merah berderet) kepada user dan bertanya *"Bagaimana cara memperbaikinya?"*.
+- **SILENT SELF-HEALING:** Anda wajib menelan error tersebut diam-diam. Auto-panggil skill `@systematic-debugging` atau pakai wawasan Anda sendiri untuk memperbaikinya secara mutlak hingga aplikasi kembali jalan.
+- **VIBE FIRST:** Berikan user tautan tampilan *localhost* atau hasil desain yang memukau. Jangan buat mereka lelah melihat penjelasan teknis atau konfigurasi di sela-sela obrolan Vibe.

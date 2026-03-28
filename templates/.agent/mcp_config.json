@@ -7,9 +7,9 @@
     "JANGAN commit file ini jika sudah ada credentials — tambahkan ke .gitignore"
   ],
   "_tiers": {
-    "tier1_wajib": ["context7", "github"],
+    "tier1_wajib": ["context7", "github", "brave-search", "sequential-thinking"],
     "tier2_sangat_berguna": ["postgresql", "playwright", "sentry", "docker"],
-    "tier3_opsional": ["firecrawl", "notion", "slack"]
+    "tier3_opsional": ["firecrawl", "figma", "google-stitch"]
   },
 
   "mcpServers": {
@@ -101,28 +101,45 @@
       }
     },
 
-    "notion": {
-      "_tier": "TIER 3 — OPSIONAL",
-      "_description": "Akses Notion pages/databases dari IDE. Berguna jika PRD atau backlog di Notion.",
-      "_usage": "Contoh: 'Show current sprint tasks from Notion', 'Create a new task in backlog database'",
-      "_setup": "Buat Notion Integration di notion.so/my-integrations, share workspace ke integration",
+    "brave-search": {
+      "_tier": "TIER 1 — WAJIB",
+      "_description": "Web scraping & pencarian dokumentasi realtime. Wajib untuk mengatasi halusinasi kode.",
+      "_usage": "AI akan otomatis menggunakannya bila menemukan library asing atau error syntax modern.",
       "command": "npx",
-      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
       "env": {
-        "NOTION_API_KEY": "[NOTION_API_KEY — notion.so/my-integrations]"
+        "BRAVE_API_KEY": "[BRAVE_API_KEY — signup di brave.com/search/api]"
       }
     },
 
-    "slack": {
-      "_tier": "TIER 3 — OPSIONAL",
-      "_description": "Search, read, dan kirim Slack messages dari IDE. Berguna untuk check diskusi tim tentang bug tertentu.",
-      "_usage": "Contoh: 'Search Slack for messages about payment bug', 'Post update to #dev channel'",
-      "_setup": "Buat Slack App di api.slack.com/apps dengan scope: channels:read, chat:write, search:read",
+    "sequential-thinking": {
+      "_tier": "TIER 1 — WAJIB",
+      "_description": "Sistem pengereman AI (Chain-of-Thought) agar AI tidak gegabah saat ditanya masalah rumit.",
+      "_usage": "Terpanggil otomatis di background saat AI disuruh merancang fitur atau debugging rumit.",
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "env": {}
+    },
+
+    "figma": {
+      "_tier": "TIER 3 — OPSIONAL",
+      "_description": "Baca file desain Figma langsung ke dalam IDE untuk diubah jadi UI code.",
+      "_usage": "Contoh: 'Buat komponen React berdasarkan desain Figma link_terlampir'.",
+      "command": "npx",
+      "args": ["-y", "mcp-server-figma"],
       "env": {
-        "SLACK_BOT_TOKEN": "[xoxb-... — api.slack.com/apps → OAuth & Permissions]",
-        "SLACK_TEAM_ID": "[T... — Slack workspace ID]"
+        "FIGMA_PERSONAL_ACCESS_TOKEN": "[FIGMA_PAT — figma.com/settings]"
+      }
+    },
+
+    "google-stitch": {
+      "_tier": "TIER 3 — OPSIONAL",
+      "_description": "Integrasi Google Stitch UI/UX. Ekstrak Design DNA (warna, fonts, tailwind) langsung ke code AI.",
+      "_usage": "Contoh: 'Tarik design context dari project Google Stitch dan buatkan form login'.",
+      "command": "npx",
+      "args": ["-y", "@_davideast/stitch-mcp"],
+      "env": {
+        "GOOGLE_CLOUD_PROJECT_ID": "[PROJECT_ID_GCP]"
       }
     }
   }

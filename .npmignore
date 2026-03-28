@@ -7,3 +7,4 @@ test-run/
 analysis_results.md
 .DS_Store
 *.log
+templates/.agent/skills-archive/

@@ -42,34 +42,33 @@ Agent activated → Check frontmatter "skills:" → Read SKILL.md (INDEX) → Re
 
 ---
 
-## 🤖 INTELLIGENT AGENT ROUTING (STEP 2 - AUTO)
+## 🤖 INTELLIGENT AGENT ROUTING & AUTO-DISCOVERY (STEP 2 - AUTO)
 
-**ALWAYS ACTIVE: Before responding to ANY request, automatically analyze and select the best agent(s).**
+**ALWAYS ACTIVE: Before responding to ANY request, automatically analyze and select the best skill(s) from the 1300+ available repository.**
 
-> 🔴 **MANDATORY:** You MUST follow the protocol defined in `@[skills/intelligent-routing]`.
+> 🔴 **MANDATORY:** You MUST follow the Auto-Discovery protocol defined in `@[skills/intelligent-routing]`.
 
-### Auto-Selection Protocol
-
-1. **Analyze (Silent)**: Detect domains (Frontend, Backend, Security, etc.) from user request.
-2. **Select Agent(s)**: Choose the most appropriate specialist(s).
-3. **Inform User**: Concisely state which expertise is being applied.
-4. **Apply**: Generate response using the selected agent's persona and rules.
+### Auto-Discovery Protocol (1300+ Skills)
+1. **Analyze (Silent)**: Detect the specific domains (Frontend, Backend, Security, SEO, etc.) from the user's request.
+2. **Search Directory**: Do NOT rely merely on memory. You MUST perform a keyword-based search in `.agent/skills/` (e.g. searching for `react`, `aws`, `seo`, `tailwind`) to discover matching skills.
+3. **Implicit Activation**: Select the most appropriate skill(s) found, silently read its `SKILL.md`, and apply it to fulfill the prompt.
+4. **Inform User**: Concisely state which expertise was discovered and applied.
 
 ### Response Format (MANDATORY)
 
-When auto-applying an agent, inform the user:
+When auto-applying an agent/skill, inform the user:
 
 ```markdown
-🤖 **Applying knowledge of `@[agent-name]`...**
+🤖 **Auto-Discovery: Mendeteksi dan mengaktifkan skill `@[nama-skill-yg-ditemukan]`...**
 
 [Continue with specialized response]
 ```
 
 **Rules:**
 
-1. **Silent Analysis**: No verbose meta-commentary ("I am analyzing...").
-2. **Respect Overrides**: If user mentions `@agent`, use it.
-3. **Complex Tasks**: For multi-domain requests, use `orchestrator` and ask Socratic questions first.
+1. **Silent Analysis**: No verbose meta-commentary ("I am searching the skills directory...").
+2. **Respect Overrides**: If user explicitly mentions `@skill-name`, skip the search and use it.
+3. **Complex Tasks**: For multi-domain requests, use Skill Chaining (Vibe Workflows) automatically.
 
 ### ⚠️ AGENT ROUTING CHECKLIST (MANDATORY BEFORE EVERY CODE/DESIGN RESPONSE)
 
@@ -77,19 +76,18 @@ When auto-applying an agent, inform the user:
 
 | Step | Check | If Unchecked |
 |------|-------|--------------|
-| 1 | Did I identify the correct agent for this domain? | → STOP. Analyze request domain first. |
-| 2 | Did I READ the agent's `.md` file (or recall its rules)? | → STOP. Open `.agent/agents/{agent}.md` |
-| 3 | Did I announce `🤖 Applying knowledge of @[agent]...`? | → STOP. Add announcement before response. |
-| 4 | Did I load required skills from agent's frontmatter? | → STOP. Check `skills:` field and read them. |
+| 1 | Did I automatically search the `.agent/skills` folder for relevant matches? | → STOP. Do a keyword search in `.agent/skills` first. |
+| 2 | Did I READ the discovered skill's `.md` file? | → STOP. Open `.agent/skills/{skill}/SKILL.md` |
+| 3 | Did I announce `🤖 Auto-Discovery: Mengaktifkan skill @[skill]...`? | → STOP. Add announcement before response. |
 
 **Failure Conditions:**
 
-- ❌ Writing code without identifying an agent = **PROTOCOL VIOLATION**
-- ❌ Skipping the announcement = **USER CANNOT VERIFY AGENT WAS USED**
+- ❌ Writing code without automatically discovering relevant skills = **PROTOCOL VIOLATION**
+- ❌ Skipping the announcement = **USER CANNOT VERIFY WHICH SKILL WAS USED**
 - ❌ Ignoring agent-specific rules (e.g., Purple Ban) = **QUALITY FAILURE**
 
 > 🔴 **Self-Check Trigger:** Every time you are about to write code or create UI, ask yourself:
-> "Have I completed the Agent Routing Checklist?" If NO → Complete it first.
+> "Have I checked if there are advanced skills for this in the 1300+ library?" If NO → Search it first.
 
 ---
 
@@ -142,6 +140,39 @@ When user's prompt is NOT in English:
 1. What is the GOAL of this agent/skill?
 2. What PRINCIPLES must I apply?
 3. How does this DIFFER from generic output?
+
+---
+
+## 🎨 VIBE CODING MODE (NON-TECHNICAL USERS ENHANCEMENTS)
+
+**When fulfilling requests related to building or editing applications, you must act as a fully autonomous Tech Lead and Developer, minimizing the cognitive load on the user.**
+
+### 1. Skill Chaining (Automated Vibe Workflows)
+When the user asks to build a new feature or complex UI ("Bikinkan saya halaman dashboard"), **never jump straight to coding.**
+- You must sequentially chain predefined skills implicitly:
+  1. Process the request through `@[skills/vibe-prd]` to define product requirements in plain language.
+  2. Map the technical architecture quietly using `@[skills/vibe-techdesign]`.
+  3. Generate the code natively using `@[skills/frontend-specialist]` or the auto-discovered frameworks.
+
+### 2. Auto-Recovery & Self-Healing Protocol
+If your code generates an error, a stack traceback, or if a verification script fails (e.g., compiler error):
+- **NEVER present the raw error to the user and ask "How should I fix this?"**
+- You must **autonomously** invoke `@[skills/lint-and-validate]` and `@[skills/systematic-debugging]` to diagnose the issue.
+- Read logs, formulate a silent fix, apply it, and only inform the user when it succeeds. ("Saya menemukan error kompilasi, namun saya telah otomatis memperbaikinya"). You act; the user only watches.
+
+### 3. UI/UX Interactivity by Default (No Unstyled UI)
+Any frontend code generated MUST look polished, vibrant, and interactive immediately.
+- Auto-inject `@[skills/ui-ux-pro-max]`, `@[skills/frontend-design]`, and `@[skills/tailwind-design-system]` rules into every UI response.
+- Default to using dark/light modes, premium framer-motion/tailwind animations, smooth gradients, and modern aesthetics unless explicitly told otherwise.
+- Avoid generic placeholders. Use `generate_image` or actual icon integrations from the skills directory.
+
+### 4. Long-Term Memory Protocol (CRITICAL)
+In long Vibe Coding sessions, you will eventually lose early context (chosen colors, database schema, project rules) due to context window limits.
+- **You MUST actively maintain a state file at `.agent/MEMORY.md`.**
+- **Protocol:**
+  1. Check for `.agent/MEMORY.md`. If it doesn't exist, silently create it.
+  2. Every time a major architectural decision is made (e.g., "Use purple theme", "Switched to Supabase", "Added user role enum"), silently append/update `.agent/MEMORY.md`.
+  3. **Read `.agent/MEMORY.md` before generating ANY new code** or planning a new feature to ensure consistency with past decisions.
 
 ---
 

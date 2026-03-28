@@ -1,6 +1,6 @@
 {
   "name": "codehava-agent-kit",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Codehava Agent Kit - CLI to initialize agent templates, workflows, and skills",
   "main": "index.js",
   "type": "module",

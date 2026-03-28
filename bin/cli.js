@@ -38,14 +38,11 @@ program
 
       // Copy template to user's directory
       await fs.copy(sourceDir, targetDir, {
-        filter: (src) => !src.includes('.DS_Store')
+        overwrite: true,
+        filter: (src) => !src.includes('.DS_Store') && !src.includes('skills-archive')
       });
       
-      console.log(chalk.green('✅ Successfully initialized Agent Kit!'));
-      console.log(chalk.white('   Folders added: .agent, .antigravity, docs, specs.'));
-      console.log(chalk.white('   Files added: AGENTS.md'));
-      console.log('');
-      console.log(chalk.cyan('   You are now ready to use Codehava workflows and skills!'));
+      console.log(chalk.green('\n✅ Selamat! Codehava Antigravity Agent Kit Connected\n'));
       
     } catch (err) {
       console.error(chalk.red('❌ Failed to initialize Agent Kit:'), err);

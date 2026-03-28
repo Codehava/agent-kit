@@ -41,9 +41,9 @@
 | File | Fungsi |
 |------|--------|
 | `.antigravity/rules.md` | Rules selalu aktif tiap sesi |
-| `.agent/skills/` | 8 skills — auto-load saat relevan |
+| `.agent/skills/` | 455 Elite Skills — auto-discover & auto-load |
 | `.agent/workflows/` | 6 workflows — panggil via `/nama` |
-| `.agent/mcp_config.json` | Config MCP servers |
+| `.agent/mcp_config.json` | Config 4 Vibe MCP servers |
 
 ---
 
@@ -232,10 +232,14 @@ use context7
 | `/git-commit` | Commit dengan format benar |
 | `/dev-reset` | Environment dev bermasalah |
 
-## 🔌 MCP Servers
+## 🔌 Vibe MCP Servers (Auto-Active)
 
+- **Brave Search** — Web scraping & live docs untuk menghindari halusinasi
+- **Sequential Thinking** — Pengereman AI untuk logika memecahkan masalah rumit
 - **Context7** — docs real-time Next.js 16, Prisma 7, Better Auth, BullMQ → `use context7`
 - **GitHub** — issues, PR, commits dari IDE
+- **Figma** — Membaca design file langsung dari URL untuk UI/UX
+- **Google Stitch** — Ekstrak *Design DNA* (warna, layout) dari proyek
 - **PostgreSQL** — schema dan query DB development (jangan production!)
 - **Playwright** — E2E testing browser otomatis
 - **Sentry** — production errors langsung ke context

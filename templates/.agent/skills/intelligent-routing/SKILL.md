@@ -31,72 +31,69 @@ graph TD
     G --> H[AUTO-INVOKE with context]
 ```
 
-### 2. Agent Selection Matrix
+### 2. Auto-Discovery Search Protocol (1300+ Skills)
 
-**Use this matrix to automatically select agents:**
+**Do NOT rely on a static matrix because there are over 1300 skills in the `.agent/skills/` directory.**
 
-| User Intent         | Keywords                                   | Selected Agent(s)                           | Auto-invoke? |
-| ------------------- | ------------------------------------------ | ------------------------------------------- | ------------ |
-| **Authentication**  | "login", "auth", "signup", "password"      | `security-auditor` + `backend-specialist`   | ✅ YES       |
-| **UI Component**    | "button", "card", "layout", "style"        | `frontend-specialist`                       | ✅ YES       |
-| **Mobile UI**       | "screen", "navigation", "touch", "gesture" | `mobile-developer`                          | ✅ YES       |
-| **API Endpoint**    | "endpoint", "route", "API", "POST", "GET"  | `backend-specialist`                        | ✅ YES       |
-| **Database**        | "schema", "migration", "query", "table"    | `database-architect` + `backend-specialist` | ✅ YES       |
-| **Bug Fix**         | "error", "bug", "not working", "broken"    | `debugger`                                  | ✅ YES       |
-| **Test**            | "test", "coverage", "unit", "e2e"          | `test-engineer`                             | ✅ YES       |
-| **Deployment**      | "deploy", "production", "CI/CD", "docker"  | `devops-engineer`                           | ✅ YES       |
-| **Security Review** | "security", "vulnerability", "exploit"     | `security-auditor` + `penetration-tester`   | ✅ YES       |
-| **Performance**     | "slow", "optimize", "performance", "speed" | `performance-optimizer`                     | ✅ YES       |
-| **Product Def**     | "requirements", "user story", "backlog", "MVP" | `product-owner`                             | ✅ YES       |
-| **New Feature**     | "build", "create", "implement", "new app"  | `orchestrator` → multi-agent                | ⚠️ ASK FIRST |
-| **Complex Task**    | Multiple domains detected                  | `orchestrator` → multi-agent                | ⚠️ ASK FIRST |
+Instead, use a Keyword-Based Search Protocol to automatically find the right skill:
 
-### 3. Automatic Routing Protocol
+| User Intent Example | Keywords Triggered | Search Query Example | Auto-invoke? |
+| ------------------- | ------------------ | -------------------- | ------------ |
+| **Authentication**  | login, auth, signup| `find .agent/skills -name '*auth*' -o -name '*login*'` | ✅ YES |
+| **SEO Audit**       | seo, rank, meta    | `find .agent/skills -name '*seo*'` | ✅ YES |
+| **Mobile UI**       | react native, mobile| `find .agent/skills -name '*mobile*'` | ✅ YES |
+| **AWS Deployment**  | aws, deploy, serverless | `find .agent/skills -name '*aws*'` | ✅ YES |
+| **Bug Fix**         | error, stack trace | `find .agent/skills -name '*debug*'` | ✅ YES (or Auto-Recover) |
 
-## TIER 0 - Automatic Analysis (ALWAYS ACTIVE)
+### 3. Vibe Coding Workflow Integration (Skill Chaining)
+
+For non-programmers asking to build a feature or an app from scratch (Complex Task):
+**NEVER jump straight to code.**
+
+1. **Auto-invoke: `vibe-prd`** (Create product specification naturally)
+2. **Auto-invoke: `vibe-techdesign`** (Map architecture silently)
+3. **Auto-invoke: Developer skill** (Generate code using the discovered specialized framework skill)
+
+## TIER 0 - Auto-Discovery Engine (ALWAYS ACTIVE)
 
 Before responding to ANY request:
 
 ```javascript
 // Pseudo-code for decision tree
-function analyzeRequest(userMessage) {
-    // 1. Classify request type
-    const requestType = classifyRequest(userMessage);
+function analyzeAndRoute(userMessage) {
+    // 1. Detect domain keywords from message
+    const keywords = extractKeywords(userMessage);
 
-    // 2. Detect domains
-    const domains = detectDomains(userMessage);
+    // 2. Search local directory for matching skill
+    const matchedSkills = searchLocalSkillsDirectory(keywords);
 
-    // 3. Determine complexity
-    const complexity = assessComplexity(domains);
+    // 3. Select best skill
+    const bestSkill = selectBestMatch(matchedSkills);
 
-    // 4. Select agent(s)
-    if (complexity === "SIMPLE" && domains.length === 1) {
-        return selectSingleAgent(domains[0]);
-    } else if (complexity === "MODERATE" && domains.length <= 2) {
-        return selectMultipleAgents(domains);
+    // 4. If Complex feature building -> USE SKILL CHAINING
+    if (isNewFeatureBuild(userMessage)) {
+        chainSkills(["vibe-prd", "vibe-techdesign", bestSkill]);
     } else {
-        return "orchestrator"; // Complex task
+        invokeSkill(bestSkill);
     }
 }
 ```
 
 ## 4. Response Format
 
-**When auto-selecting an agent, inform the user concisely:**
+**When auto-selecting a skill from the 1300+ library, inform the user concisely:**
 
 ```markdown
-🤖 **Applying knowledge of `@security-auditor` + `@backend-specialist`...**
+🤖 **Auto-Discovery: Mendeteksi dan mengaktifkan skill `@[nama-skill-yg-ditemukan]`...**
 
 [Proceed with specialized response]
 ```
 
-**Benefits:**
+**Benefits for Vibe Coding:**
 
-- ✅ User sees which expertise is being applied
-- ✅ Transparent decision-making
-- ✅ Still automatic (no /commands needed)
-
-## Domain Detection Rules
+- ✅ User doesn't need to memorize 1300+ skill names.
+- ✅ Transparent decision-making.
+- ✅ AI naturally shifts personas.
 
 ### Single-Domain Tasks (Auto-invoke Single Agent)
 

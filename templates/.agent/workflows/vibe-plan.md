@@ -1,133 +1,196 @@
 ---
 description: |
-  Orchestrator workflow untuk planning phase lengkap — dari ide ke siap coding.
-  Jalankan di awal project baru sebelum coding apapun.
-  Memandu: Research → PRD → Tech Design → Build Plan (4 langkah, ~1-2 jam total).
+  Rencanakan project baru dari ide ke rencana kerja yang siap dikerjakan.
+  Deteksi jenis project secara otomatis, ajukan pertanyaan yang relevan per jenis.
+  Output: PLANNING.md berisi rencana kerja + syarat keberhasilan per fitur.
+  Jalankan di awal project baru atau saat memulai tahap baru.
+  Selalu diikuti dengan /apply → /unify.
 ---
 
-# /vibe-plan — Planning Phase Orchestrator
+# /vibe-plan — Rencanakan Project Baru
 
-Workflow ini memandu kamu dari ide mentah ke dokumen planning lengkap
-yang siap dipakai agent untuk coding.
+Dari ide ke rencana kerja yang siap dikerjakan.
+Setiap jenis project punya pertanyaan yang berbeda — kita tidak akan tanya hal yang tidak relevan.
 
-**Total waktu estimasi:** 60–90 menit
-**Output:** 4 dokumen siap pakai + backlog terisi
+**Output utama:** `PLANNING.md` + `docs/01-PRD.md` + `docs/02-TECH-DESIGN.md`
+
+---
+
+## Langkah 0 — Kenali Jenis Project
+
+Tanya user (jika belum jelas dari konteks):
+
+> "Project ini kira-kira jenis apa? Pilih yang paling sesuai:
+> 1. **Aplikasi** — Web app atau mobile app dengan pengguna, login, dan database
+> 2. **Backend/API** — Server atau layanan yang melayani data ke aplikasi lain
+> 3. **Kampanye** — Landing page, website marketing, atau kampanye konten
+> 4. **Alat bantu** — Script, automation, atau tool untuk satu tujuan spesifik
+> 5. **Workflow otomatis** — Integrasi otomatis antar layanan (seperti Zapier, n8n)"
+
+| Jenis | Fokus Pertanyaan | Yang Dijaga |
+|-------|-----------------|-------------|
+| **Aplikasi** | Login, tampilan, database, deploy, kondisi error | Jangan tambah fitur tak terduga |
+| **Backend/API** | Endpoint, struktur data, autentikasi, testing | Jangan over-engineer |
+| **Kampanye** | Timeline, konten, platform, target audiens | Jangan tambah fitur teknis berlebih |
+| **Alat bantu** | Satu tujuan, input/output yang jelas | Jangan meluaskan scope |
+| **Workflow otomatis** | Trigger, langkah-langkah, penanganan error | Jangan coupling ketat |
 
 ---
 
 ## Langkah 1 — Cek Status Project
 
-Pertama, cek dokumen apa yang sudah ada:
+Cek file yang sudah ada (internal):
 
 ```
-Cek keberadaan file berikut:
-- docs/research-*.md     → jika ada, research sudah selesai
-- docs/01-PRD.md         → jika terisi (bukan template), PRD sudah selesai
+Cek keberadaan:
+- PLANNING.md         → jika ada dan terisi, planning sudah selesai
+- docs/research-*.md  → jika ada, research sudah selesai
+- docs/01-PRD.md      → jika terisi (bukan template), PRD sudah selesai
 - docs/02-TECH-DESIGN.md → jika terisi, tech design sudah selesai
-- BUILD_PLAN.md          → jika ada, build plan sudah selesai
 ```
 
-Berdasarkan apa yang ditemukan, langsung lompat ke step yang belum selesai.
 Tampilkan status ke user:
 
 ```
-📊 Status Planning [Nama Aplikasi]:
+📊 Status Planning — [Nama Project]:
 
-Step 1 — Research:      [✅ Selesai / ⏳ Belum]
-Step 2 — PRD:           [✅ Selesai / ⏳ Belum]
-Step 3 — Tech Design:   [✅ Selesai / ⏳ Belum]
-Step 4 — Build Plan:    [✅ Selesai / ⏳ Belum]
+Tahap 1 — Riset:        [✅ Selesai / ⏳ Belum]
+Tahap 2 — Deskripsi:    [✅ Selesai / ⏳ Belum]
+Tahap 3 — Desain teknis:[✅ Selesai / ⏳ Belum]
+Tahap 4 — Rencana kerja:[✅ Selesai / ⏳ Belum]
 
-Mulai dari Step [N]? (yes/no)
+Mulai dari Tahap [N]?
 ```
 
 ---
 
-## Langkah 2 — Jalankan Planning Secara Berurutan
+## Langkah 2 — Gali Kebutuhan (Sesuai Jenis Project)
 
-### Step 1: Research (~20 menit)
+Baca file panduan sesuai jenis project yang dipilih (internal):
+
 ```
-Tujuan: Validasi ide, analisa pasar, identifikasi risiko
-Skill: vibe-research
-Output: docs/research-[AppName].md
-
-Jalankan skill vibe-research sekarang.
-Setelah selesai dan user approve → lanjut ke Step 2.
+.agent/.shared/types/[type]/guide.md         → pertanyaan yang relevan per jenis
+.agent/.shared/types/[type]/config.md        → seberapa detail yang dibutuhkan
+.agent/.shared/types/[type]/skill-loadout.md → skill yang akan dipakai
 ```
 
-### Step 2: PRD (~20 menit)
-```
-Tujuan: Definisikan fitur, user stories, scope MVP
-Skill: vibe-prd
-Input: docs/research-[AppName].md (baca dulu)
-Output: docs/01-PRD.md (terisi penuh)
+### Cara Bertanya
 
-Jalankan skill vibe-prd sekarang.
-Setelah selesai dan user approve → lanjut ke Step 3.
+- Tanya **satu pertanyaan** di satu waktu — jangan langsung banyak sekaligus
+- Jika user stuck atau jawabannya samar → berikan rekomendasi proaktif ("Untuk kebanyakan kasus seperti ini, biasanya X karena...")
+- Jika pertanyaan sudah terjawab dari konteks → langsung skip, jangan tanya ulang
+- Jika user mention hal di luar scope → "Itu sepertinya ide bagus untuk project terpisah. Untuk sekarang, kita fokus ke [tujuan utama] dulu ya."
+
+### Panduan per Jenis (internal reference)
+
+| Jenis | File panduan | Topik yang digali |
+|-------|-------------|-------------------|
+| Aplikasi | `types/application/guide.md` | Masalah → Stack → Data → Login → Tampilan → API → Deploy → Keamanan |
+| Backend/API | `types/api-backend/guide.md` | Tujuan → Endpoint → Autentikasi → Struktur data → Error → Performa → Testing → Deploy |
+| Kampanye | `types/campaign/guide.md` | Tujuan → Platform → Timeline → Pesan → Konten → Metrik → Budget |
+| Alat bantu | `types/utility/guide.md` | Masalah → Batasan scope → Pengguna → Dependensi → Antarmuka → Kriteria selesai |
+| Workflow otomatis | `types/workflow/guide.md` | Trigger → Langkah-langkah → Penanganan error → Integrasi → Monitoring |
+
+---
+
+## Langkah 3 — Buat Dokumen Planning Secara Berurutan
+
+### Tahap 1: Riset (untuk Aplikasi dan Backend saja)
+```
+Gunakan skill: vibe-research
+Output: docs/research-[NamaProject].md
+Setelah selesai → minta persetujuan user → lanjut Tahap 2
 ```
 
-### Step 3: Tech Design (~20 menit)
+### Tahap 2: Deskripsi Produk
 ```
-Tujuan: Pilih stack, desain arsitektur, buat ERD awal
-Skill: vibe-techdesign
-Input: docs/01-PRD.md + docs/research-*.md
-Output: docs/02-TECH-DESIGN.md (terisi + ERD + API contracts)
+Gunakan skill: vibe-prd
+Input: hasil riset (jika ada) + jawaban dari pertanyaan tadi
+Output: docs/01-PRD.md
 
-Jalankan skill vibe-techdesign sekarang.
-Setelah selesai dan user approve → lanjut ke Step 4.
+Untuk setiap fitur utama, tulis:
+  - Apa yang user bisa lakukan
+  - Bagaimana kita tahu fitur ini berhasil (kapan dianggap selesai)
+
+Setelah selesai → minta persetujuan user → lanjut Tahap 3
 ```
 
-### Step 4: Build Plan (~15 menit)
+### Tahap 3: Desain Teknis
 ```
-Tujuan: Breakdown task per sprint, siapkan backlog
-Skill: vibe-buildplan
+Gunakan skill: vibe-techdesign
+Input: docs/01-PRD.md + jawaban dari pertanyaan
+Output: docs/02-TECH-DESIGN.md (teknologi yang dipakai + struktur data + cara kerja API)
+
+Setelah selesai → minta persetujuan user → lanjut Tahap 4
+```
+
+### Tahap 4: Buat Rencana Kerja
+```
+Gunakan skill: vibe-buildplan
 Input: docs/01-PRD.md + docs/02-TECH-DESIGN.md
-Output: docs/04-BACKLOG.md (terisi) + BUILD_PLAN.md
+Output: PLANNING.md (siap untuk /apply)
 
-Jalankan skill vibe-buildplan sekarang.
-Setelah selesai → tampilkan summary.
+Isi PLANNING.md:
+- Jenis project
+- Daftar pekerjaan berurutan per sprint
+- Per pekerjaan: ukuran keberhasilan + file yang akan diubah
+- Batasan yang tidak boleh dilanggar
 ```
 
 ---
 
-## Langkah 3 — Summary Akhir
+## Langkah 4 — Validasi Rencana (internal)
 
-Setelah semua step selesai, tampilkan:
+Sebelum maju, cek PLANNING.md secara internal:
 
 ```
-🎉 Planning Phase Selesai!
+□ Semua fitur utama punya ukuran keberhasilan yang jelas?
+□ Teknologi yang dipakai sudah dipilih dan dikonfirmasi user?
+□ Batasan-batasan sudah jelas dituliskan?
+□ Pekerjaan pertama sudah cukup detail untuk langsung dikerjakan?
+□ File yang tidak boleh diubah sudah ditandai?
+□ [Aplikasi] Alur login sudah didesain?
+□ [Aplikasi] Kondisi loading, kosong, dan error sudah dipikirkan?
+□ [Kampanye] Timeline dan deadline sudah dikonfirmasi?
+□ [Alat bantu] Hanya satu tujuan — tidak meluas?
+```
 
-Dokumen yang sudah dibuat:
-✅ docs/research-[AppName].md    — Validasi ide & analisa pasar
-✅ docs/01-PRD.md                — Product Requirements (N user stories)
-✅ docs/02-TECH-DESIGN.md        — Stack: [ringkasan stack] + ERD
-✅ docs/04-BACKLOG.md            — [N] sprint, [M] total task
-✅ BUILD_PLAN.md                 — Panduan build phase
+Jika semua ✅ → lanjut.
+Jika ada ❌ → lengkapi dulu sebelum lanjut.
 
-Stack yang dipilih:
-- [ringkasan 1-liner stack]
+---
 
-Sprint 1 Goal: [goal sprint 1]
-Task pertama: T001 — [nama task pertama]
+## Langkah 5 — Ringkasan & Siap Mulai
+
+```
+🎉 Planning selesai! [Jenis: Aplikasi/Backend/Kampanye/Alat bantu/Workflow]
+
+Dokumen yang dibuat:
+✅ PLANNING.md              — Rencana kerja siap dieksekusi
+✅ docs/01-PRD.md           — [N] fitur
+✅ docs/02-TECH-DESIGN.md   — Teknologi: [ringkasan]
+
+Sprint pertama: [N] pekerjaan, tujuan: [tujuan sprint pertama]
+Pekerjaan pertama: [nama pekerjaan]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Siap coding! Mulai dengan:
-  /new-feature  → untuk fitur size M/L
-  /dev-reset    → jika butuh setup environment dari awal
+Langkah berikutnya:
+  /apply   → mulai mengerjakan pekerjaan satu per satu
+  /unify   → wajib dijalankan setelah /apply selesai
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Sebelum coding, pastikan:
-□ AGENTS.md sudah ada di root project
-□ .env.local sudah diisi credentials
-□ Docker Compose sudah jalan (docker compose up -d)
+Sebelum mulai coding, pastikan:
+□ .agent/STATE.md sudah diisi
+□ .agent/MEMORY.md sudah diisi (keputusan teknologi dari planning ini)
+□ .env.local sudah ada (API keys, database URL, dll)
 ```
 
 ---
 
 ## Aturan Penting
 
-- Jangan skip ke coding sebelum minimal Step 2 (PRD) selesai
-- Setiap step harus dapat **approval eksplisit** dari user sebelum lanjut
-- Jika user ingin ubah sesuatu di step sebelumnya, kembali ke step itu dulu
-- Workflow ini bisa di-resume kapanpun — cukup jalankan `/vibe-plan` lagi dan ia akan cek progress
-- Dokumen yang dihasilkan adalah **living documents** — update setiap sprint jika ada perubahan scope
+- Jangan mulai coding sebelum minimal Tahap 2 (deskripsi produk) selesai
+- Setiap tahap butuh **persetujuan eksplisit** dari user sebelum lanjut
+- PLANNING.md bisa diupdate jika ada perubahan rencana
+- Workflow ini bisa dilanjutkan: jalankan `/vibe-plan` lagi untuk cek progress
+- **Kampanye dan alat bantu:** Aktif tolak penambahan fitur di luar tujuan utama

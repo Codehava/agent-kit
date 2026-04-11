@@ -1,12 +1,14 @@
 ---
 name: vibe-prd
 description: |
-  Use after vibe-research, or when starting to define product requirements.
-  Triggers on "buat PRD", "definisikan fitur", "apa yang harus dibangun",
-  "scope MVP", "user stories", "requirements aplikasi",
-  or /vibe-plan step 2.
-  Requires: docs/research-[AppName].md (jika ada, baca dulu).
-  Output: docs/01-PRD.md (terisi penuh, bukan template kosong)
+  Gunakan skill ini saat user ingin mendefinisikan requirements, membuat PRD, menentukan
+  fitur MVP, menulis user stories, atau memulai planning produk baru. Aktifkan untuk
+  kata kunci: "buat PRD", "definisikan fitur", "apa yang harus dibangun", "scope MVP",
+  "user stories", "requirements aplikasi", "fitur apa yang perlu dibuat", atau saat
+  /vibe-plan masuk ke Step 2. Skill ini menghasilkan docs/01-PRD.md yang terisi penuh
+  dengan BDD acceptance criteria (Given/When/Then) per fitur — output siap untuk /apply.
+  Setelah PRD selesai, chain ke vibe-techdesign. Jangan skip skill ini — PRD yang buruk
+  menghasilkan hallucinated code.
 ---
 
 # Vibe PRD — Product Requirements Document Generator
@@ -226,3 +228,43 @@ Generate PRD sekarang? (yes/no)
 - Payment section: muncul hanya jika user konfirmasi ada transaksi keuangan
 - **STRUKTUR DOKUMEN WAJIB**: Selaraskan dan lengkapi hierarki PRD yang dihasilkan dengan elemen-elemen profesional dari `docs/SRS-Template.md`.
 - **SKILL CHAINING:** Setelah dokumen PRD selesai dibuat, JANGAN BERHENTI. Secara proaktif tanyakan kepada user: *"PRD sudah siap! Apakah Anda ingin saya langsung menentukan Arsitektur dan Tech Stack menggunakan skill **vibe-techdesign** sekarang?"* Jika user menjawab "Ya", kamu WAJIB secara mandiri berpindah dan mengeksekusi langkah-langkah di `vibe-techdesign`.
+
+## BDD Acceptance Criteria — Quality Gate (WAJIB)
+
+Sebelum PRD dianggap selesai, pastikan setiap fitur P0 memiliki:
+
+```
+✅ Acceptance Criteria Checklist per Fitur P0:
+□ Ada minimal 1 AC success path (Given/When/Then)
+□ Ada minimal 1 AC error/edge case path
+□ 4 UI states terdefinisi: loading, empty, error, success
+□ REQ ID sudah assigned dan unik
+□ Data contract / API format sudah terdefinisi (jika relevan)
+```
+
+Jika ada fitur P0 yang belum punya AC lengkap → **JANGAN lanjut ke vibe-techdesign**.
+Tanyakan user dulu sampai AC-nya lengkap.
+
+**Format AC yang benar:**
+```
+Given [kondisi awal yang spesifik — bukan generic]
+When [aksi yang dilakukan user — satu aksi per AC]
+Then [hasil yang dapat diverifikasi — bisa di-test secara objective]
+```
+
+**Format AC yang salah (hindari):**
+```
+❌ Given the user is logged in, When they use the app, Then it works
+✅ Given user sudah login dan cart berisi 2 item, When user tap "Checkout",
+   Then muncul halaman payment summary dengan total harga dan pilihan metode bayar
+```
+
+## SEED Integration Note
+
+Jika skill ini dipanggil dari `/vibe-plan`, project type sudah diketahui.
+Sesuaikan pertanyaan dan output:
+- **Application** → tanyakan semua Q1-Q8
+- **API/Backend** → fokus Q3 (endpoints), Q4 (auth), skip Q6 (platform UI)
+- **Campaign** → ganti Q3 dengan "Konten utama apa?", skip Q5 (payment)
+- **Utility** → tanyakan Q1, Q3 saja (single purpose), skip payment dan platform
+- **Workflow** → fokus Q3 (steps/actions) dan Q7 (error handling strategy)

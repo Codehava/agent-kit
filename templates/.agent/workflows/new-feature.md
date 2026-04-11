@@ -1,32 +1,30 @@
 ---
-description: Mulai fitur baru dengan benar — buat spec, branch Git, dan siapkan context untuk agent. Gunakan sebelum coding fitur size M atau L.
+description: |
+  Tambahkan fitur baru ke project yang sudah berjalan.
+  Untuk project yang belum ada, gunakan /vibe-plan dulu.
+  Output: deskripsi fitur yang jelas + siap untuk /apply.
 ---
 
-1. Tanya user: "Nama fitur ini apa? Deskripsi singkat tujuannya?"
+1. Tanya user: "Fitur apa yang ingin ditambahkan? Ceritakan tujuannya."
 
-2. **Wajib BDD Spec:** Cek apakah sudah ada spec di folder `specs/` untuk fitur ini.
-   Jika belum ada, **PANGGIL SKILL `feature-spec-writer`** sekarang juga untuk membuat spec baru dengan format `NNN-nama-fitur.md`. Pastikan spec mencakup *Acceptance Criteria (Given-When-Then), 4 UI States, dan Data Contract JSON* sebelum lanjut coding!
+2. **Tentukan besarnya fitur (internal):**
+   - **Kecil** (1 file) → langsung kerjakan, tidak perlu deskripsi panjang
+   - **Sedang** (2–5 file) → buat deskripsi fitur, minta persetujuan, baru kerjakan
+   - **Besar** (6+ file atau belum jelas) → sarankan pecah jadi 2 fitur terpisah:
+     > "Fitur ini cukup besar. Lebih baik kita bagi: [bagian A] dulu, baru [bagian B]. Setuju?"
 
-3. Tanya user: "Fitur ini terkait REQ ID berapa dari PRD? (contoh: REQ-020)"
-   Tambahkan referensi REQ ID ke spec.
+3. **Buat deskripsi fitur (untuk fitur Sedang dan Besar):**
+   Cek apakah sudah ada deskripsi di `specs/` untuk fitur ini.
+   Jika belum, buat `[nomor]-[nama-fitur].md` yang berisi:
+   - Apa yang fitur ini lakukan (dari sudut pandang user)
+   - Bagaimana tampilannya: kondisi normal, loading, berhasil, error
+   - File mana yang tidak boleh diubah
 
-4. Pastikan branch `main` up-to-date:
-// turbo
-   `git checkout main && git pull origin main`
+4. Tunjukkan deskripsi ke user, minta konfirmasi:
+   > "Ini rencana fiturnya. Sudah sesuai? Kalau iya, kita mulai."
 
-5. Buat feature branch baru:
-// turbo
-   `git checkout -b feat/[nama-fitur-singkat]`
+5. Setelah user setuju → jalankan `/apply`.
 
-6. Tampilkan isi spec yang baru dibuat ke user dan minta approval:
-   "Spec sudah siap. Review dan konfirmasi untuk mulai implementasi."
+6. Setelah `/apply` selesai → jalankan `/unify` untuk merangkum sesi.
 
-7. Setelah user approve, mulai implementasi sesuai acceptance criteria di spec.
-   Hanya ubah file yang tercantum di bagian "File yang Akan Diubah" di spec.
-
-8. Saat implementasi selesai, jalankan type check:
-// turbo
-   `npm run type-check`
-
-9. Jika tidak ada error TypeScript, commit dengan pesan yang sesuai:
-   `git add -A && git commit -m "feat([scope]): [deskripsi singkat]"`
+7. Setelah unify → simpan perubahan ke git.

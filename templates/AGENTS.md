@@ -130,7 +130,7 @@ Setelah fix → verifikasi 4-level: **EXISTS → SUBSTANTIVE → WIRED → DATA 
 
 ---
 
-## 🧠 Skills — Auto-Discovery
+## 🧠 Skills & Subagents — Auto-Discovery
 
 Project ini punya **600+ skills** di `.agent/skills/`. User tidak perlu hafal nama skill.
 
@@ -139,7 +139,23 @@ Project ini punya **600+ skills** di `.agent/skills/`. User tidak perlu hafal na
 2. Baca `SKILL.md` yang match **sebelum** menulis satu baris kode.
 3. Announce: `🤖 Mengaktifkan skill @[nama-skill]...`
 
-Skills utama yang sering relevan:
+### Lokasi per IDE
+
+| IDE | Skills / Subagents |
+|-----|--------------------|
+| Antigravity | `.agent/skills/[nama-skill]/SKILL.md` |
+| Claude Code | `.claude/agents/[nama-agent].md` |
+| Cursor / Codex | Gunakan skill di `.agent/skills/` via `@[nama-skill]` |
+
+### Skills Bawaan Codehava (siap pakai)
+
+| Skill | Trigger | Lokasi |
+|-------|---------|--------|
+| `codehava-code-reviewer` | Review kode sebelum commit | `.agent/skills/` + `.claude/agents/` |
+| `codehava-security-checker` | Audit keamanan + UU PDP | `.agent/skills/` + `.claude/agents/` |
+| `codehava-plain-explainer` | Jelaskan teknis ke non-coder | `.agent/skills/` + `.claude/agents/` |
+
+### Skills Utama Yang Sering Relevan
 
 | Skill | Trigger |
 |-------|---------|

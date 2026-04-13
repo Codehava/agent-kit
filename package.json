@@ -1,6 +1,6 @@
 {
   "name": "codehava-agent-kit",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Codehava Agent Kit - CLI to initialize agent templates, workflows, and skills (SEED+PAUL Architecture)",
   "main": "index.js",
   "type": "module",

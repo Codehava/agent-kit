@@ -1,24 +1,24 @@
 ---
 name: vibe-buildplan
 description: |
-  Use after vibe-techdesign. Generates sprint plan and initial backlog from PRD.
+  Use after vibe-techdesign. Generates sprint plan and backlog from PRD + Tech Design.
   Triggers on "buat sprint plan", "breakdown task", "berapa sprint",
   "buat backlog dari PRD", "rencana build", "mulai sprint pertama",
-  or /vibe-plan step 4.
-  Requires: docs/01-PRD.md + docs/02-TECH-DESIGN.md
-  Output: docs/04-BACKLOG.md (terisi) + BUILD_PLAN.md
+  or /vibe-plan Tahap 4.
+  Requires: docs/01-prd.md + docs/02-tech-design.md
+  Output: docs/03-sprint-plan.md (sprint backlog + build guide — satu dokumen terpadu)
 ---
 
-# Vibe Build Plan — Sprint Planner dari PRD
+# Vibe Build Plan — Sprint Planner dari PRD + Tech Design
 
 Skill ini mengubah PRD + Tech Design menjadi sprint plan yang konkret dan siap dikerjakan.
-Output: backlog terisi + BUILD_PLAN.md sebagai panduan build phase.
+Output: **satu dokumen terpadu** `docs/03-sprint-plan.md` — backlog + panduan build dalam satu tempat.
 
 ## Persiapan
 
 Baca kedua file ini sebelum mulai:
-- `docs/01-PRD.md` — untuk user stories dan fitur
-- `docs/02-TECH-DESIGN.md` — untuk stack dan ERD
+- `docs/01-prd.md` — untuk user stories, fitur, dan REQ IDs
+- `docs/02-tech-design.md` — untuk stack, ERD, dan struktur folder
 
 ---
 
@@ -27,7 +27,7 @@ Baca kedua file ini sebelum mulai:
 **Q1:** "Berapa lama satu sprint? (1 minggu / 2 minggu)"
 
 **Q2:** "Berapa jam per hari yang bisa dialokasikan untuk coding?
-  (termasuk semua anggota tim — contoh: 2 developer × 4 jam/hari = 8 jam/hari)"
+  (total semua anggota tim — contoh: 2 developer × 4 jam/hari = 8 jam/hari)"
 
 **Q3:** "Target berapa sprint untuk MVP yang bisa di-launch?"
 
@@ -40,193 +40,284 @@ Baca kedua file ini sebelum mulai:
 
 ```
 Total jam per sprint = jam/hari × hari kerja per sprint
-Buffer factor = 0.7 (ambil 70% kapasitas untuk hal tak terduga)
-Efektif per sprint = total jam × 0.7
+Buffer factor        = 0.7 (ambil 70% kapasitas untuk review, bug, hal tak terduga)
+Efektif per sprint   = total jam × 0.7
 
-Size → jam estimasi:
-XS = 1 jam
-S  = 2 jam
-M  = 4 jam
-L  = 8 jam
-XL = 16 jam (harus dipecah)
+Ukuran task → estimasi jam:
+XS = 1 jam   (konfigurasi, copy text, simple fix)
+S  = 2 jam   (komponen sederhana, 1 endpoint simple)
+M  = 4 jam   (fitur kecil end-to-end, 1 halaman dengan logika)
+L  = 8 jam   (fitur medium — form kompleks, integrasi API, flow multi-step)
+XL = 16 jam  → HARUS dipecah jadi 2–3 task L sebelum masuk sprint
 ```
 
 ---
 
-## Output 1: `docs/04-BACKLOG.md` (TERISI dari PRD)
+## Output: `docs/03-sprint-plan.md` (SATU DOKUMEN TERPADU)
 
-Generate backlog dengan task konkret dari setiap REQ di PRD:
+**Gabungan sprint backlog + panduan build dalam satu file.**
+**Semua task harus konkret — bisa diselesaikan dalam satu sesi (≤ 4 jam).**
 
 ```markdown
-# 04 — Sprint Backlog — [Nama Aplikasi]
-> Dibuat dari PRD [tanggal] | Update setiap sprint
+# 03 — Sprint Plan & Build Guide
+> Aplikasi: [Nama Aplikasi] | Dibuat: [tanggal]
+> Berdasarkan: docs/01-prd.md + docs/02-tech-design.md
+> Diperbarui setiap sprint — ini adalah living document
+
+---
+
+## Overview Sprint
+
+| Sprint | Durasi | Goal | Deliverable | Kapasitas |
+|--------|--------|------|-------------|-----------|
+| Sprint 1 | [X minggu] | Setup + Auth | App bisa login, deploy ke staging | [X] jam |
+| Sprint 2 | [X minggu] | [Fitur P0 pertama] | [deliverable konkret] | [X] jam |
+| Sprint 3 | [X minggu] | [Fitur P0 kedua] | [deliverable] | [X] jam |
+| Sprint N | [X minggu] | Polish + Launch | App siap production | [X] jam |
+
+**Total estimasi:** [N] sprint × [X] minggu = [Y] minggu
+**Target launch:** [tanggal estimasi dari hari ini + total waktu]
+
+---
+
+## 🔴 Prasyarat Sebelum Sprint 1 (Checklist)
+
+Selesaikan ini sebelum mulai coding fitur apapun:
+
+- [ ] Repository sudah dibuat di GitHub
+- [ ] Docker Compose sudah bisa jalan (PostgreSQL + Redis)
+- [ ] Domain sudah dibeli dan DNS sudah diarahkan
+- [ ] VPS/cloud sudah disetup dan bisa diakses
+- [ ] Coolify sudah terinstall di VPS
+- [ ] GitHub Actions sudah terhubung ke Coolify
+- [ ] `.env` file sudah diisi (semua key dari docs/02-tech-design.md)
+- [ ] Prisma migrate berhasil di lokal
+- [ ] Semua developer sudah bisa clone dan jalankan project di lokal
+
+---
 
 ## 📋 Sprint 1 — Setup & Foundation
 
-**Goal:** Environment siap, auth berfungsi, dapat login
-**Kapasitas:** [X] jam efektif
-
-### 🔴 In Progress
-| ID | Task | PIC | Notes |
-|----|------|-----|-------|
-| — | — | — | — |
+**Goal:** Environment siap, auth berfungsi, bisa login, deploy ke staging
+**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif
+**Definition of Done Sprint 1:** User bisa register, login, dan logout. App sudah live di staging URL.
 
 ### 🟡 Todo
-| ID | Task | Size | Estimasi | REQ ref |
-|----|------|------|----------|---------|
-| T001 | Setup monorepo + Docker Compose (postgres:17, redis:7.4) | S | 2j | — |
-| T002 | Setup Next.js 16.1 + Prisma 7 + schema awal | S | 2j | — |
-| T003 | Better Auth 1.5 — login email + Google OAuth | M | 4j | REQ-001, REQ-002 |
-| T004 | Layout dashboard + protected routes | M | 4j | REQ-001 |
-| T005 | Halaman login + register (web) | M | 4j | REQ-001 |
-| T006 | Setup GitHub Actions → Coolify CI/CD | S | 2j | — |
-| [T00X] | [task lain dari PRD jika muat] | [size] | [jam] | [REQ] |
 
-**Total estimasi Sprint 1:** [X] jam
+| ID | Task | Size | Est. | REQ | Catatan |
+|----|------|------|------|-----|---------|
+| T001 | Setup monorepo + Docker Compose (postgres:17, redis:7.4) | S | 2j | — | Ikuti struktur folder di tech design |
+| T002 | Setup Next.js 16.1 + Prisma 7 + schema User awal | S | 2j | — | Generate dari prisma schema di tech design |
+| T003 | Better Auth 1.5 — login email + Google OAuth | M | 4j | REQ-001, REQ-002 | Test dengan akun Google beneran |
+| T004 | Layout utama + protected routes (redirect jika belum login) | M | 4j | REQ-001 | Termasuk loading state |
+| T005 | Halaman login + register (web) — dengan validasi | M | 4j | REQ-001 | Zod validation, error messages jelas |
+| T006 | Setup GitHub Actions → deploy ke Coolify staging | S | 2j | — | Auto deploy saat push ke develop |
+| T007 | Health check endpoint `/api/health` | XS | 1j | — | Return `{status: "ok", timestamp}` |
+| T008 | Setup Sentry (error monitoring) | XS | 1j | — | Test dengan throw error sengaja |
+| [T00X] | [task teknis lain dari Q4] | [size] | [jam] | — | [catatan] |
 
-### 🟢 Done
-| ID | Task | Selesai |
-|----|------|---------|
-| — | — | — |
+**Total estimasi Sprint 1:** [sum] jam
+**Buffer (30%):** [sum × 0.3] jam
+**Masuk dalam kapasitas [X] jam?** [ya/tidak — jika tidak, geser task ke sprint berikutnya]
 
 ---
 
-## 📋 Sprint 2 — [Core Feature Utama dari PRD]
+## 📋 Sprint 2 — [Core Feature P0 Pertama dari PRD]
 
-**Goal:** [fitur P0 pertama berjalan end-to-end]
-**Kapasitas:** [X] jam efektif
+**Goal:** [nama fitur utama] berjalan end-to-end
+**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif
+**Definition of Done Sprint 2:** [kondisi konkret yang bisa dicek — bukan "fitur selesai"]
 
 ### 🟡 Todo
-| ID | Task | Size | Estimasi | REQ ref |
-|----|------|------|----------|---------|
-| T010 | [task dari F02 di PRD] | M | 4j | REQ-010 |
-| T011 | [task dari F02 lanjutan] | M | 4j | REQ-011 |
-| T012 | [task dari F03 di PRD] | L | 8j | REQ-012 |
-| [dst berdasarkan PRD] | | | | |
+
+| ID | Task | Size | Est. | REQ | Catatan |
+|----|------|------|------|-----|---------|
+| T010 | [Prisma schema untuk fitur ini] | XS | 1j | — | migrate dulu sebelum coding |
+| T011 | [API endpoint — GET list] | S | 2j | REQ-0XX | Include pagination |
+| T012 | [API endpoint — POST create] | M | 4j | REQ-0XX | Validasi Zod, error handling |
+| T013 | [Halaman list — UI] | M | 4j | REQ-0XX | Loading skeleton, empty state, error state |
+| T014 | [Halaman detail — UI] | M | 4j | REQ-0XX | [tampilan state] |
+| T015 | [Form create/edit — UI] | L | 8j | REQ-0XX | Validasi client + server |
+| [T01X] | [task selanjutnya dari fitur ini] | [size] | [jam] | [REQ] | [catatan] |
+
+**Total estimasi Sprint 2:** [sum] jam
 
 ---
 
-## 📋 Sprint 3 — [Payment + Notifikasi jika ada]
+## 📋 Sprint 3 — [Core Feature P0 Kedua / Payment / Notifikasi]
 
-[Generate berdasarkan P0 yang tersisa di PRD]
+**Goal:** [nama fitur / payment / notifikasi] berfungsi
+**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif
+**Definition of Done Sprint 3:** [kondisi konkret]
+
+### 🟡 Todo
+
+[Generate berdasarkan P0 yang tersisa di PRD + payment jika ada]
+
+| ID | Task | Size | Est. | REQ | Catatan |
+|----|------|------|------|-----|---------|
+| [T020] | [task] | [size] | [jam] | [REQ] | [catatan] |
 
 ---
 
-## 📦 Product Backlog (P1 — Sprint Berikutnya)
+## 📋 Sprint [N] — UU PDP, Security & Launch Preparation
 
-[Semua fitur P1 dari PRD, dipecah jadi task]
+**Goal:** Semua checklist pre-launch terpenuhi, app siap production
+**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif
+
+### 🟡 Todo — UU PDP (Wajib Sebelum Launch)
+
+| ID | Task | Size | Est. | REQ | Catatan |
+|----|------|------|------|-----|---------|
+| T[N]01 | Fitur hapus akun + soft delete semua data user | M | 4j | REQ-040 | Data dihapus dalam 30 hari |
+| T[N]02 | Fitur export/unduh data pribadi | M | 4j | REQ-041 | JSON atau CSV, kirim via email |
+| T[N]03 | Halaman Privacy Policy (live, bukan placeholder) | S | 2j | — | Sesuai UU PDP |
+| T[N]04 | Halaman Terms & Conditions (live) | S | 2j | — | |
+| T[N]05 | Consent management saat onboarding | S | 2j | — | Checkbox yang tidak pre-checked |
+
+### 🟡 Todo — Security & Performance
+
+| ID | Task | Size | Est. | REQ | Catatan |
+|----|------|------|------|-----|---------|
+| T[N]10 | Rate limiting di semua endpoint publik | S | 2j | — | Upstash Redis atau middleware |
+| T[N]11 | Security headers (CSP, HSTS, dll) | S | 2j | — | next.config.js headers |
+| T[N]12 | Load testing — simulasi [X] concurrent user | M | 4j | — | k6 atau artillery |
+| T[N]13 | Lighthouse audit semua halaman utama | S | 2j | — | Target > 90 performance |
+| T[N]14 | Setup backup database otomatis | S | 2j | — | Cron harian ke object storage |
+
+---
+
+## 📦 Product Backlog — Fitur P1 (Sprint Berikutnya)
+
+Fitur dari PRD yang sengaja ditunda — dikerjakan setelah MVP launch dan ada validasi:
+
+| ID | Fitur | Asal REQ | Estimasi Kasar | Alasan Ditunda |
+|----|-------|----------|----------------|----------------|
+| B01 | [nama fitur P1] | F0X | [X sprint] | [kenapa ditunda] |
+| B02 | [nama fitur P1] | F0X | [X sprint] | [kenapa ditunda] |
 
 ---
 
 ## 🐛 Bug Log
-| ID | Deskripsi | Severity | Status | Ditemukan |
-|----|-----------|----------|--------|-----------|
-| — | — | — | — | — |
-```
+
+| ID | Deskripsi | Ditemukan di | Severity | Status | Assignee |
+|----|-----------|-------------|----------|--------|---------|
+| — | — | — | — | — | — |
 
 ---
 
-## Output 2: `BUILD_PLAN.md` (baru, di root)
+## 📖 Panduan Build
 
-```markdown
-# BUILD_PLAN — [Nama Aplikasi]
-> Panduan build phase untuk agent dan developer
-> Dibuat: [tanggal] | Berdasarkan: PRD v0.1 + Tech Design
+### Cara Pakai Sprint Plan Ini
 
-## Overview
-
-| Sprint | Goal | Deliverable |
-|--------|------|-------------|
-| Sprint 1 | Setup + Auth | App bisa login, deploy ke staging |
-| Sprint 2 | [core feature] | [deliverable konkret] |
-| Sprint 3 | [feature lanjut] | [deliverable] |
-| Sprint N | Polish + Launch | App siap production |
-
-**Total estimasi:** [N] sprint × [X] minggu = [Y] minggu
-
----
-
-## Cara Pakai Build Plan ini dengan Antigravity
-
-### Per Fitur Baru (size M/L)
+**Untuk setiap task baru (size M atau L):**
 ```
-1. Jalankan /new-feature
-2. Agent buat spec di specs/NNN-nama-fitur.md
-3. Review spec → approve
-4. Agent implementasi sesuai acceptance criteria
-5. /git-commit → /deploy
+1. Ketik /new-feature
+2. Sebutkan ID task dan nama fiturnya
+3. AI buat deskripsi teknis + syarat keberhasilan
+4. Review + approve
+5. AI kerjakan → /apply
+6. Setelah selesai → /unify
+7. Update task di sprint plan ini (pindah ke Done)
+```
+
+**Untuk task kecil (size XS atau S):**
+```
+1. Langsung jelaskan ke AI apa yang perlu dikerjakan
+2. AI kerjakan langsung
+3. Update di sprint plan
 ```
 
 ### Urutan Build yang Benar
 
-**Phase 1: Foundation (Sprint 1)**
-Jangan coding fitur sebelum ini selesai:
-- [ ] Docker Compose jalan (postgres + redis)
-- [ ] Prisma migrate berhasil
-- [ ] Auth berjalan (bisa login + logout)
-- [ ] Deploy ke staging berhasil
-- [ ] Health check endpoint aktif
-
-**Phase 2: Core Features (Sprint 2-3)**
-Build fitur berdasarkan urutan REQ di PRD:
-- [ ] [REQ-010] — [nama fitur]
-- [ ] [REQ-011] — [nama fitur]
-- [ ] dst berdasarkan PRD
-
-**Phase 3: Payment & Notifikasi (jika ada)**
-- [ ] Xendit sandbox setup
-- [ ] Webhook handler + BullMQ
-- [ ] FCM push notif
-- [ ] Email via Resend
-
-**Phase 4: UU PDP & Security**
-Wajib sebelum launch:
-- [ ] Fitur hapus akun
-- [ ] Fitur unduh data
-- [ ] Privacy Policy live
-- [ ] Cloudflare DPA accepted
-- [ ] Firebase DPT accepted
-
-**Phase 5: Launch Preparation**
-- [ ] Load testing
-- [ ] Security review
-- [ ] Monitoring aktif (Uptime Kuma + Sentry)
-- [ ] Backup strategy running
-
----
-
-## Prompt Template untuk Build Phase
-
-Gunakan format ini di Antigravity untuk setiap task:
+**JANGAN** melompati urutan ini — setiap fase bergantung pada fase sebelumnya:
 
 ```
-[KONTEKS] Sprint [N] — Task T0XX: [nama task]
-[REQ] REQ-XXX dari PRD
-[TUGAS] [deskripsi spesifik sesuai acceptance criteria]
-[CONSTRAINT] Jangan ubah: [files yang tidak boleh diubah]
-use context7
+Phase 1: FOUNDATION (Sprint 1)
+─────────────────────────────
+□ Docker Compose jalan (postgres + redis)
+□ Prisma schema User dibuat + migration berhasil
+□ Auth berjalan (bisa login + logout + protected route)
+□ Deploy ke staging berhasil
+□ Health check endpoint aktif
+□ Monitoring aktif (Sentry + Uptime Kuma)
+
+Phase 2: CORE FEATURES (Sprint 2–N-1)
+──────────────────────────────────────
+Build fitur berdasarkan urutan di sprint plan:
+□ Database schema dulu → baru API → baru UI
+□ Setiap fitur: backend selesai dan tested sebelum UI dikerjakan
+□ [REQ-0XX] → [REQ-0XX] → dst (urutan dari sprint plan)
+
+Phase 3: PAYMENT & INTEGRASI (jika ada)
+────────────────────────────────────────
+□ Payment gateway sandbox setup
+□ Webhook handler + retry logic
+□ Test skenario sukses, gagal, timeout, expired
+□ Integrasi pihak ketiga (maps, SMS, dll)
+
+Phase 4: UU PDP & SECURITY (wajib sebelum launch)
+────────────────────────────────────────────────────
+□ Fitur hapus akun (REQ-040)
+□ Fitur unduh data (REQ-041)
+□ Privacy Policy live
+□ Rate limiting aktif
+□ Security headers terpasang
+□ Backup otomatis jalan
+
+Phase 5: LAUNCH PREPARATION
+────────────────────────────
+□ Load testing selesai
+□ Lighthouse score > 90 di semua halaman utama
+□ Error rate < 1% di staging selama 3 hari
+□ Semua bug severity HIGH sudah ditutup
+□ Rollback plan sudah dites
+□ Monitoring alerts sudah dikonfigurasi
+□ Database backup restore sudah dites
 ```
 
+### Prompt Template untuk Setiap Task
+
+Gunakan format ini saat mengerjakan task:
+
+```
+Kerjakan T[XXX]: [nama task]
+
+Konteks:
+- REQ: [REQ-ID dari PRD] — [deskripsi singkat requirement]
+- File yang akan diubah: [list dari tech design]
+- Jangan ubah: [file yang tidak boleh disentuh]
+- Stack: [teknologi yang relevan untuk task ini]
+
+Syarat selesai:
+- [kondisi 1 yang bisa dicek]
+- [kondisi 2]
+```
+
+### Definition of Done per Task
+
+Task dianggap SELESAI hanya jika:
+- [ ] Kode sudah ter-commit dengan format: `[type](scope): deskripsi`
+- [ ] Tidak ada TypeScript error
+- [ ] Loading state ada di semua komponen yang fetch data
+- [ ] Empty state ada jika data bisa kosong
+- [ ] Error state ada dengan pesan yang bisa dipahami user
+- [ ] Input divalidasi dengan Zod (server side) + form validation (client side)
+- [ ] Sudah di-test manual di browser/device
+- [ ] Task di sprint plan sudah dipindah ke Done
+
 ---
-
-## Definition of Done per Task
-
-Task dianggap selesai jika:
-- [ ] Kode ter-commit dengan format benar
-- [ ] TypeScript strict — tidak ada error
-- [ ] Loading/Empty/Error state ada (untuk komponen UI)
-- [ ] Input divalidasi dengan Zod
-- [ ] Error handling ada di setiap async function
-- [ ] Di-test manual di browser/device
-- [ ] Di-update di backlog (pindah ke Done)
+*Dokumen ini diperbarui setiap akhir sprint — tambah task, update status, pindah ke Done.*
+*Gunakan /progress untuk melihat posisi sekarang.*
 ```
 
 ---
 
 ## Aturan Penting
 
-- Task harus konkret dan bisa selesai dalam satu sesi coding (≤ 4 jam)
-- XL task harus dipecah sebelum masuk sprint — jangan taruh di backlog sebagai XL
-- Sprint 1 selalu: setup infrastruktur + auth — jangan ada fitur business logic di sprint 1
-- Urutan task harus memperhatikan dependency: DB schema dulu, baru UI
-- Setelah generate, reminder: "Build plan siap. Mulai dengan Sprint 1 Task T001 — ketik `/new-feature` jika siap."
+- Task harus konkret dan selesai dalam ≤ 4 jam — jika lebih dari itu, pecah dulu
+- XL task harus dipecah sebelum masuk sprint — jangan taruh sebagai XL di backlog
+- Sprint 1 selalu: setup infrastruktur + auth — **jangan ada business logic di Sprint 1**
+- Urutan task harus memperhatikan dependency: DB schema dulu, baru API, baru UI
+- Jangan lupa task UU PDP (REQ-040 dan REQ-041) — wajib ada di sprint sebelum launch
+- Setelah generate: "Sprint plan siap. Mulai dengan Sprint 1 — pastikan dulu prasyarat terpenuhi, lalu ketik `/new-feature` untuk task T001."

@@ -5,10 +5,10 @@ description: |
   fitur MVP, menulis user stories, atau memulai planning produk baru. Aktifkan untuk
   kata kunci: "buat PRD", "definisikan fitur", "apa yang harus dibangun", "scope MVP",
   "user stories", "requirements aplikasi", "fitur apa yang perlu dibuat", atau saat
-  /vibe-plan masuk ke Step 2. Skill ini menghasilkan docs/01-PRD.md yang terisi penuh
-  dengan BDD acceptance criteria (Given/When/Then) per fitur — output siap untuk /apply.
+  /vibe-plan masuk ke Tahap 2. Skill ini menghasilkan docs/01-prd.md yang terisi penuh
+  dengan syarat keberhasilan per fitur — output siap untuk /apply.
   Setelah PRD selesai, chain ke vibe-techdesign. Jangan skip skill ini — PRD yang buruk
-  menghasilkan hallucinated code.
+  menghasilkan kode yang salah.
 ---
 
 # Vibe PRD — Product Requirements Document Generator
@@ -18,7 +18,7 @@ Bukan template kosong — output-nya sudah terisi berdasarkan jawaban user.
 
 ## Persiapan
 
-**Pertama:** Cek apakah `docs/research-[AppName].md` sudah ada.
+**Pertama:** Cek apakah `docs/00-research.md` sudah ada.
 - Jika ada → baca dulu, gunakan sebagai konteks, skip pertanyaan yang sudah terjawab
 - Jika tidak ada → mulai dari awal dengan pertanyaan lengkap
 
@@ -77,11 +77,14 @@ Generate PRD sekarang? (yes/no)
 
 ---
 
-## Output: `docs/01-PRD.md` (TERISI PENUH)
+## Output: `docs/01-prd.md` (TERISI PENUH)
+
+**Semua bagian harus terisi berdasarkan jawaban user — jangan tinggalkan placeholder.**
+Gunakan pengetahuan konteks Indonesia untuk melengkapi bagian yang tidak disebutkan secara eksplisit.
 
 ```markdown
 # 01 — Product Requirements Document (PRD)
-> Nama: [Nama Aplikasi] | Versi: v0.1 MVP | Dibuat: [tanggal]
+> Aplikasi: [Nama Aplikasi] | Versi: v0.1 MVP | Dibuat: [tanggal]
 > Generated oleh skill vibe-prd — update manual jika ada perubahan scope
 
 ---
@@ -100,171 +103,269 @@ Generate PRD sekarang? (yes/no)
 > [Nama Aplikasi] membantu **[target user]** untuk **[melakukan apa]**
 > sehingga **[manfaat utama]** — tanpa harus **[pain point lama]**.
 
+### Masalah yang Diselesaikan
+[2–3 kalimat: masalah spesifik, siapa yang mengalami, seberapa sering, dampaknya]
+
 ---
 
 ## 2. Target Pengguna
 
 ### Persona Utama
+
 **[Nama Persona 1]** — [role/profesi]
 - Usia: [estimasi]
-- Tech-savvy: [rendah/menengah/tinggi]
-- Pain point: [masalah utama]
+- Lokasi: [kota / daerah]
+- Tech-savvy: [rendah / menengah / tinggi]
+- Device utama: [HP Android / iPhone / Laptop]
+- Pain point: [masalah utama yang relevan dengan aplikasi ini]
 - Goal: [apa yang ingin dicapai]
+- Kutipan tipikal: *"[kalimat yang sering diucapkan tipe user ini]"*
 
 **[Nama Persona 2]** — [role/profesi]
 - Usia: [estimasi]
-- Tech-savvy: [rendah/menengah/tinggi]
+- Lokasi: [kota / daerah]
+- Tech-savvy: [rendah / menengah / tinggi]
+- Device utama: [HP Android / iPhone / Laptop]
 - Pain point: [masalah utama]
 - Goal: [apa yang ingin dicapai]
+- Kutipan tipikal: *"[kalimat tipikal]"*
 
 ---
 
 ## 3. Fitur MVP
 
 ### ✅ P0 — Harus Ada (MVP Blocker)
-| ID | Fitur | Deskripsi | Kenapa Penting |
-|----|-------|-----------|----------------|
-| F01 | [nama] | [deskripsi konkret] | [alasan bisnis] |
-| F02 | [nama] | [deskripsi konkret] | [alasan bisnis] |
-| F03 | [nama] | [deskripsi konkret] | [alasan bisnis] |
+Tanpa fitur ini, aplikasi tidak bisa dipakai.
+
+| ID | Fitur | Deskripsi | Kenapa Penting | Kompleksitas |
+|----|-------|-----------|----------------|--------------|
+| F01 | [nama] | [deskripsi konkret — bukan generic] | [alasan bisnis spesifik] | S/M/L |
+| F02 | [nama] | [deskripsi konkret] | [alasan bisnis spesifik] | S/M/L |
+| F03 | [nama] | [deskripsi konkret] | [alasan bisnis spesifik] | S/M/L |
 
 ### 🟡 P1 — Penting tapi Bisa Ditunda
-| ID | Fitur | Deskripsi | Sprint Target |
-|----|-------|-----------|---------------|
-| F04 | [nama] | [deskripsi] | Sprint 2 |
-| F05 | [nama] | [deskripsi] | Sprint 3 |
+Fitur ini meningkatkan value tapi tidak blocking launch.
 
-### ❌ Out of Scope MVP
-- [fitur yang sengaja ditunda — dengan alasan]
-- [fitur yang butuh validasi lebih dulu]
+| ID | Fitur | Deskripsi | Sprint Target | Alasan Ditunda |
+|----|-------|-----------|---------------|----------------|
+| F04 | [nama] | [deskripsi] | Sprint 2 | [kenapa bisa ditunda] |
+| F05 | [nama] | [deskripsi] | Sprint 3 | [kenapa bisa ditunda] |
+
+### ❌ Out of Scope MVP (dengan alasan)
+| Fitur | Alasan Tidak Masuk MVP |
+|-------|------------------------|
+| [fitur] | [alasan konkret — terlalu kompleks, butuh validasi dulu, dll.] |
+| [fitur] | [alasan] |
 
 ---
 
-## 4. User Stories & Acceptance Criteria
+## 4. User Stories & Syarat Keberhasilan
 
-> Format User Story: Sebagai [siapa], saya ingin [aksi], agar [tujuan].
-> Format Acceptance Criteria: **Given-When-Then** (BDD Format)
-> ID REQ-XXX untuk traceability ke backlog dan kode.
+> **Format Syarat Keberhasilan:**
+> - ✅ Berhasil: [kondisi awal] + [aksi user] = [hasil yang diharapkan]
+> - ❌ Gagal: [kondisi salah] + [aksi user] = [pesan/tindakan error yang benar]
 
 ### [Nama Persona 1]
-- [ ] **REQ-001** Sebagai [persona 1], saya ingin [aksi dari F01], agar [tujuan]
-  - **AC (Success):** Given [kondisi awal], When [aksi trigger], Then [hasil yang diharapkan]
-  - **AC (Error):** Given [kondisi salah], When [aksi], Then [pesan error]
-  - **UI States:** [Definisikan Loading, Empty, Error, Success State]
-- [ ] **REQ-002** Sebagai [persona 1], saya ingin [aksi dari F02], agar [tujuan]
-  - *... (ulangi struktur AC di atas)*
+
+**REQ-001** — [nama fitur F01]
+- Sebagai [persona 1], saya ingin [aksi konkret], agar [tujuan spesifik]
+- ✅ Berhasil: [kondisi] + [aksi] → [hasil konkret yang bisa dilihat/dirasakan user]
+- ❌ Gagal: [kondisi error] + [aksi] → [pesan error yang jelas, bukan generic]
+- 📱 Tampilan: Default (kosong) | Loading (skeleton) | Berhasil | Gagal/Error
+- 🔔 Notifikasi: [trigger notifikasi jika ada — push/email/in-app]
+
+**REQ-002** — [nama fitur F02]
+- Sebagai [persona 1], saya ingin [aksi], agar [tujuan]
+- ✅ Berhasil: [kondisi] + [aksi] → [hasil]
+- ❌ Gagal: [kondisi error] → [respon sistem]
+- 📱 Tampilan: Default | Loading | Berhasil | Gagal
+- 🔔 Notifikasi: [jika ada]
 
 ### [Nama Persona 2]
-- [ ] **REQ-010** Sebagai [persona 2], saya ingin [aksi], agar [tujuan]
-  - *... (ulangi struktur AC di atas)*
 
-### Pembayaran (jika ada)
-- [ ] **REQ-020** Sebagai pembeli, saya ingin membayar via [metode], agar transaksi mudah
-- [ ] **REQ-021** Sebagai admin, saya ingin melihat semua transaksi, agar bisa rekonsiliasi
+**REQ-010** — [nama fitur untuk persona 2]
+- Sebagai [persona 2], saya ingin [aksi], agar [tujuan]
+- ✅ Berhasil: [kondisi] + [aksi] → [hasil]
+- ❌ Gagal: [kondisi error] → [respon sistem]
+- 📱 Tampilan: Default | Loading | Berhasil | Gagal
 
-### Notifikasi & Edge Cases
-- [ ] **REQ-030** Sebagai pengguna, saya ingin dapat notifikasi saat [event penting].
-  - **Edge Case Mitigasi:** Jika notifikasi gagal/API timeout, tampilkan di in-app notification fall-back.
+### Pembayaran (isi hanya jika ada transaksi)
 
-### UU PDP — Hak Pengguna (Wajib)
-- [ ] **REQ-040** Sebagai pengguna, saya ingin dapat menghapus akun dan semua data saya
-- [ ] **REQ-041** Sebagai pengguna, saya ingin mengunduh data pribadi saya
+**REQ-020** — Proses Pembayaran
+- Sebagai pembeli, saya ingin membayar via [metode], agar transaksi mudah dan aman
+- ✅ Berhasil: Pembayaran diterima → status order berubah, notifikasi dikirim ke pembeli dan penjual
+- ❌ Gagal: Pembayaran gagal → muncul alasan jelas, opsi coba lagi, order tidak berubah status
+- ❌ Timeout: Pembayaran > 24 jam tidak dikonfirmasi → order otomatis dibatalkan, refund jika dana sudah terpotong
+- 📱 Tampilan: Pilih metode | Proses | Berhasil | Gagal | Expired
 
----
+**REQ-021** — Rekap Transaksi (Admin)
+- Sebagai admin, saya ingin lihat semua transaksi dengan filter, agar bisa rekonsiliasi
+- ✅ Berhasil: Tabel transaksi dengan filter tanggal/status/user — bisa export CSV
 
-## 5. Non-Functional Requirements
+### Hak Pengguna (UU PDP — Wajib)
 
-| Kategori | Requirement | Target |
-|----------|-------------|--------|
-| Performance | Load halaman utama | < 2 detik |
-| Availability | Uptime | [99% / 99.9%] |
-| Concurrent Users | MVP | [estimasi dari Q7] |
-| Security | Auth | Session DB (Better Auth 1.5) |
-| Security | Payment (jika ada) | Xendit callback token verified |
-| Mobile | Platform | [Android / iOS / Keduanya] |
-| Storage | File upload max | 5 MB |
-| Regulasi | Compliance | UU PDP No. 27/2022 |
-| [spesifik] | [dari Q7] | [target] |
+**REQ-040** — Hapus Akun
+- Sebagai pengguna, saya ingin bisa menghapus akun dan semua data saya
+- ✅ Berhasil: Konfirmasi → semua data terhapus dalam 30 hari → email konfirmasi terkirim
 
----
-
-## 6. Success Metrics (Definition of Done untuk MVP)
-
-| Metric | Target | Cara Ukur |
-|--------|--------|-----------|
-| [dari Q8 — metric sukses 1] | [angka] | [tool/cara ukur] |
-| [dari Q8 — metric sukses 2] | [angka] | [tool/cara ukur] |
-| Uptime | [target]% | Uptime Kuma |
-| Error rate | < 1% | Sentry |
+**REQ-041** — Unduh Data Pribadi
+- Sebagai pengguna, saya ingin mengunduh semua data pribadi saya
+- ✅ Berhasil: Request → file JSON/CSV dikirim ke email dalam 24 jam
 
 ---
 
-## 7. Constraints & Asumsi
+## 5. Alur Pengguna (User Flow)
 
-### Constraints
-- Tim: [dari research]
-- Timeline MVP: [dari research]
-- Budget infrastruktur: [dari research]
+### Alur Utama: [Nama Flow — misal: Alur Pembelian]
+
+```
+[Persona] membuka app
+    │
+    ▼
+[Halaman Pertama yang Dilihat]
+    │
+    ├── [Aksi Utama]
+    │       │
+    │       ▼
+    │   [Halaman/Modal Berikutnya]
+    │       │
+    │       ├── ✅ Sukses → [Hasil / Halaman Konfirmasi]
+    │       └── ❌ Gagal → [Pesan Error + Opsi]
+    │
+    └── [Aksi Alternatif]
+            │
+            ▼
+        [Jalur Alternatif]
+```
+
+### Alur Onboarding (User Baru)
+
+```
+Install / Buka URL
+    │
+    ▼
+Halaman Welcome / Landing
+    │
+    ├── Daftar dengan Email → Verifikasi Email → Lengkapi Profil → Dashboard
+    └── Login dengan Google → [Jika baru: Lengkapi Profil] → Dashboard
+                                [Jika lama: langsung] → Dashboard
+```
+
+---
+
+## 6. Matriks Notifikasi
+
+| Event | Siapa Dinotif | Kanal | Waktu | Konten Pesan |
+|-------|--------------|-------|-------|--------------|
+| [event 1] | [persona] | Push / Email / In-app / WhatsApp | Realtime / Harian | [contoh teks notif] |
+| [event 2] | [persona] | [kanal] | [waktu] | [teks] |
+| [event 3] | [persona] | [kanal] | [waktu] | [teks] |
+
+---
+
+## 7. Non-Functional Requirements
+
+| Kategori | Requirement | Target | Cara Ukur |
+|----------|-------------|--------|-----------|
+| Performa | Load halaman utama | < 2 detik | Lighthouse / WebVitals |
+| Performa | API response time | < 500ms (p95) | Sentry Performance |
+| Availability | Uptime | [99% / 99.9%] | Uptime Kuma |
+| Concurrent Users | MVP launch | [estimasi dari Q7] | Load test |
+| Concurrent Users | Peak (lebaran/harbolnas) | [estimasi × 5] | Load test |
+| Keamanan | Auth | Session DB (Better Auth 1.5) | — |
+| Keamanan | Payment (jika ada) | Xendit callback token verified | — |
+| Keamanan | Data user | Encrypted at rest, HTTPS | — |
+| Mobile | Platform | [Android / iOS / Keduanya] | — |
+| Storage | File upload max | 5 MB per file | Validasi di frontend + backend |
+| Regulasi | Compliance | UU PDP No. 27/2022 | Legal review |
+| Aksesibilitas | WCAG | Level AA minimal | Automated audit |
+
+---
+
+## 8. Kebutuhan Konten
+
+| Halaman / Section | Konten yang Dibutuhkan | Siapa Menyiapkan | Deadline |
+|-------------------|------------------------|------------------|---------|
+| Landing page | Copywriting hero, tagline, CTA | [Tim/Owner] | [sebelum Sprint X] |
+| Email onboarding | Welcome email, verifikasi | [Tim/Owner] | [sebelum Sprint X] |
+| Notifikasi push | Teks per event (lihat matriks) | [Tim/Owner] | [sebelum Sprint X] |
+| Error messages | Pesan error tiap kondisi | Developer | Saat coding |
+| Empty states | Teks + ilustrasi saat data kosong | Designer | Sprint [X] |
+| Kebijakan Privasi | Sesuai UU PDP | Legal / Owner | Sebelum launch |
+| Syarat & Ketentuan | Dokumen legal | Legal / Owner | Sebelum launch |
+
+---
+
+## 9. Success Metrics — Definition of Done untuk MVP
+
+| Metric | Target | Cara Ukur | Frekuensi Cek |
+|--------|--------|-----------|---------------|
+| [dari Q8 — metric bisnis 1] | [angka] | [tool] | [harian/mingguan] |
+| [dari Q8 — metric bisnis 2] | [angka] | [tool] | [harian/mingguan] |
+| Uptime | [target]% | Uptime Kuma | Real-time |
+| Error rate | < 1% | Sentry | Harian |
+| P95 response time | < 500ms | Sentry Performance | Harian |
+| User retention D7 | > [X]% | Mixpanel / GA4 | Mingguan |
+
+---
+
+## 10. Constraints & Asumsi
+
+### Constraints (Tidak Bisa Diubah)
+- Tim: [komposisi tim dari research]
+- Timeline MVP: [tanggal target dari research]
+- Budget infrastruktur: Rp [angka]/bulan
 - Regulasi: UU PDP No. 27/2022 (berlaku penuh Oktober 2024)
-- [constraint lain dari Q6]
+- Platform: [dari Q6]
+- [constraint spesifik lain]
 
-### Asumsi
-- [asumsi 1 yang perlu divalidasi]
-- [asumsi 2]
+### Asumsi (Perlu Divalidasi)
+- [ ] [asumsi 1 tentang user behavior — belum terkonfirmasi]
+- [ ] [asumsi 2 tentang pasar]
+- [ ] [asumsi teknis yang mungkin perlu di-spike]
 - Semua user WNI (tidak perlu multi-currency untuk MVP, kecuali disebutkan)
 
+### Open Questions
+- [ ] [pertanyaan yang perlu dijawab sebelum Sprint X]
+- [ ] [keputusan bisnis yang pending]
+
 ---
-*Next step: Jalankan skill `vibe-techdesign` untuk menentukan stack dan arsitektur.*
+*Next step: Jalankan skill `vibe-techdesign` untuk menentukan stack, arsitektur, dan struktur database.*
+*Dokumen ini diperbarui setiap ada perubahan scope — beri tahu developer jika ada perubahan di sini.*
 ```
 
 ---
 
 ## Aturan Penting
 
-- Output harus **terisi penuh** — tidak ada placeholder `[isi di sini]` yang tersisa dari jawaban user
+- Output harus **terisi penuh** — tidak ada placeholder yang tersisa dari jawaban user
 - REQ IDs harus unik dan sequential — agent akan merujuk ID ini saat coding
-- Jangan tambahkan fitur yang tidak disebutkan user — scope creep adalah musuh MVP
-- Jika user menyebutkan fitur yang terlalu kompleks untuk MVP, masukkan ke P1 dan jelaskan kenapa
+- Jangan tambahkan fitur yang tidak disebutkan user — jaga scope MVP tetap ketat
+- Jika user menyebutkan fitur terlalu kompleks → masukkan ke P1, jelaskan kenapa
 - Payment section: muncul hanya jika user konfirmasi ada transaksi keuangan
-- **STRUKTUR DOKUMEN WAJIB**: Selaraskan dan lengkapi hierarki PRD yang dihasilkan dengan elemen-elemen profesional dari `docs/SRS-Template.md`.
-- **SKILL CHAINING:** Setelah dokumen PRD selesai dibuat, JANGAN BERHENTI. Secara proaktif tanyakan kepada user: *"PRD sudah siap! Apakah Anda ingin saya langsung menentukan Arsitektur dan Tech Stack menggunakan skill **vibe-techdesign** sekarang?"* Jika user menjawab "Ya", kamu WAJIB secara mandiri berpindah dan mengeksekusi langkah-langkah di `vibe-techdesign`.
+- **Setiap REQ wajib punya:** syarat sukses + syarat gagal + 4 tampilan (default/loading/berhasil/gagal)
+- **SKILL CHAINING:** Setelah PRD selesai → tanya: *"PRD sudah siap! Lanjut ke desain teknis sekarang?"* Jika ya → langsung jalankan `vibe-techdesign`.
 
-## BDD Acceptance Criteria — Quality Gate (WAJIB)
-
-Sebelum PRD dianggap selesai, pastikan setiap fitur P0 memiliki:
+## Quality Gate (cek sebelum declare selesai)
 
 ```
-✅ Acceptance Criteria Checklist per Fitur P0:
-□ Ada minimal 1 AC success path (Given/When/Then)
-□ Ada minimal 1 AC error/edge case path
-□ 4 UI states terdefinisi: loading, empty, error, success
-□ REQ ID sudah assigned dan unik
-□ Data contract / API format sudah terdefinisi (jika relevan)
+□ Semua fitur P0 punya REQ ID unik?
+□ Setiap REQ punya syarat sukses DAN syarat gagal?
+□ Setiap REQ punya 4 tampilan terdefinisi (default, loading, berhasil, gagal)?
+□ User flow utama sudah digambar?
+□ Matriks notifikasi sudah diisi (jika ada event yang perlu notif)?
+□ Kebutuhan konten sudah terdaftar?
+□ REQ-040 dan REQ-041 (UU PDP) sudah ada?
+□ Non-functional requirements sudah ada target angkanya?
 ```
 
-Jika ada fitur P0 yang belum punya AC lengkap → **JANGAN lanjut ke vibe-techdesign**.
-Tanyakan user dulu sampai AC-nya lengkap.
+Jika ada yang belum → lengkapi dulu sebelum lanjut ke tech design.
 
-**Format AC yang benar:**
-```
-Given [kondisi awal yang spesifik — bukan generic]
-When [aksi yang dilakukan user — satu aksi per AC]
-Then [hasil yang dapat diverifikasi — bisa di-test secara objective]
-```
+## Penyesuaian per Jenis Project
 
-**Format AC yang salah (hindari):**
-```
-❌ Given the user is logged in, When they use the app, Then it works
-✅ Given user sudah login dan cart berisi 2 item, When user tap "Checkout",
-   Then muncul halaman payment summary dengan total harga dan pilihan metode bayar
-```
-
-## SEED Integration Note
-
-Jika skill ini dipanggil dari `/vibe-plan`, project type sudah diketahui.
-Sesuaikan pertanyaan dan output:
-- **Application** → tanyakan semua Q1-Q8
-- **API/Backend** → fokus Q3 (endpoints), Q4 (auth), skip Q6 (platform UI)
-- **Campaign** → ganti Q3 dengan "Konten utama apa?", skip Q5 (payment)
-- **Utility** → tanyakan Q1, Q3 saja (single purpose), skip payment dan platform
-- **Workflow** → fokus Q3 (steps/actions) dan Q7 (error handling strategy)
+Jika skill ini dipanggil dari `/vibe-plan`, project type sudah diketahui:
+- **Aplikasi** → jalankan semua Q1–Q8 + semua section output
+- **Backend/API** → fokus Q3 (endpoint), Q4 (auth), skip Q6 (platform UI) dan user flow
+- **Kampanye** → ganti Q3 dengan "Konten utama apa?", skip Q5 (payment), tambah section timeline
+- **Alat bantu** → tanyakan Q1 dan Q3 saja (satu tujuan), skip payment dan platform
+- **Workflow otomatis** → fokus Q3 (langkah-langkah) dan Q7 (penanganan error)

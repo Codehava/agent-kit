@@ -12,7 +12,7 @@ description: |
 Dari ide ke rencana kerja yang siap dikerjakan.
 Setiap jenis project punya pertanyaan yang berbeda — kita tidak akan tanya hal yang tidak relevan.
 
-**Output utama:** `PLANNING.md` + `docs/01-PRD.md` + `docs/02-TECH-DESIGN.md`
+**Output utama:** `PLANNING.md` + `docs/01-prd.md` + `docs/02-tech-design.md`
 
 ---
 
@@ -45,8 +45,8 @@ Cek file yang sudah ada (internal):
 Cek keberadaan:
 - PLANNING.md         → jika ada dan terisi, planning sudah selesai
 - docs/research-*.md  → jika ada, research sudah selesai
-- docs/01-PRD.md      → jika terisi (bukan template), PRD sudah selesai
-- docs/02-TECH-DESIGN.md → jika terisi, tech design sudah selesai
+- docs/01-prd.md      → jika terisi (bukan template), PRD sudah selesai
+- docs/02-tech-design.md → jika terisi, tech design sudah selesai
 ```
 
 Tampilkan status ke user:
@@ -106,7 +106,7 @@ Setelah selesai → minta persetujuan user → lanjut Tahap 2
 ```
 Gunakan skill: vibe-prd
 Input: hasil riset (jika ada) + jawaban dari pertanyaan tadi
-Output: docs/01-PRD.md
+Output: docs/01-prd.md
 
 Untuk setiap fitur utama, tulis:
   - Apa yang user bisa lakukan
@@ -118,8 +118,8 @@ Setelah selesai → minta persetujuan user → lanjut Tahap 3
 ### Tahap 3: Desain Teknis
 ```
 Gunakan skill: vibe-techdesign
-Input: docs/01-PRD.md + jawaban dari pertanyaan
-Output: docs/02-TECH-DESIGN.md (teknologi yang dipakai + struktur data + cara kerja API)
+Input: docs/01-prd.md + jawaban dari pertanyaan
+Output: docs/02-tech-design.md (teknologi + arsitektur + ERD + security model + estimasi biaya)
 
 Setelah selesai → minta persetujuan user → lanjut Tahap 4
 ```
@@ -127,14 +127,16 @@ Setelah selesai → minta persetujuan user → lanjut Tahap 4
 ### Tahap 4: Buat Rencana Kerja
 ```
 Gunakan skill: vibe-buildplan
-Input: docs/01-PRD.md + docs/02-TECH-DESIGN.md
-Output: PLANNING.md (siap untuk /apply)
+Input: docs/01-prd.md + docs/02-tech-design.md
+Output: docs/03-sprint-plan.md (sprint backlog + panduan build — satu dokumen terpadu)
 
-Isi PLANNING.md:
-- Jenis project
-- Daftar pekerjaan berurutan per sprint
-- Per pekerjaan: ukuran keberhasilan + file yang akan diubah
-- Batasan yang tidak boleh dilanggar
+Isi docs/03-sprint-plan.md:
+- Overview semua sprint dengan goal dan deliverable
+- Prasyarat sebelum mulai coding
+- Task per sprint dengan estimasi jam
+- Panduan build (urutan phase yang benar)
+- Product backlog fitur P1
+- Definition of Done per task
 ```
 
 ---
@@ -166,9 +168,10 @@ Jika ada ❌ → lengkapi dulu sebelum lanjut.
 🎉 Planning selesai! [Jenis: Aplikasi/Backend/Kampanye/Alat bantu/Workflow]
 
 Dokumen yang dibuat:
-✅ PLANNING.md              — Rencana kerja siap dieksekusi
-✅ docs/01-PRD.md           — [N] fitur
-✅ docs/02-TECH-DESIGN.md   — Teknologi: [ringkasan]
+✅ docs/00-research.md      — Riset pasar + analisa kompetitor + Go/No-Go
+✅ docs/01-prd.md           — [N] fitur + syarat keberhasilan + user flow
+✅ docs/02-tech-design.md   — Teknologi + ERD + security model + estimasi biaya
+✅ docs/03-sprint-plan.md   — Sprint backlog + panduan build (siap dieksekusi)
 
 Sprint pertama: [N] pekerjaan, tujuan: [tujuan sprint pertama]
 Pekerjaan pertama: [nama pekerjaan]

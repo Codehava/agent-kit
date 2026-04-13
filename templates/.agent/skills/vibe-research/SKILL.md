@@ -5,7 +5,7 @@ description: |
   Triggers on "riset aplikasi ini", "research dulu", "validasi ide",
   "analisa kompetitor", "apakah ide ini layak", "sebelum mulai project",
   or /vibe-plan step 1.
-  Output: docs/research-[AppName].md
+  Output: docs/00-research.md
 ---
 
 # Vibe Research — Validasi Ide Sebelum Coding
@@ -60,95 +60,234 @@ Lanjut generate riset? (yes/no)
 
 ---
 
-## Output: `docs/research-[AppName].md`
+## Output: `docs/00-research.md`
 
-Generate dokumen dengan struktur berikut:
+Generate dokumen dengan struktur berikut. **Semua bagian harus terisi penuh — jangan tinggalkan placeholder.**
+Gunakan pengetahuan kamu tentang pasar Indonesia untuk mengisi bagian yang tidak disebutkan user secara eksplisit.
 
 ```markdown
-# Research — [Nama Aplikasi]
-> Dibuat: [tanggal] | Diperbarui: [tanggal]
+# 00 — Research & Validasi Ide
+> Aplikasi: [Nama Aplikasi]
+> Dibuat: [tanggal] | Status: Draft / Final
+> Generated oleh skill vibe-research
+
+---
 
 ## 1. Ringkasan Ide
-[1 paragraf deskripsi aplikasi, masalah, dan solusi]
 
-## 2. Analisa Pasar
+### Problem Statement
+[1–2 paragraf: masalah spesifik yang diselesaikan, siapa yang mengalaminya, seberapa sering, dan dampaknya]
 
-### Target Pengguna
-| Segmen | Karakteristik | Pain Point |
-|--------|---------------|------------|
-| [segmen 1] | [deskripsi] | [masalah utama] |
-| [segmen 2] | [deskripsi] | [masalah utama] |
+### Solusi yang Ditawarkan
+[1 paragraf: bagaimana aplikasi ini menyelesaikan masalah tersebut — konkret, bukan generic]
 
-### Ukuran Pasar (estimasi)
-[Estimasi TAM/SAM/SOM berdasarkan konteks Indonesia jika relevan]
+### Unique Value Proposition
+> "[Nama Aplikasi] adalah satu-satunya aplikasi yang [diferensiasi utama] untuk [target user] di Indonesia."
+
+---
+
+## 2. Analisa Pasar Indonesia
+
+### Target Segmen
+
+| Segmen | Deskripsi | Ukuran Estimasi | Willingness to Pay |
+|--------|-----------|-----------------|-------------------|
+| [Segmen Primer] | [usia, profesi, lokasi, kebiasaan digital] | [estimasi jumlah di Indonesia] | [rendah/menengah/tinggi — alasan] |
+| [Segmen Sekunder] | [deskripsi] | [estimasi] | [rendah/menengah/tinggi] |
+
+### Ukuran Pasar (TAM/SAM/SOM — Estimasi Indonesia)
+
+| Level | Definisi | Estimasi |
+|-------|----------|----------|
+| **TAM** (Total Addressable Market) | Semua orang yang punya masalah ini di Indonesia | [angka + cara hitung] |
+| **SAM** (Serviceable Addressable Market) | Yang bisa dijangkau dengan aplikasi digital | [angka + % dari TAM] |
+| **SOM** (Serviceable Obtainable Market) | Target realistis tahun 1–2 | [angka + % dari SAM] |
+
+### Tren Pasar yang Mendukung
+- [tren 1 — dengan data atau referensi]
+- [tren 2]
+- [tren 3]
+
+---
 
 ## 3. Analisa Kompetitor
 
-| Kompetitor | Kelebihan | Kekurangan | Model Bisnis |
-|------------|-----------|------------|--------------|
-| [nama] | [+] | [-] | [model] |
-| [nama] | [+] | [-] | [model] |
+| Kompetitor | Jenis | Kelebihan | Kekurangan | Model Bisnis | Rating Toko |
+|------------|-------|-----------|------------|--------------|-------------|
+| [nama] | [lokal/global] | [konkret] | [konkret] | [model] | [jika ada] |
+| [nama] | [lokal/global] | [konkret] | [konkret] | [model] | [jika ada] |
+| [nama] | [lokal/global] | [konkret] | [konkret] | [model] | [jika ada] |
+
+### Peta Posisi Kompetitif
+
+```
+         Harga Tinggi
+              │
+[Kompetitor A]│        [Kompetitor B]
+              │
+──────────────┼──────────────── Fitur Lengkap
+              │
+  [Target     │
+   Kita]      │[Kompetitor C]
+              │
+         Harga Rendah
+```
 
 ### Celah yang Bisa Diisi
-- [peluang 1]
-- [peluang 2]
+- **Celah 1:** [masalah yang belum diselesaikan kompetitor — spesifik]
+- **Celah 2:** [segmen yang belum dilayani dengan baik]
+- **Celah 3:** [kelemahan UX/pricing yang bisa dieksploitasi]
+
+---
 
 ## 4. Model Bisnis & Monetisasi
 
-### Opsi yang Direkomendasikan
-[Rekomendasi berdasarkan konteks aplikasi dan pasar Indonesia]
+### Model yang Direkomendasikan
+[Pilih dan jelaskan 1–2 model yang paling cocok, dengan alasan berdasarkan konteks aplikasi]
 
-### Estimasi Revenue (kasar, tahun 1)
-| Skenario | Asumsi | Estimasi |
-|----------|--------|----------|
-| Konservatif | [asumsi] | [angka] |
-| Moderat | [asumsi] | [angka] |
+| Model | Cara Kerja | Proyeksi Revenue | Risiko |
+|-------|-----------|-----------------|--------|
+| [model utama] | [penjelasan] | [estimasi] | [risiko] |
+| [model alternatif] | [penjelasan] | [estimasi] | [risiko] |
 
-## 5. Diferensiasi & Competitive Advantage
-- [keunggulan 1 — konkret dan defensible]
-- [keunggulan 2]
+### Proyeksi Revenue (Kasar, Tahun 1)
 
-## 6. Risiko & Mitigasi
+Asumsi: [tuliskan asumsi yang dipakai]
 
-| Risiko | Tingkat | Mitigasi |
-|--------|---------|----------|
-| [risiko teknis] | Tinggi/Medium/Rendah | [cara mitigasi] |
-| [risiko pasar] | ... | ... |
-| [risiko regulasi] | ... | ... |
+| Skenario | User Aktif | ARPU | MRR Bulan 12 | ARR |
+|----------|-----------|------|--------------|-----|
+| Konservatif | [N] | Rp [X]/bulan | Rp [Y] | Rp [Z] |
+| Moderat | [N] | Rp [X]/bulan | Rp [Y] | Rp [Z] |
+| Optimis | [N] | Rp [X]/bulan | Rp [Y] | Rp [Z] |
 
-## 7. Regulasi & Compliance
+### Unit Economics (jika berlaku)
+- Customer Acquisition Cost (CAC): Rp [estimasi]
+- Lifetime Value (LTV): Rp [estimasi]
+- LTV/CAC Ratio: [angka] (target: > 3x)
+- Payback period: [bulan]
 
-[Jika fintech → OJK, Xendit, UU PDP]
-[Jika kesehatan → regulasi Kemenkes]
-[Jika marketplace → UU PDP, pajak platform]
-[Jika aplikasi anak → COPPA equivalent Indonesia]
+---
 
-## 8. Rekomendasi Stack Awal (preview)
-[Bukan final — hanya arah. Tech Design akan lebih detail]
-- Platform: [Web / Mobile / Keduanya]
-- Backend: [estimasi]
-- Database: [estimasi]
-- Payment: [jika perlu]
+## 5. Diferensiasi & Keunggulan Kompetitif
 
-## 9. Go/No-Go Assessment
+### Defensible Advantages
+- **[Keunggulan 1]:** [konkret — bukan "lebih bagus", tapi spesifik apa yang berbeda]
+- **[Keunggulan 2]:** [konkret]
+- **[Keunggulan 3]:** [konkret]
 
-| Faktor | Score (1-5) | Catatan |
+### Moat Jangka Panjang
+[Apa yang membuat sulit ditiru kompetitor dalam 12–24 bulan ke depan?
+Contoh: network effect, data moat, brand, switching cost, partnership eksklusif]
+
+---
+
+## 6. User Journey Awal (Sebelum PRD)
+
+### Persona Primer: [Nama Persona]
+**Latar:** [1 kalimat deskripsi singkat]
+
+```
+TRIGGER → DISCOVERY → ONBOARDING → CORE ACTION → VALUE → RETENTION
+   │            │            │             │          │         │
+[apa yang   [bagaimana  [langkah    [aksi utama  [hasil   [kenapa
+memicu      mereka      pertama]    yang sering  yang     kembali]
+kebutuhan]  temukan     ]           dilakukan]   dirasakan]
+            kita]
+```
+
+**Pain points sepanjang journey:**
+1. [pain di tahap X]
+2. [pain di tahap Y]
+
+---
+
+## 7. Risiko & Mitigasi
+
+| Risiko | Kategori | Tingkat | Mitigasi |
+|--------|----------|---------|----------|
+| [risiko teknis] | Teknis | Tinggi/Medium/Rendah | [cara konkret] |
+| [risiko pasar] | Pasar | ... | ... |
+| [risiko regulasi] | Regulasi | ... | ... |
+| [risiko tim] | Eksekusi | ... | ... |
+| [risiko funding] | Finansial | ... | ... |
+
+---
+
+## 8. Regulasi & Compliance Indonesia
+
+[Isi bagian yang relevan, skip yang tidak berlaku:]
+
+### UU PDP No. 27/2022 (Wajib untuk semua aplikasi yang simpan data user)
+- Kewajiban: informed consent, hak hapus data, hak akses data
+- Berlaku penuh: Oktober 2024
+- Implikasi teknis: fitur hapus akun, export data, consent management
+
+### [Jika Fintech]
+- Izin OJK diperlukan jika: simpan uang user, pinjam-meminjam, investasi
+- Alternatif: partnership dengan licensed entity
+- Payment gateway: Xendit/Midtrans sudah licensed
+
+### [Jika Kesehatan]
+- Regulasi Kemenkes untuk telemedicine
+- Data kesehatan = data sensitif di UU PDP
+
+### [Jika Marketplace]
+- Pajak platform: PMK 68/2022
+- Kewajiban pelaporan transaksi ke DJP
+
+### [Jika Aplikasi Anak-anak]
+- Usia minimum 13 tahun (perlu verifikasi)
+- Parental consent untuk usia < 17 tahun
+
+---
+
+## 9. Rekomendasi Stack Awal (Preview — Final di Tech Design)
+
+| Layer | Rekomendasi | Alasan |
+|-------|-------------|--------|
+| Frontend Web | [rekomendasi] | [alasan singkat] |
+| Mobile | [rekomendasi atau N/A] | [alasan] |
+| Backend | [rekomendasi] | [alasan] |
+| Database | [rekomendasi] | [alasan] |
+| Auth | [rekomendasi] | [alasan] |
+| Payment | [rekomendasi atau N/A] | [alasan] |
+| Hosting | [rekomendasi] | [alasan] |
+
+**Estimasi biaya infrastruktur/bulan (MVP):** Rp [estimasi]
+
+---
+
+## 10. Go/No-Go Assessment
+
+| Faktor | Score (1–5) | Catatan |
 |--------|-------------|---------|
-| Ukuran pasar | [1-5] | [catatan] |
-| Kompetisi | [1-5] | [catatan] |
-| Feasibility teknis | [1-5] | [catatan] |
-| Potensi monetisasi | [1-5] | [catatan] |
-| **Total** | **/20** | |
+| Ukuran pasar | [1–5] | [catatan konkret] |
+| Intensitas kompetisi | [1–5] | [5 = mudah masuk, 1 = sangat ketat] |
+| Feasibility teknis | [1–5] | [berdasarkan tim dan budget] |
+| Potensi monetisasi | [1–5] | [berdasarkan WTP segmen] |
+| Kesesuaian tim | [1–5] | [seberapa siap tim eksekusi] |
+| **Total** | **/25** | |
 
-**Rekomendasi:** GO / PIVOT / NO-GO
-**Alasan:** [1-2 kalimat]
+**Keputusan:** ✅ GO / ⚠️ PIVOT / ❌ NO-GO
 
-## 10. Pertanyaan yang Masih Terbuka
-- [hal yang perlu divalidasi lebih lanjut sebelum build]
-- [asumsi yang belum terkonfirmasi]
+**Rekomendasi:**
+[2–3 kalimat — jika GO: apa yang harus divalidasi lebih dulu;
+jika PIVOT: ke arah mana yang lebih menjanjikan;
+jika NO-GO: kenapa dan apa alternatif yang lebih baik]
+
+---
+
+## 11. Pertanyaan yang Masih Terbuka
+
+Hal-hal yang perlu divalidasi sebelum atau saat build MVP:
+- [ ] [asumsi tentang pasar yang belum terkonfirmasi]
+- [ ] [asumsi tentang user behavior yang belum terkonfirmasi]
+- [ ] [hal teknis yang perlu di-spike dulu]
+- [ ] [keputusan bisnis yang masih pending]
 
 ---
 *Next step: Jalankan skill `vibe-prd` untuk membuat PRD berdasarkan riset ini.*
+*Dokumen ini diperbarui jika ada perubahan strategi atau temuan baru.*
 ```
 
 ---
@@ -156,7 +295,8 @@ Generate dokumen dengan struktur berikut:
 ## Aturan Penting
 
 - Jadilah jujur jika ide punya risiko tinggi — lebih baik tau sekarang daripada setelah coding 3 bulan
-- Fokus pada konteks **Indonesia**: pasar lokal, payment local (Xendit/Midtrans), regulasi UU PDP
-- Jika user belum menyebut kompetitor, suggest yang paling relevan berdasarkan deskripsi ide
-- Estimasi angka harus realistis, bukan overly optimistic
-- **SKILL CHAINING:** Setelah riset selesai di-generate, JANGAN BERHENTI. Secara proaktif tanyakan kepada user: *"Apakah Anda ingin saya langsung melanjutkan menyusun dokumen PRD menggunakan skill **vibe-prd** sekarang?"* Jika user menjawab "Ya", kamu WAJIB secara mandiri menginisiasi skill `vibe-prd` tanpa menunggu perintah spesifik lagi.
+- Fokus pada konteks **Indonesia**: pasar lokal, payment lokal (Xendit), regulasi UU PDP, infrastruktur lokal
+- Jika user belum menyebut kompetitor → suggest yang paling relevan berdasarkan deskripsi ide
+- Estimasi angka harus realistis dan ada cara hitungnya — jangan asal tulis tanpa basis
+- **Semua bagian harus terisi** — jika informasi tidak tersedia, gunakan estimasi dengan label "[estimasi]"
+- **SKILL CHAINING:** Setelah riset selesai, tanya: *"Riset selesai! Lanjut buat PRD sekarang?"* Jika ya → langsung jalankan `vibe-prd`.

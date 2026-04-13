@@ -33,15 +33,13 @@
 | Dokumen | Lokasi | Berisi |
 |---------|--------|--------|
 | Docs Index | `docs/README.md` | Urutan baca dan peta dokumen |
-| Project Charter | `docs/01-project-charter.md` | Tujuan proyek, sponsor, milestone |
-| BRD | `docs/02-business-requirements.md` | Scope bisnis, objectives, proses |
-| SRS | `docs/03-srs.md` | Functional & non-functional requirements lebih detail |
-| PRD | `docs/04-PRD.md` | Fitur, user stories (REQ-XXX), scope MVP |
-| Tech Design | `docs/05-TECH-DESIGN.md` | Stack, schema DB, API contracts, code patterns |
-| UI Guidelines | `docs/06-UI-GUIDELINES.md` | Komponen shadcn, warna, Flutter design |
-| Backlog | `docs/07-BACKLOG.md` | Task aktif sprint ini |
-| Deployment | `docs/08-DEPLOYMENT.md` | Coolify, Dockerfile, CI/CD, backup |
-| Dev Log | `docs/09-DEVELOPMENT-LOG.md` | Kenapa setiap keputusan teknis dibuat |
+| Research | `docs/00-RESEARCH.md` | Riset pasar, kompetitor, keputusan Go/No-Go |
+| PRD | `docs/01-PRD.md` | Fitur, user stories (REQ-XXX), scope MVP |
+| Tech Design | `docs/02-TECH-DESIGN.md` | Stack, schema DB, API contracts, code patterns |
+| Sprint Plan | `docs/03-SPRINT-PLAN.md` | Sprint board, task backlog, build guide |
+| UI Guidelines | `docs/04-UI-GUIDELINES.md` | Komponen shadcn, warna, Flutter design |
+| Deployment | `docs/05-DEPLOYMENT.md` | Coolify, Dockerfile, CI/CD, backup |
+| Dev Log | `docs/06-DEV-LOG.md` | Kenapa setiap keputusan teknis dibuat — append-only |
 | Feature Specs | `specs/NNN-nama-fitur.md` | Blueprint fitur sebelum coding |
 
 **Antigravity agent config:**

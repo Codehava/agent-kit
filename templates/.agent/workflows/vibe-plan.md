@@ -12,7 +12,7 @@ description: |
 Dari ide ke rencana kerja yang siap dikerjakan.
 Setiap jenis project punya pertanyaan yang berbeda — kita tidak akan tanya hal yang tidak relevan.
 
-**Output utama:** `PLANNING.md` + `docs/01-prd.md` + `docs/02-tech-design.md`
+**Output utama:** `PLANNING.md` + `docs/01-PRD.md` + `docs/02-TECH-DESIGN.md`
 
 ---
 
@@ -43,10 +43,11 @@ Cek file yang sudah ada (internal):
 
 ```
 Cek keberadaan:
-- PLANNING.md         → jika ada dan terisi, planning sudah selesai
-- docs/research-*.md  → jika ada, research sudah selesai
-- docs/01-prd.md      → jika terisi (bukan template), PRD sudah selesai
-- docs/02-tech-design.md → jika terisi, tech design sudah selesai
+- PLANNING.md           → jika ada dan terisi, planning sudah selesai
+- docs/00-RESEARCH.md   → jika terisi (bukan template), research sudah selesai
+- docs/01-PRD.md        → jika terisi (bukan template), PRD sudah selesai
+- docs/02-TECH-DESIGN.md → jika terisi, tech design sudah selesai
+- docs/03-SPRINT-PLAN.md → jika terisi, sprint plan sudah selesai
 ```
 
 Tampilkan status ke user:
@@ -98,15 +99,15 @@ Baca file panduan sesuai jenis project yang dipilih (internal):
 ### Tahap 1: Riset (untuk Aplikasi dan Backend saja)
 ```
 Gunakan skill: vibe-research
-Output: docs/research-[NamaProject].md
+Output: docs/00-RESEARCH.md
 Setelah selesai → minta persetujuan user → lanjut Tahap 2
 ```
 
 ### Tahap 2: Deskripsi Produk
 ```
 Gunakan skill: vibe-prd
-Input: hasil riset (jika ada) + jawaban dari pertanyaan tadi
-Output: docs/01-prd.md
+Input: docs/00-RESEARCH.md (jika ada) + jawaban dari pertanyaan tadi
+Output: docs/01-PRD.md
 
 Untuk setiap fitur utama, tulis:
   - Apa yang user bisa lakukan
@@ -118,8 +119,8 @@ Setelah selesai → minta persetujuan user → lanjut Tahap 3
 ### Tahap 3: Desain Teknis
 ```
 Gunakan skill: vibe-techdesign
-Input: docs/01-prd.md + jawaban dari pertanyaan
-Output: docs/02-tech-design.md (teknologi + arsitektur + ERD + security model + estimasi biaya)
+Input: docs/01-PRD.md + jawaban dari pertanyaan
+Output: docs/02-TECH-DESIGN.md (teknologi + arsitektur + ERD + security model + estimasi biaya)
 
 Setelah selesai → minta persetujuan user → lanjut Tahap 4
 ```
@@ -127,16 +128,17 @@ Setelah selesai → minta persetujuan user → lanjut Tahap 4
 ### Tahap 4: Buat Rencana Kerja
 ```
 Gunakan skill: vibe-buildplan
-Input: docs/01-prd.md + docs/02-tech-design.md
-Output: docs/03-sprint-plan.md (sprint backlog + panduan build — satu dokumen terpadu)
+Input: docs/01-PRD.md + docs/02-TECH-DESIGN.md
+Output: docs/03-SPRINT-PLAN.md (sprint board + backlog + panduan build — satu dokumen terpadu)
 
-Isi docs/03-sprint-plan.md:
+Isi docs/03-SPRINT-PLAN.md:
+- Status board sprint aktif (In Progress / Todo / Done / Blocked)
 - Overview semua sprint dengan goal dan deliverable
 - Prasyarat sebelum mulai coding
 - Task per sprint dengan estimasi jam
+- Product backlog per epic
 - Panduan build (urutan phase yang benar)
-- Product backlog fitur P1
-- Definition of Done per task
+- Size estimation dan definition of done
 ```
 
 ---
@@ -168,10 +170,10 @@ Jika ada ❌ → lengkapi dulu sebelum lanjut.
 🎉 Planning selesai! [Jenis: Aplikasi/Backend/Kampanye/Alat bantu/Workflow]
 
 Dokumen yang dibuat:
-✅ docs/00-research.md      — Riset pasar + analisa kompetitor + Go/No-Go
-✅ docs/01-prd.md           — [N] fitur + syarat keberhasilan + user flow
-✅ docs/02-tech-design.md   — Teknologi + ERD + security model + estimasi biaya
-✅ docs/03-sprint-plan.md   — Sprint backlog + panduan build (siap dieksekusi)
+✅ docs/00-RESEARCH.md      — Riset pasar + analisa kompetitor + Go/No-Go
+✅ docs/01-PRD.md           — [N] fitur + syarat keberhasilan + user flow
+✅ docs/02-TECH-DESIGN.md   — Teknologi + ERD + security model + estimasi biaya
+✅ docs/03-SPRINT-PLAN.md   — Sprint board + backlog + panduan build (siap dieksekusi)
 
 Sprint pertama: [N] pekerjaan, tujuan: [tujuan sprint pertama]
 Pekerjaan pertama: [nama pekerjaan]

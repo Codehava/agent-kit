@@ -1,11 +1,44 @@
-# 03 — Sprint Plan & Panduan Build
+# 03 — Sprint Plan & Backlog
 > Aplikasi: [Nama Aplikasi] | Dibuat: [tanggal]
-> Berdasarkan: docs/01-prd.md + docs/02-tech-design.md
-> Dokumen ini diperbarui setiap sprint — catat progress di sini
+> Berdasarkan: `docs/01-PRD.md` + `docs/02-TECH-DESIGN.md`
+> Dokumen ini diperbarui setiap sprint — catat progress di sini.
 
 ---
 
-## Ringkasan Sprint
+## 🗓️ Sprint Aktif
+
+| Field | Isi |
+|-------|-----|
+| **Sprint #** | 1 |
+| **Periode** | [tanggal mulai] → [tanggal selesai] |
+| **Goal** | [1 kalimat tujuan sprint ini, contoh: user bisa login dan lihat dashboard] |
+| **PIC** | [nama] |
+
+### Status Board
+
+#### 🔴 In Progress
+| ID | Task | PIC | Notes |
+|----|------|-----|-------|
+| T001 | [nama task] | [nama] | [catatan] |
+
+#### 🟡 Todo
+| ID | Task | Size | Prioritas |
+|----|------|------|-----------|
+| T002 | [nama task] | S | P0 |
+
+#### 🟢 Done
+| ID | Task | Selesai |
+|----|------|---------|
+| — | — | — |
+
+#### 🚫 Blocked
+| ID | Task | Blocker | Butuh Apa |
+|----|------|---------|-----------|
+| — | — | — | — |
+
+---
+
+## 📊 Ringkasan Semua Sprint
 
 | Sprint | Durasi | Tujuan | Hasil yang Bisa Dicek | Kapasitas |
 |--------|--------|--------|----------------------|-----------|
@@ -14,12 +47,12 @@
 | Sprint 3 | [X minggu] | [Fitur utama 2] | [hasil konkret] | [X] jam |
 | Sprint N | [X minggu] | Persiapan launch | App siap production | [X] jam |
 
-**Total estimasi:** [N] sprint × [X] minggu = [Y] minggu
+**Total estimasi:** [N] sprint × [X] minggu = [Y] minggu  
 **Target launch:** [tanggal estimasi]
 
 ---
 
-## Checklist Sebelum Mulai Coding
+## ✅ Checklist Sebelum Mulai Coding
 
 Selesaikan ini dulu sebelum menyentuh kode apapun:
 
@@ -27,7 +60,7 @@ Selesaikan ini dulu sebelum menyentuh kode apapun:
 - [ ] Docker Compose sudah bisa jalan (PostgreSQL + Redis)
 - [ ] Domain sudah dibeli dan DNS sudah diarahkan
 - [ ] VPS sudah disetup dan bisa diakses
-- [ ] File `.env` sudah diisi (lihat docs/02-tech-design.md)
+- [ ] File `.env` sudah diisi (lihat `docs/02-TECH-DESIGN.md`)
 - [ ] Database sudah bisa terkoneksi dari lokal
 - [ ] Semua anggota tim sudah bisa jalankan project di lokal
 
@@ -35,8 +68,8 @@ Selesaikan ini dulu sebelum menyentuh kode apapun:
 
 ## Sprint 1 — Setup & Login
 
-**Tujuan:** Environment siap, fitur login berfungsi, bisa diakses di staging
-**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif
+**Tujuan:** Environment siap, fitur login berfungsi, bisa diakses di staging  
+**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif  
 **Selesai jika:** User bisa daftar, login, dan logout. App sudah live di URL staging.
 
 ### Daftar Pekerjaan
@@ -52,7 +85,7 @@ Selesaikan ini dulu sebelum menyentuh kode apapun:
 | T007 | Endpoint cek server (`/api/health`) | XS | 1j | — | Return `{status: "ok"}` |
 | T008 | Setup monitoring error (Sentry) | XS | 1j | — | Test dengan error sengaja |
 
-**Total estimasi:** [sum] jam
+**Total estimasi:** [sum] jam  
 **Masuk dalam kapasitas [X] jam?** [ya / tidak — jika tidak, geser ke sprint 2]
 
 ### Status Pekerjaan Sprint 1
@@ -72,8 +105,8 @@ Selesaikan ini dulu sebelum menyentuh kode apapun:
 
 ## Sprint 2 — [Nama Fitur Utama 1]
 
-**Tujuan:** [fitur utama] berjalan dari awal sampai akhir
-**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif
+**Tujuan:** [fitur utama] berjalan dari awal sampai akhir  
+**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif  
 **Selesai jika:** [kondisi konkret yang bisa dicek — bukan "fitur selesai"]
 
 ### Daftar Pekerjaan
@@ -104,8 +137,8 @@ Selesaikan ini dulu sebelum menyentuh kode apapun:
 
 ## Sprint 3 — [Nama Fitur Utama 2 / Pembayaran / Notifikasi]
 
-**Tujuan:** [deskripsi tujuan]
-**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif
+**Tujuan:** [deskripsi tujuan]  
+**Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif  
 **Selesai jika:** [kondisi konkret]
 
 ### Daftar Pekerjaan
@@ -118,7 +151,7 @@ Selesaikan ini dulu sebelum menyentuh kode apapun:
 
 ## Sprint Terakhir — Keamanan & Persiapan Launch
 
-**Tujuan:** Semua checklist pre-launch terpenuhi, siap production
+**Tujuan:** Semua checklist pre-launch terpenuhi, siap production  
 **Durasi:** [X minggu] | **Kapasitas:** [X] jam efektif
 
 ### Wajib Sebelum Launch (Privasi Pengguna)
@@ -143,9 +176,56 @@ Selesaikan ini dulu sebelum menyentuh kode apapun:
 
 ---
 
-## Fitur yang Ditunda (Setelah MVP)
+## 📦 Product Backlog
 
-Fitur ini sengaja tidak dimasukkan di versi pertama — dikerjakan setelah ada pengguna nyata:
+### Epic 1: Autentikasi & Onboarding
+- [ ] T-001 Setup project, monorepo, Docker compose
+- [ ] T-002 Better Auth: email + password
+- [ ] T-003 Better Auth: Google OAuth
+- [ ] T-004 Email verifikasi via Resend
+- [ ] T-005 Forgot password flow
+- [ ] T-006 Auth Flutter (simpan session di Hive)
+- [ ] T-007 Protected routes web + Flutter
+
+### Epic 2: [Core Feature — ganti sesuai aplikasi]
+- [ ] T-010 [task]
+- [ ] T-011 [task]
+- [ ] T-012 [task]
+
+### Epic 3: Pembayaran (Xendit) — jika ada
+- [ ] T-020 Setup Xendit SDK + credentials
+- [ ] T-021 Buat payment link / invoice
+- [ ] T-022 Webhook handler + verifikasi token
+- [ ] T-023 BullMQ worker proses webhook
+- [ ] T-024 Update order status setelah payment
+- [ ] T-025 Socket.io notify client payment berhasil
+- [ ] T-026 FCM push notif payment berhasil (Flutter)
+- [ ] T-027 Halaman sukses/gagal payment
+- [ ] T-028 Riwayat transaksi
+
+### Epic 4: Realtime & Notifikasi — jika ada
+- [ ] T-030 Socket.io room management (per user)
+- [ ] T-031 Realtime order status update (web)
+- [ ] T-032 Realtime order status update (Flutter)
+- [ ] T-033 FCM setup + Firebase project
+- [ ] T-034 Push notif dari BullMQ worker
+- [ ] T-035 Email notifikasi via Resend
+
+### Epic 5: File Upload — jika ada
+- [ ] T-040 NEO S3 client setup
+- [ ] T-041 Upload API route dengan validasi
+- [ ] T-042 Resize/compress gambar via BullMQ job
+- [ ] T-043 Flutter image picker + upload
+
+### Epic 6: Admin & Monitoring
+- [ ] T-050 Admin dashboard (order, user, transaksi)
+- [ ] T-051 Uptime Kuma setup
+- [ ] T-052 Sentry error tracking
+- [ ] T-053 Bull Board UI (monitor BullMQ jobs)
+
+---
+
+## 🚫 Fitur yang Ditunda (Setelah MVP)
 
 | ID | Fitur | Asal Dokumen | Alasan Ditunda |
 |----|-------|-------------|----------------|
@@ -154,15 +234,40 @@ Fitur ini sengaja tidak dimasukkan di versi pertama — dikerjakan setelah ada p
 
 ---
 
-## Catatan Bug
+## 🐛 Bug Log
 
-| ID | Deskripsi | Ditemukan di | Tingkat Keparahan | Status |
-|----|-----------|-------------|------------------|--------|
+| ID | Deskripsi | Severity | Status | Ditemukan di |
+|----|-----------|----------|--------|-------------|
 | — | — | — | — | — |
 
 ---
 
-## Panduan Build
+## 📏 Estimasi Ukuran Task
+
+| Ukuran | Waktu | Contoh |
+|--------|-------|--------|
+| XS | < 1 jam | Fix typo, update copy, minor style |
+| S | 1–3 jam | Setup config, 1 komponen sederhana |
+| M | 3–6 jam | 1 halaman lengkap, 1 API route dengan logic |
+| L | 6–12 jam | 1 fitur end-to-end (FE + BE + DB) |
+| XL | > 12 jam | Epic besar — harus dipecah jadi task lebih kecil |
+
+---
+
+## 📝 Keputusan Sprint
+
+### Keputusan Teknis
+- [catat keputusan teknis yang dibuat sprint ini]
+
+### Pelajaran
+- [hal yang dipelajari]
+
+### Rencana Sprint Berikutnya
+- [gambaran umum sprint selanjutnya]
+
+---
+
+## 🏗️ Panduan Build
 
 ### Cara Mengerjakan Setiap Pekerjaan
 
@@ -186,8 +291,6 @@ Fitur ini sengaja tidak dimasukkan di versi pertama — dikerjakan setelah ada p
 
 ### Urutan Build yang Benar
 
-Jangan melompati urutan ini — setiap tahap bergantung pada tahap sebelumnya:
-
 ```
 Tahap 1: FONDASI (Sprint 1)
 ────────────────────────────
@@ -199,7 +302,6 @@ Tahap 1: FONDASI (Sprint 1)
 
 Tahap 2: FITUR INTI (Sprint 2 – N-1)
 ────────────────────────────────────
-Urutan per fitur:
 □ Buat tabel database dulu
 □ Buat API (server) dulu, baru UI (tampilan)
 □ Setiap fitur: uji di staging sebelum lanjut
@@ -241,5 +343,5 @@ Tahap 5: PERSIAPAN LAUNCH
 
 ---
 
-*Dokumen ini diperbarui setiap akhir sprint.*
+*Dokumen ini diperbarui setiap akhir sprint.*  
 *Ketik `/progress` untuk melihat posisi sekarang.*

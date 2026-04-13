@@ -33,7 +33,46 @@
 
 ---
 
-## 3. Fitur MVP
+## 3. User Flow Utama
+
+> Gambarkan alur pengguna dari awal hingga mencapai nilai utama aplikasi.
+> AI membaca bagian ini untuk memahami urutan halaman dan logika navigasi.
+
+### Alur Utama — [nama alur, contoh: Proses Pembayaran]
+
+```mermaid
+flowchart TD
+    A([Pengguna Buka App]) --> B{Sudah Login?}
+    B -- Belum --> C[Halaman Login]
+    C --> D[/Input Email + Password/]
+    D --> E{Login Berhasil?}
+    E -- Gagal --> C
+    E -- Berhasil --> F[Dashboard]
+    B -- Sudah --> F
+
+    F --> G[Pilih [Fitur Utama]]
+    G --> H[/Isi Form/]
+    H --> I{Validasi OK?}
+    I -- Gagal --> J[Tampilkan Error]
+    J --> H
+    I -- OK --> K[Proses / Simpan]
+    K --> L([Selesai — Tampilkan Hasil])
+```
+
+### Alur Sekunder — [nama alur lain jika ada]
+
+```mermaid
+flowchart TD
+    A([User]) --> B[Halaman [X]]
+    B --> C[Aksi [Y]]
+    C --> D([Hasil])
+```
+
+> **Catatan:** Setiap state wajib punya handling untuk: loading, empty, error.
+
+---
+
+## 4. Fitur MVP
 
 > **Prinsip:** Hanya fitur yang WAJIB untuk validasi bisnis. Sisanya masuk backlog.
 
@@ -52,7 +91,7 @@
 
 ---
 
-## 4. User Stories
+## 5. User Stories
 
 > Format: **Sebagai [siapa], saya ingin [aksi], agar [tujuan].**
 
@@ -81,7 +120,7 @@
 
 ---
 
-## 5. Non-Functional Requirements
+## 6. Non-Functional Requirements
 
 | Kategori | Requirement | Target |
 |----------|-------------|--------|
@@ -97,7 +136,7 @@
 
 ---
 
-## 6. Success Metrics
+## 7. Success Metrics
 
 | Metric | Target MVP (Bulan 1) | Cara Ukur |
 |--------|---------------------|-----------|
@@ -107,7 +146,7 @@
 
 ---
 
-## 7. Constraints & Asumsi
+## 8. Constraints & Asumsi
 
 ### Constraints
 - Tim: 2–3 orang

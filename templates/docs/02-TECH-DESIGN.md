@@ -166,7 +166,65 @@ apps/web/
 
 ---
 
-## 4. Prisma 7 — Setup & Patterns
+## 4. ERD — Entity Relationship Diagram
+
+> Gambarkan relasi antar tabel utama. Update setiap kali ada migrasi signifikan.
+> AI membaca bagian ini untuk memahami struktur data sebelum menulis query.
+
+```mermaid
+erDiagram
+    User {
+        String id PK
+        String email
+        String name
+        DateTime createdAt
+        DateTime updatedAt
+        DateTime deletedAt "nullable - soft delete"
+    }
+
+    Session {
+        String id PK
+        String userId FK
+        DateTime expiresAt
+    }
+
+    Order {
+        String id PK
+        String userId FK
+        OrderStatus status
+        Decimal total
+        DateTime createdAt
+    }
+
+    OrderItem {
+        String id PK
+        String orderId FK
+        String productId FK
+        Int quantity
+        Decimal price
+    }
+
+    Product {
+        String id PK
+        String name
+        Decimal price
+        Int stock
+    }
+
+    User ||--o{ Session : "memiliki"
+    User ||--o{ Order : "membuat"
+    Order ||--o{ OrderItem : "berisi"
+    Product ||--o{ OrderItem : "ada di"
+```
+
+> **Cara update ERD:**
+> - Setiap tambah tabel baru → tambah entity block di atas
+> - Setiap tambah foreign key → tambah baris relasi (`||--o{`, `}o--||`, dll)
+> - Notasi: `||` = exactly one, `o{` = zero or many, `}|` = one or many
+
+---
+
+## 5. Prisma 7 — Setup & Patterns
 
 ### schema.prisma
 ```prisma
@@ -216,7 +274,7 @@ npx prisma generate                            # setelah ubah schema
 
 ---
 
-## 5. Better Auth 1.5
+## 6. Better Auth 1.5
 
 ### Server Config (`lib/auth/auth.ts`)
 ```typescript
@@ -265,7 +323,7 @@ export const { GET, POST } = toNextJsHandler(auth)
 
 ---
 
-## 6. Xendit Payment (Split Payment)
+## 7. Xendit Payment (Split Payment)
 
 ### Client (`lib/payment/xendit.ts`)
 ```typescript
@@ -320,7 +378,7 @@ Buyer bayar →
 
 ---
 
-## 7. BullMQ + Redis + Socket.io
+## 8. BullMQ + Redis + Socket.io
 
 ### Queue Definitions (`lib/queue/index.ts`)
 ```typescript
@@ -366,7 +424,7 @@ worker.on('failed', (job, error) => {
 
 ---
 
-## 8. Docker Compose (Local Dev)
+## 9. Docker Compose (Local Dev)
 
 ```yaml
 version: '3.8'
@@ -396,7 +454,7 @@ volumes:
 
 ---
 
-## 9. Environment Variables
+## 10. Environment Variables
 
 ```bash
 # App
@@ -441,7 +499,7 @@ FIREBASE_CLIENT_EMAIL=
 
 ---
 
-## 10. UU PDP — Sub-Processor Eksternal
+## 11. UU PDP — Sub-Processor Eksternal
 
 | Layanan | Peran | Data Dikirim | Aksi Wajib |
 |---------|-------|-------------|------------|
@@ -458,7 +516,7 @@ FIREBASE_CLIENT_EMAIL=
 
 ---
 
-## 11. Coding Standards
+## 12. Coding Standards
 
 ### Naming Conventions
 | Hal | Konvensi | Contoh |

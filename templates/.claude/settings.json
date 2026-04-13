@@ -1,0 +1,42 @@
+{
+  "description": "Claude Code settings untuk proyek Codehava Agent Kit. Salin file ini ke root project Anda.",
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git stash)",
+      "Bash(git checkout -- *)",
+      "Bash(npm run lint)",
+      "Bash(npm run type-check)",
+      "Bash(npm run test*)",
+      "Bash(npx prisma generate)",
+      "Bash(npx prisma migrate dev*)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf*)",
+      "Bash(git branch -D*)",
+      "Bash(npx prisma migrate reset*)",
+      "Bash(DROP TABLE*)",
+      "Bash(DELETE FROM*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'cmd=\"$1\"; if echo \"$cmd\" | grep -qE \"(git push --force|git push -f |git reset --hard|rm -rf|git branch -D|prisma migrate reset)\"; then echo \"[BLOCKED] Perintah berbahaya terdeteksi. Minta konfirmasi user sebelum lanjut.\"; exit 2; fi' -- \"$CLAUDE_TOOL_INPUT_COMMAND\""
+          }
+        ]
+      }
+    ]
+  }
+}

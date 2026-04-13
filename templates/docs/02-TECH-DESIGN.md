@@ -1,7 +1,7 @@
 # 02 — Tech Design Document (TDD)
-> Dokumen teknis utama. AI merujuk file ini untuk setiap keputusan arsitektur.
-> Update setiap kali ada keputusan teknis baru — catat di `06-DEVELOPMENT-LOG.md`.
 > **Versi stack diverifikasi: Maret 2026**
+>
+> 🤖 **AI Reading Guide:** Referensi utama untuk semua keputusan teknis. Cek ERD sebelum mengubah schema database. Cek struktur folder sebelum membuat file baru. Jangan install dependency baru tanpa konfirmasi user — periksa dulu apakah sudah ada di stack yang terdaftar.
 
 ---
 

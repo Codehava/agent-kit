@@ -1,5 +1,7 @@
-# 03 — UI Guidelines & Design System
+# 04 — UI Guidelines & Design System
 > Panduan visual untuk konsistensi tampilan di Web (shadcn/ui) dan Mobile (Flutter).
+>
+> 🤖 **AI Reading Guide:** Cek dokumen ini sebelum membuat komponen UI baru. Gunakan komponen shadcn yang sudah terdaftar di sini, jangan buat komponen kustom jika sudah tersedia. Ikuti token warna dan spacing yang sudah ditentukan.
 
 ---
 

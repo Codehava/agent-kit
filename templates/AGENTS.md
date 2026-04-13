@@ -1,30 +1,22 @@
 # AGENTS.md — Instruksi AI untuk Proyek Ini
 > Letakkan file ini di **root folder project** (sejajar `package.json`).
 > Dibaca otomatis oleh Antigravity, Cursor, Claude Code, dan AI IDE lainnya.
-> **Stack diverifikasi: Maret 2026**
+> Stack diverifikasi: Maret 2026. Detail teknis → `@docs/02-TECH-DESIGN.md`.
 
 ---
 
 ## 🎯 Identitas Proyek
 
 > Anggap user adalah **non-coder** kecuali jelas sebaliknya.
-> Contoh stack, infra, dan snippet di bawah adalah **referensi**, bukan checklist wajib.
-> Jangan memaksakan mobile app, payment, realtime, Redis, BullMQ, Flutter, atau stack kompleks lain jika kebutuhan belum menuntut itu.
+> Jangan paksakan stack kompleks jika kebutuhan belum menuntut itu.
 
 - **Nama Proyek:** [nama proyek]
-- **Tipe:** [Web App / Mobile / Marketplace]
-- **Stack:** [isi setelah planning selesai. Default: pilih stack paling sederhana yang memenuhi MVP]
-- **Runtime:** [isi jika sudah dipilih]
-- **Data Fetching:** [Server-first / client-heavy / mixed]
-- **Arsitektur:** [Monolith / modular monolith / API + frontend / mobile only]
-- **Payment:** [jika perlu]
-- **Realtime:** [jika perlu]
-- **Push Notif:** [jika perlu]
-- **Storage:** [jika perlu]
-- **CDN:** [jika perlu]
+- **Tipe:** [Web App / Mobile / Marketplace / API / Kampanye / Alat Bantu]
+- **Stack:** [isi setelah planning selesai]
 - **Deploy:** [isi setelah planning selesai]
 - **IDE:** [Antigravity / Cursor / Claude Code / lainnya]
-- **Stack diverifikasi:** Maret 2026
+
+Detail stack, arsitektur, dan code patterns: `@docs/02-TECH-DESIGN.md`
 
 ---
 
@@ -32,267 +24,147 @@
 
 | Dokumen | Lokasi | Berisi |
 |---------|--------|--------|
-| Docs Index | `docs/README.md` | Urutan baca dan peta dokumen |
-| Research | `docs/00-RESEARCH.md` | Riset pasar, kompetitor, keputusan Go/No-Go |
+| Research | `docs/00-RESEARCH.md` | Riset pasar, kompetitor, Go/No-Go |
 | PRD | `docs/01-PRD.md` | Fitur, user stories (REQ-XXX), scope MVP |
-| Tech Design | `docs/02-TECH-DESIGN.md` | Stack, schema DB, API contracts, code patterns |
+| Tech Design | `docs/02-TECH-DESIGN.md` | Stack, ERD, API contracts, code patterns |
 | Sprint Plan | `docs/03-SPRINT-PLAN.md` | Sprint board, task backlog, build guide |
 | UI Guidelines | `docs/04-UI-GUIDELINES.md` | Komponen shadcn, warna, Flutter design |
 | Deployment | `docs/05-DEPLOYMENT.md` | Coolify, Dockerfile, CI/CD, backup |
-| Dev Log | `docs/06-DEV-LOG.md` | Kenapa setiap keputusan teknis dibuat — append-only |
-| Feature Specs | `specs/NNN-nama-fitur.md` | Blueprint fitur sebelum coding |
-
-**Antigravity agent config:**
-
-| File | Fungsi |
-|------|--------|
-| `.antigravity/rules.md` | Rules selalu aktif tiap sesi |
-| `.agent/skills/` | Kumpulan skill spesialis — auto-discover saat relevan |
-| `.agent/workflows/` | Workflow siap pakai — panggil via `/nama` |
-| `.agent/mcp_config.json` | Config MCP server untuk docs, testing, dan tools lain |
+| Dev Log | `docs/06-DEV-LOG.md` | Keputusan teknis — append-only |
+| Feature Specs | `specs/NNN-nama-fitur.md` | Blueprint fitur + BDD scenarios |
 
 ---
 
-## 🧭 Mode Non-Coder
+## 🚦 Batas Tindakan — WAJIB DIPATUHI
 
-Aturan ini wajib jika user bukan programmer:
-
-1. Selalu jelaskan keputusan dalam bahasa sederhana.
-2. Jangan pakai istilah teknis tanpa menjelaskan artinya singkat.
-3. Tawarkan opsi paling sederhana lebih dulu.
-4. Jangan mengaktifkan fitur kompleks jika belum diminta atau belum dibutuhkan PRD.
-5. Setelah setiap tahap, rangkum:
-   - apa yang diputuskan
-   - apa yang belum jelas
-   - apa risikonya jika tetap lanjut
-6. Jika template berisi bagian yang tidak relevan, hapus atau abaikan.
+| ✅ BOLEH langsung | ⚠️ TANYA dulu | 🚫 TIDAK PERNAH |
+|---|---|---|
+| Baca file apapun | Hapus atau rename file | Push ke `main` langsung |
+| Buat file baru sesuai spec | Refactor kode yang ada | `git push --force` |
+| Update status di sprint plan | Ubah schema database | `git reset --hard` |
+| Fix bug dalam scope task | Install dependency baru | `rm -rf` apapun |
+| Jalankan `lint` / `type-check` | Ubah env vars | Hard delete data user |
+| Commit dengan format yang benar | Buat lebih dari 3 file sekaligus | Hardcode secrets di kode |
 
 ---
 
-## ⚙️ 10 Aturan Coding — WAJIB
+## 🧭 Mode Non-Coder (WAJIB jika user bukan programmer)
 
-### 1. Tanya dulu, coding belakangan
-Jika ada ambiguitas → tanya sebelum generate kode panjang.
-Untuk fitur size M atau L: cek `specs/` dulu — jika ada spec, ikuti acceptance criteria di sana.
-
-### 2. Satu fokus per sesi
-Jika diminta buat form login → **hanya buat form login**. Jangan ubah layout atau routing.
-
-### 3. Jangan hapus kode tanpa konfirmasi
-Tampilkan dulu apa yang akan dihapus → minta konfirmasi sebelum lanjut.
-
-### 4. TypeScript strict — no `any`, import Prisma dari generated path
-```typescript
-// ❌ Prisma 7: ini sudah tidak valid
-import { User } from '@prisma/client'
-
-// ✅ Prisma 7: pakai generated path
-import { User } from '@/generated/prisma'
-```
-
-### 5. Error handling wajib di setiap async function
-```typescript
-try {
-  const data = await prisma.user.findMany({ take: 20 })
-} catch (error) {
-  console.error('[user:findMany]', error)
-  throw error
-}
-```
-
-### 6. Loading + Empty + Error state wajib
-Setiap komponen yang fetch data HARUS punya ketiga state ini.
-
-### 7. Cek komponen yang sudah ada dulu
-Sebelum buat komponen baru → cek `/components/ui/` dan `/components/[feature]/`.
-
-### 8. Mobile-first untuk semua UI Web
-```tsx
-<div className="flex flex-col md:flex-row gap-4">
-```
-
-### 9. Env vars tidak pernah di-hardcode
-```typescript
-// ❌ const url = "https://xendit.co"
-// ✅ const url = process.env.XENDIT_BASE_URL
-```
-
-### 10. Next.js 16 — `params` DAN `headers()` wajib di-await
-```typescript
-// ❌ Next.js 14 style — error di Next.js 16
-export default function Page({ params }: { params: { id: string } }) {
-  const { id } = params
-}
-const session = await auth.api.getSession({ headers: headers() })
-
-// ✅ Next.js 16 — params dan headers() sekarang async
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-}
-const session = await auth.api.getSession({ headers: await headers() })
-```
-
-### Format commit
-```
-feat(auth): tambah login Google OAuth
-fix(payment): perbaiki webhook Xendit tidak terproses
-chore(deps): update Next.js ke 16.1
-```
+1. Tampilkan rencana sebelum ubah file — format:
+   ```
+   📋 Yang akan dikerjakan: [nama task]
+   • Buat: [file] — [alasan awam]
+   • Ubah: [file] — [apa yang berubah]
+   • Tidak disentuh: [file aman]
+   Ketik "Lanjut" untuk mulai atau "Stop" untuk batalkan.
+   ```
+2. Laporan dalam **bahasa Indonesia awam** — tidak ada jargon teknis tanpa penjelasan.
+3. Jangan dump error ke user — fix sendiri, laporkan hasilnya saja.
+4. Setelah tiap task: ✅ Apa yang sudah jadi | 🔗 Di mana bisa dicoba | ⏭️ Task berikutnya.
+5. Jika ada hal di luar scope: catat, jangan kerjakan, tanyakan user dulu.
 
 ---
 
-## 🗄️ Database (Prisma 7 + PostgreSQL 17)
+## 🎯 Protokol Kepercayaan (Confidence Protocol)
 
-### Setup Client Singleton (`lib/db/index.ts`)
-```typescript
-import { PrismaClient } from '@/generated/prisma'
-import { PrismaPg } from '@prisma/adapter-pg'
+Komunikasikan ketidakpastian secara eksplisit:
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! })
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
-
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter })
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
-```
-
-### Schema Generator (`prisma/schema.prisma`)
-```prisma
-generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
-}
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-```
-
-### Aturan Query
-- Selalu `take` + `skip` pada `findMany` — tidak ada query tanpa limit
-- Soft delete: `deletedAt DateTime?` — jangan hard delete data penting
-- Semua tabel: `createdAt @default(now())` + `updatedAt @updatedAt`
-- Multi-tabel: `prisma.$transaction(async (tx) => { ... })`
-- Migration dev: `npx prisma migrate dev` | Production: `npx prisma migrate deploy`
+- **Jika tidak yakin:** "Saya tidak 100% yakin soal ini — sebaiknya kita cek dulu di docs/coba sandbox sebelum lanjut."
+- **Jika ada risiko breaking change:** Tampilkan daftar file yang akan berubah sebelum eksekusi.
+- **Jika diminta sesuatu di luar specs:** "Ini sepertinya di luar scope yang disepakati. Apa kamu yakin ingin menambahkan ini sekarang?"
+- **Jika menemukan ambiguitas:** Tanya satu pertanyaan spesifik — jangan asumsikan sendiri.
 
 ---
 
-## 💳 Xendit Payment
+## ⚙️ Aturan Coding — 8 Aturan Inti
 
-```typescript
-// Webhook — WAJIB await headers()
-export async function POST(req: Request) {
-  const callbackToken = (await headers()).get('x-callback-token')
-  if (callbackToken !== process.env.XENDIT_CALLBACK_TOKEN) {
-    return Response.json({ error: 'Unauthorized' }, { status: 403 })
-  }
-  const payload = await req.json()
-  await paymentQueue.add('process-webhook', payload, { attempts: 3 })
-  return Response.json({ received: true })
-}
-```
+1. **Tanya dulu, coding belakangan** — untuk fitur M/L: cek `specs/` dulu.
+2. **Satu fokus per sesi** — hanya ubah file dalam scope task aktif.
+3. **Konfirmasi sebelum hapus** — tampilkan daftar yang akan dihapus, minta persetujuan.
+4. **TypeScript strict** — no `any`. Import Prisma dari `@/generated/prisma`.
+5. **Error handling wajib** — setiap async function punya `try/catch` + log `[module:method]`.
+6. **Tiga state wajib** — setiap komponen yang fetch data harus punya: loading, empty, error.
+7. **Cek komponen yang ada dulu** — sebelum buat baru, cek `/components/ui/`.
+8. **Mobile-first** — semua UI web mulai dari mobile, kembangkan ke desktop.
 
-**Aturan:** Selalu verifikasi `x-callback-token`. Enqueue ke BullMQ — jangan proses langsung.
+Detail patterns (Next.js 16, Prisma 7, BullMQ, dll.): `@docs/02-TECH-DESIGN.md`
 
 ---
 
-## 🔌 Socket.io + BullMQ
+## 🔒 Keamanan & UU PDP
 
-```typescript
-// Worker emit ke client setelah job selesai
-worker.on('completed', (job, result) => {
-  io.to(`user_${result.userId}`).emit('payment:updated', result)
-})
-
-// Redis client
-export const redis = new Redis(process.env.REDIS_URL!, {
-  maxRetriesPerRequest: null,  // required untuk BullMQ
-})
-```
+- Secrets hanya di env vars — tidak pernah di kode.
+- Log tidak boleh print: password, token, NIK, nomor rekening.
+- Semua input divalidasi Zod sebelum masuk DB.
+- Firebase: aktifkan **hanya** `firebase_messaging`.
+- Data sensitif (NIK, rekening): enkripsi dengan pgcrypto.
+- User berhak hapus akun + download data pribadi — wajib ada di PRD.
 
 ---
 
-## 🔒 Security + UU PDP
+## 🔍 Debugging — 3L5W Framework
 
-```typescript
-// API Route — WAJIB await headers()
-const session = await auth.api.getSession({ headers: await headers() })
-if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
-```
+Jika menemukan error: jangan asal fix satu file. Panggil `@systematic-debugging`:
 
-- ✅ Semua input divalidasi Zod sebelum masuk DB
-- ✅ Firebase: hanya `firebase_messaging` — Analytics/Crashlytics = OFF
-- ✅ Cloudflare DPA + Firebase DPT wajib di-accept (sekali oleh admin)
-- ✅ Log tidak print password, token, NIK, nomor rekening
-- ✅ Data sensitif (NIK, rekening) dienkripsi dengan pgcrypto di DB
+1. **5 Whys** — tanya "Kenapa?" 5x → temukan root cause struktural.
+2. **Search & Destroy** — grep seluruh codebase, fix semua instance yang sama.
+3. **Mitigasi + Log** — tambah Zod/null checks + catat RCA di `docs/troubleshooting.md`.
+
+Setelah fix → verifikasi 4-level: **EXISTS → SUBSTANTIVE → WIRED → DATA FLOWS**
+
+---
+
+## ⚡ Workflows
+
+| Command | Gunakan ketika |
+|---------|----------------|
+| `/vibe-plan` | Mulai project baru — research → PRD → tech design → sprint plan |
+| `/launch` | Planning disetujui — init state project |
+| `/apply` | Mulai mengerjakan task dari plan |
+| `/unify` | Tutup sesi — wajib setelah `/apply` |
+| `/progress` | Bingung harus lanjut apa |
+| `/new-feature` | Tambah fitur baru size M/L |
+| `/vibe-recap` | Chat kepanjangan → kompres → lanjut di chat baru |
+| `/debug` | Ada bug atau error |
+| `/deploy` | Push ke production |
+
+---
+
+## 🧠 Skills — Auto-Discovery
+
+Project ini punya **600+ skills** di `.agent/skills/`. User tidak perlu hafal nama skill.
+
+**Algoritma auto-discovery:**
+1. Extract keywords dari request → search di `.agent/skills/`.
+2. Baca `SKILL.md` yang match **sebelum** menulis satu baris kode.
+3. Announce: `🤖 Mengaktifkan skill @[nama-skill]...`
+
+Skills utama yang sering relevan:
+
+| Skill | Trigger |
+|-------|---------|
+| `vibe-research` | Riset pasar, validasi ide |
+| `vibe-prd` | Buat PRD, scope MVP |
+| `vibe-techdesign` | Pilih stack, desain arsitektur |
+| `vibe-buildplan` | Sprint plan, breakdown task |
+| `prisma-7-patterns` | Schema DB, migration, query |
+| `nextjs-api-route` | API routes, Server Actions |
+| `better-auth-patterns` | Login, session, OAuth |
+| `bullmq-worker` | Background jobs, queue |
+| `feature-spec-writer` | Blueprint fitur baru |
+| `uu-pdp-feature-check` | Fitur yang menyentuh data pribadi |
 
 ---
 
 ## 📝 Format Prompt Efektif
 
 ```
-[KONTEKS] Fitur: [nama fitur]
+[KONTEKS] Fitur: [nama]
 [SPEC] Baca specs/NNN-nama.md jika ada
 [TUGAS] Yang perlu dibuat: [deskripsi spesifik]
-[CONSTRAINT] Jangan ubah: [file/komponen yang tidak boleh diubah]
+[CONSTRAINT] Jangan ubah: [file/komponen]
 use context7
 ```
 
-## ⚡ Workflows
-
-### 5 Command Inti
-| Command | Gunakan ketika |
-|---------|----------------|
-| `/vibe-plan` | **Mulai project baru** — research → PRD → tech design → build plan |
-| `/launch` | Setelah planning disetujui — init state agar build lebih terarah |
-| `/apply` | Mulai mengerjakan task dari plan |
-| `/unify` | Tutup sesi build dan rapikan hasil |
-| `/progress` | Saat bingung harus lanjut apa |
-
-### Workflow Lanjutan
-| Command | Gunakan ketika |
-|---------|----------------|
-| `/new-feature` | Mulai fitur baru size M/L |
-| `/db-migrate` | Ada perubahan schema Prisma |
-| `/deploy` | Push ke production |
-| `/health-check` | Ada masalah atau monitoring rutin |
-| `/git-commit` | Commit dengan format benar |
-| `/dev-reset` | Environment dev bermasalah |
-
-## 🔌 Vibe MCP Servers (Opsional Sesuai Kebutuhan)
-
-- **Brave Search** — Web scraping & live docs untuk menghindari halusinasi
-- **Sequential Thinking** — Pengereman AI untuk logika memecahkan masalah rumit
-- **Context7** — docs real-time Next.js 16, Prisma 7, Better Auth, BullMQ → `use context7`
-- **GitHub** — issues, PR, commits dari IDE
-- **Figma** — Membaca design file langsung dari URL untuk UI/UX
-- **Google Stitch** — Ekstrak *Design DNA* (warna, layout) dari proyek
-- **PostgreSQL** — schema dan query DB development (jangan production!)
-- **Playwright** — E2E testing browser otomatis
-- **Sentry** — production errors langsung ke context
-- **Docker** — container logs dan status
-
-Config lengkap di `.agent/mcp_config.json`
-
----
-
-## 🧠 Skills — Daftar Lengkap
-
-### Planning Skills (jalankan sebelum coding project baru)
-| Skill | Trigger |
-|-------|---------|
-| `vibe-research` | "riset dulu", "validasi ide", "analisa kompetitor" |
-| `vibe-prd` | "buat PRD", "definisikan fitur", "scope MVP" |
-| `vibe-techdesign` | "pilih stack", "desain arsitektur", "buat ERD" |
-| `vibe-buildplan` | "buat sprint plan", "breakdown task", "berapa sprint" |
-
-### Build Skills (dipakai saat coding)
-| Skill | Trigger |
-|-------|---------|
-| `prisma-7-patterns` | Coding DB, schema, migrate |
-| `xendit-integration` | Payment, webhook, split |
-| `nextjs-api-route` | Buat `route.ts`, Server Action |
-| `better-auth-patterns` | Auth, login, session |
-| `bullmq-worker` | Background job, queue |
-| `uu-pdp-feature-check` | Fitur yang sentuh data pribadi |
-| `feature-spec-writer` | Plan fitur baru, size M/L |
-| `neo-storage` | Upload file, presigned URL |
+**Session Start Protocol:**
+Baca di awal setiap sesi: `.agent/STATE.md` → `.agent/MEMORY.md` → `docs/03-SPRINT-PLAN.md`

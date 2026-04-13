@@ -2,6 +2,8 @@
 > Aplikasi: [Nama Aplikasi] | Dibuat: [tanggal]
 > Berdasarkan: brief dari user + sumber publik
 > Status: [Draft / Selesai / Disetujui]
+>
+> 🤖 **AI Reading Guide:** Baca dokumen ini untuk memahami konteks pasar dan validasi bisnis sebelum membuat rekomendasi fitur. Gunakan temuan di sini untuk mempertanyakan apakah sebuah fitur memang dibutuhkan pasar.
 
 ---
 

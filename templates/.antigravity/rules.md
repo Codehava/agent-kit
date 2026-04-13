@@ -1,155 +1,128 @@
 # Rules — Project [Nama Proyek]
 # File ini selalu dimuat Antigravity setiap sesi.
 # Letakkan di: .antigravity/rules.md (root project)
+# Aturan kolaborasi lengkap → AGENTS.md
 
-## Stack & import paths
+---
+
+## Stack & Import Paths
 
 - Runtime: Node.js 22 LTS, TypeScript strict mode — no `any`
 - Prisma 7: import dari `@/generated/prisma`, BUKAN dari `@prisma/client`
-  (Prisma 7 generate ke `@/generated/prisma` karena custom output path di schema.prisma)
 - Next.js 16: `params`, `searchParams`, dan `headers()` selalu di-`await`
 - BullMQ: gunakan konstanta dari `QUEUES` object, jangan string literal
 
-## Next.js 16 — patterns wajib
-
 ```typescript
-// params — async
+// Next.js 16 — params async
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
 }
-// headers() — async
+// headers() async
 const session = await auth.api.getSession({ headers: await headers() })
-// webhook
-const token = (await headers()).get('x-callback-token')
 ```
 
-## Coding standards
+Detail lengkap stack & code patterns: `@docs/02-TECH-DESIGN.md`
 
-- Setiap async function wajib try/catch dengan log `[module:method]` di catch
+---
+
+## Batas Tindakan
+
+| ✅ BOLEH langsung | ⚠️ TANYA dulu | 🚫 TIDAK PERNAH |
+|---|---|---|
+| Baca file apapun | Hapus atau rename file | Push ke `main` langsung |
+| Buat file baru sesuai spec | Refactor kode yang ada | `git push --force` |
+| Update status di sprint plan | Ubah schema database | `git reset --hard` |
+| Fix bug dalam scope task | Install dependency baru | `rm -rf` apapun |
+| Jalankan `lint` / `type-check` | Ubah env vars | Hardcode secrets di kode |
+| Commit dengan format yang benar | Buat lebih dari 3 file sekaligus | Hard delete data user |
+
+---
+
+## Coding Standards
+
+- Setiap async function wajib try/catch dengan log `[module:method]`
 - Setiap komponen yang fetch data wajib punya loading, empty, dan error state
-- Semua input user wajib divalidasi dengan Zod sebelum masuk ke database
+- Semua input user wajib divalidasi Zod sebelum masuk ke database
 - File upload: hanya jpg/png/webp, maksimal 5MB
 - `findMany` wajib ada `take` + `skip` — jangan query tanpa limit
 - Soft delete: gunakan `deletedAt DateTime?` — jangan hard delete data penting
+- Cek komponen di `/components/ui/` sebelum buat komponen baru
 
-## Keamanan & privasi (UU PDP No. 27/2022)
+---
 
-UU PDP adalah Undang-Undang Perlindungan Data Pribadi Indonesia — wajib dipatuhi:
+## Keamanan & UU PDP No. 27/2022
+
 - Secrets dan API keys hanya di env vars — TIDAK PERNAH di kode
-- Log tidak boleh print password, token, NIK (Nomor Induk Kependudukan), nomor rekening
-- Data sensitif (NIK, rekening bank) disimpan terenkripsi dengan pgcrypto
-- User harus bisa hapus akun dan download data pribadi mereka (REQ wajib di PRD)
-- Firebase: hanya gunakan `firebase_messaging` — JANGAN aktifkan Analytics/Crashlytics
+- Log tidak boleh print: password, token, NIK, nomor rekening
+- Data sensitif (NIK, rekening): enkripsi dengan pgcrypto
+- Firebase: hanya aktifkan `firebase_messaging`
+- User harus bisa hapus akun dan download data pribadi (wajib di PRD)
 
-## Sebelum coding (Human-in-the-Loop — NON-PROGRAMMER FIRST)
+---
 
-**WAJIB: Tampilkan Rencana Eksekusi sebelum setiap task besar.**
-Format WAJIB sebelum membuat atau mengubah file:
+## Non-Programmer Mode (WAJIB)
+
+Tampilkan rencana sebelum setiap task besar:
 
 ```
-📋 Rencana Task [T-XXX]: [nama task]
-
-File yang akan DIBUAT:
-  • [path/ke/file.ts] — [penjelasan singkat dalam bahasa Indonesia awam]
-
-File yang akan DIUBAH:
-  • [path/ke/file.ts] — [apa yang berubah, kenapa]
-
-File yang TIDAK akan disentuh:
-  • [daftar file penting yang aman]
-
-Ketik "Lanjut" untuk mulai, atau "Stop" untuk batalkan.
+📋 Yang akan dikerjakan: [nama task]
+• Buat: [file] — [alasan awam]
+• Ubah: [file] — [apa yang berubah]
+• Tidak disentuh: [file aman]
+Ketik "Lanjut" untuk mulai atau "Stop" untuk batalkan.
 ```
 
-Aturan tambahan:
-- Cek komponen di `/components/ui/` sebelum buat baru
-- Untuk fitur size M atau L: cek apakah ada spec di `specs/` dulu
-- Satu fokus per sesi — jangan ubah hal di luar scope yang diminta
-- Konfirmasi sebelum hapus atau refactor kode yang sudah ada
-- DILARANG membuat lebih dari 3 file sekaligus tanpa konfirmasi ulang
+- Laporan dalam bahasa Indonesia awam — tanpa jargon teknis
+- Jangan dump error ke user — fix sendiri, laporkan hasilnya
+- Setelah task: ✅ Apa yang sudah jadi | 🔗 Di mana bisa dicoba | ⏭️ Task berikutnya
 
-## Git & commit
+---
+
+## Git & Commit
 
 - Format: `type(scope): deskripsi` — contoh: `feat(auth): tambah Google OAuth`
 - Types: feat, fix, chore, docs, refactor, test
 - Jangan push langsung ke `main` — selalu via Pull Request
 
-## PAUL Loop — Execution Protocol (V3.0)
+---
 
-Gantikan Checkbox Workflow lama dengan PAUL loop:
+## PAUL Loop — Session Protocol
 
-```
-/apply  → Execute/Qualify per task (ada 4-level artifact check)
-/unify  → Mandatory setelah /apply — buat SUMMARY.md planned vs actual
-```
+**Session Start:** Baca → `.agent/STATE.md` → `.agent/MEMORY.md` → `docs/03-SPRINT-PLAN.md`
 
-**Task Tracking:** Pecah task ke `docs/task_on_hand.md` dengan format:
+**Task tracking:** `docs/task_on_hand.md` — satu task per satu, format:
 ```
 [ ] T001 — nama task
-[ ] T002 — nama task
+[x] T002 — nama task (selesai)
 ```
-Eksekusi SATU PER SATU secara berurutan. Update ke `[x]` setelah selesai.
 
-**Escalation Status (gantikan binary ✓/✗):**
+**Escalation status:**
 - ✅ DONE — selesai, terverifikasi
 - ⚠️ DONE_WITH_CONCERNS — selesai, ada catatan
 - 🔍 NEEDS_CONTEXT — butuh input user
 - 🚫 BLOCKED — butuh keputusan user
 
-**Session Start Protocol:**
-Di awal setiap sesi, baca:
-1. `.agent/STATE.md` — current loop position
-2. `.agent/MEMORY.md` — tech decisions & constraints
-3. `docs/task_on_hand.md` — task yang sedang berjalan
-4. `docs/recap.md` atau `docs/phases/[N]-SUMMARY.md` — context session terakhir
+**Session end:** Jalankan `/unify` → buat summary planned vs actual.
 
-**Session End (HANDOFF):**
-Jika sesi harus ditutup sebelum /unify selesai, buat HANDOFF file:
-- Path: `docs/handoffs/HANDOFF-[YYYY-MM-DD].md`
-- Gunakan template dari `.agent/.shared/HANDOFF-template.md`
+---
 
-## Troubleshooting — 3L5W Framework (3 Legs, 5 Whys)
+## Troubleshooting — 3L5W
 
-Jika menemukan ERROR, JANGAN asal fix 1 file lalu lapor selesai.
-Panggil `@systematic-debugging` dan terapkan:
+Jika error: panggil `@systematic-debugging`, jangan asal fix 1 file.
 
-1. **Leg 1 — 5 Whys:** Tanya "Kenapa?" 5x untuk temukan root cause struktural
-2. **Leg 2 — Search & Destroy:** Grep seluruh codebase untuk pattern yang sama
-3. **Leg 3 — Global Mitigation + Log:** Fix semua temuan + tambah proteksi (Zod, null checks) + catat RCA di `docs/troubleshooting.md`
+1. **5 Whys** — temukan root cause struktural
+2. **Search & Destroy** — grep seluruh codebase untuk pattern sama
+3. **Mitigasi + Log** — fix semua + tambah Zod/null checks + catat di `docs/troubleshooting.md`
 
-Setelah fix → verifikasi 4-level: EXISTS → SUBSTANTIVE → WIRED → DATA FLOWS
+Verifikasi setelah fix: **EXISTS → SUBSTANTIVE → WIRED → DATA FLOWS**
 
-## Template Code
+---
 
-Saat membuat komponen/file baru, periksa referensi di `templates/.agent/snippets/`.
+## Skill Auto-Discovery
 
-## Context7
+Skills ada di `.agent/skills/`. Setiap terima perintah:
+1. Extract keywords → search `.agent/skills/`
+2. Baca `SKILL.md` yang match **sebelum** menulis kode
+3. Announce: `🤖 Mengaktifkan skill @[nama-skill]...`
 
-Saat coding Prisma 7, Next.js 16, Better Auth, BullMQ, Socket.io:
-tambahkan `use context7` di prompt untuk mendapat docs terbaru.
-
-## 🧠 Skill Auto-Discovery & The Non-Programmer Shield (WAJIB DIBACA AI)
-
-Project ini dibekali **600+ Elite Skills** di `.agent/skills/`. User TIDAK PERLU menghafal
-skill names. User adalah **Kreator Non-Programmer** yang melakukan *Vibe Coding*.
-
-### 1. Auto-Discovery Engine (Concrete Algorithm)
-
-Setiap kali mendapat perintah:
-1. Extract keywords dari request (misal: "bikin login Google" → `auth`, `oauth`, `google`)
-2. Search direktori `.agent/skills/` dengan keywords tersebut
-   - Exact match dulu: `skills/google-oauth/`, `skills/clerk-auth/`
-   - Lalu partial: `skills/auth-*`, `skills/*-auth`
-3. Baca `SKILL.md` di direktori yang match — SEBELUM menulis satu baris kode
-4. Announce: `🤖 Auto-Discovery: Mengaktifkan skill @[nama-skill]...`
-
-JANGAN mencari `SKILLS_INDEX.md` — file itu adalah routing mechanism, bukan list statis.
-
-### 2. The Non-Programmer Shield
-
-- **NO DUMPING ERRORS:** DILARANG paste stack trace ke user dan tanya "Bagaimana cara fix?"
-- **SILENT SELF-HEALING:** Panggil `@systematic-debugging`, fix sendiri, baru lapor hasilnya
-- **VIBE FIRST:** Berikan user localhost preview atau hasil yang memukau — bukan config errors
-- **BAHASA INDONESIA AWAM:** Semua laporan ke user harus dalam bahasa Indonesia sederhana — tidak ada jargon teknis kecuali diminta
-- **RINGKAS:** Jawab singkat dan jelas. Jika perlu detail teknis, taruh di bagian "Untuk yang ingin tahu lebih" dan bisa di-skip
-- **PROGRESS REPORT:** Setelah selesai setiap task, laporkan: ✅ Apa yang sudah jadi, 🔗 Di mana bisa dicoba/dilihat, ⏭️ Task berikutnya apa
+Untuk Prisma 7, Next.js 16, Better Auth, BullMQ: tambahkan `use context7` di prompt.

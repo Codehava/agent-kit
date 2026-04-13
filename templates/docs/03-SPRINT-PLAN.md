@@ -2,6 +2,8 @@
 > Aplikasi: [Nama Aplikasi] | Dibuat: [tanggal]
 > Berdasarkan: `docs/01-PRD.md` + `docs/02-TECH-DESIGN.md`
 > Dokumen ini diperbarui setiap sprint — catat progress di sini.
+>
+> 🤖 **AI Reading Guide:** Baca bagian "Sprint Aktif" untuk mengetahui task yang sedang dikerjakan. Jangan kerjakan task di luar kolom "In Progress" tanpa konfirmasi. Update status task setiap selesai mengerjakan satu item.
 
 ---
 

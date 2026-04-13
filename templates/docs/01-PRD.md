@@ -1,6 +1,7 @@
 # 01 — Product Requirements Document (PRD)
 > Isi dokumen ini sebelum mulai coding sprint pertama.
-> AI membaca ini sebagai konteks utama untuk memahami produk yang dibangun.
+>
+> 🤖 **AI Reading Guide:** Ini adalah sumber kebenaran utama produk. Baca bagian Fitur MVP dan User Stories sebelum mengerjakan task apapun. Jika ada permintaan fitur baru, cek dulu apakah sudah ada di In Scope — jika tidak, tanyakan user sebelum menambahkan.
 
 ---
 

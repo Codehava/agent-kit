@@ -1,7 +1,7 @@
 # 06 — Development Log
 > File ini **append-only** — JANGAN edit entry lama, hanya tambah di bawah.
-> Catat setiap keputusan teknis, perubahan arsitektur, dan lesson learned.
-> AI membaca ini untuk memahami kenapa sebuah keputusan dibuat.
+>
+> 🤖 **AI Reading Guide:** Baca bagian terbaru untuk memahami keputusan teknis yang sudah dibuat. Jangan ulangi pendekatan yang sudah dicoba dan gagal. Setelah setiap keputusan penting, tambah entry baru di bagian bawah dengan format yang sudah ada.
 
 ---
 

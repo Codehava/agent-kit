@@ -25,6 +25,7 @@ MCP (Model Context Protocol) adalah **"plugin"** untuk AI. Analoginya:
 | 🟡 **Berguna** | Playwright | AI bisa test UI di browser otomatis | Tidak |
 | 🟡 **Berguna** | Sentry | AI lihat error production langsung | Ya — ada free tier |
 | 🟡 **Berguna** | Docker | AI bisa manage container langsung | Tidak |
+| 🟡 **Berguna** | Zapier | AI jalankan 8.000+ aplikasi (email, Sheets, Notion, dll.) | Ya — ada free tier |
 | 🟢 **Opsional** | Figma | AI baca desain Figma → jadi kode | Ya |
 | 🟢 **Opsional** | Firecrawl | AI scrape website untuk riset | Ya — ada free tier |
 | 🟢 **Opsional** | Google Stitch | AI baca design system dari Stitch | Ya |
@@ -131,6 +132,46 @@ Di `mcp_config.json`, isi:
 "SENTRY_ORG": "nama-organisasi-kamu-di-sentry",
 "SENTRY_PROJECT": "nama-project-kamu-di-sentry"
 ```
+
+---
+
+#### 🔑 Zapier MCP — Hubungkan AI ke 8.000+ Aplikasi (Berguna)
+**Ada free tier — aksi terbatas di paket gratis**
+
+Zapier MCP memungkinkan AI kamu menjalankan otomasi di ribuan aplikasi — seperti mengirim email, update Google Sheets, buat task di Notion, posting ke Slack, dan banyak lagi — **tanpa menulis kode integrasi sama sekali**.
+
+Cocok untuk:
+- Kirim notifikasi otomatis saat ada order baru
+- Isi spreadsheet bisnis dari data aplikasi
+- Buat task di Trello/Notion/Asana dari AI
+- Posting ke media sosial otomatis
+- Kirim email/WhatsApp terpicu oleh event aplikasi
+
+Cara setup:
+1. Buka: [https://zapier.com/mcp](https://zapier.com/mcp)
+2. Login atau daftar akun Zapier
+3. Klik **"Get started"** → pilih aksi yang ingin diaktifkan
+4. Zapier akan generate **MCP URL** unik milikmu
+5. Copy URL tersebut
+
+Di `mcp_config.json`, tambahkan:
+```json
+"zapier": {
+  "command": "npx",
+  "args": ["-y", "@zapier/mcp-server@latest"],
+  "env": {
+    "ZAPIER_MCP_URL": "https://actions.zapier.com/mcp/[API-KEY-KAMU]/sse"
+  }
+}
+```
+Ganti `[API-KEY-KAMU]` dengan URL yang didapat dari dashboard Zapier.
+
+**Contoh prompt setelah aktif:**
+> *"Kirim email ke tim saya bahwa fitur login sudah selesai"*
+> *"Tambahkan task 'Review PRD' ke board Trello Development"*
+> *"Update Google Sheets laporan progress dengan status sprint ini"*
+
+> ⚠️ Zapier gratis punya batas 100 aksi/bulan. Untuk kebutuhan lebih, upgrade ke plan Starter.
 
 ---
 

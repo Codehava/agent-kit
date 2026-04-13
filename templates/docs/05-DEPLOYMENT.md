@@ -1,5 +1,7 @@
 # 05 — Deployment Guide
 > Panduan lengkap setup VPS Biznet Gio + Coolify + CI/CD.
+>
+> 🤖 **AI Reading Guide:** Baca dokumen ini sebelum menjalankan perintah deployment apapun. Ikuti urutan langkah secara berurutan. Jangan skip langkah keamanan. Semua perubahan environment variables harus dikonfirmasi dulu dengan user.
 
 ---
 

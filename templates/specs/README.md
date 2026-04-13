@@ -121,11 +121,53 @@ Figma: [URL jika ada — dibaca via Figma MCP]
 
 ---
 
-## Acceptance Criteria
+## Acceptance Criteria (BDD — Given/When/Then)
 
-- [ ] [kriteria 1 — testable, konkret, bisa dicek manual]
-- [ ] [kriteria 2]
-- [ ] [kriteria 3 — contoh: "Saat form dikirim dengan email kosong, tampil pesan 'Email wajib diisi'"]
+> Format: **Given** (kondisi awal) → **When** (aksi user) → **Then** (hasil yang diharapkan).
+> Setiap scenario di sini langsung bisa dikonversi ke Playwright E2E test oleh AI.
+
+### Scenario 1: [nama skenario — contoh: Login berhasil]
+```
+Given  user sudah punya akun dengan email "user@mail.com"
+  And  user berada di halaman login
+When   user mengisi email dan password yang benar, lalu klik "Masuk"
+Then   user diarahkan ke halaman dashboard
+  And  session tersimpan — user tidak perlu login ulang dalam 7 hari
+```
+
+### Scenario 2: [nama skenario — contoh: Login gagal karena password salah]
+```
+Given  user sudah punya akun
+  And  user berada di halaman login
+When   user mengisi password yang salah, lalu klik "Masuk"
+Then   muncul pesan error: "Email atau password salah"
+  And  user tetap di halaman login
+  And  password field dikosongkan
+```
+
+### Scenario 3: [nama skenario — contoh: Validasi form]
+```
+Given  user berada di halaman [X]
+When   user klik [tombol submit] tanpa mengisi [field wajib]
+Then   muncul pesan error di bawah field: "[nama field] wajib diisi"
+  And  form tidak terkirim
+```
+
+### Scenario 4: [nama skenario — contoh: Empty state]
+```
+Given  user belum punya data apapun
+When   user membuka halaman [X]
+Then   tampil ilustrasi dan teks "Belum ada [item]"
+  And  ada tombol "[Tambah Item]"
+```
+
+> **Checklist ringkas (untuk QA manual):**
+> - [ ] Scenario 1 lulus
+> - [ ] Scenario 2 lulus
+> - [ ] Scenario 3 lulus
+> - [ ] Scenario 4 lulus
+> - [ ] Loading state tampil saat data sedang diambil
+> - [ ] Error state tampil jika API gagal + ada tombol "Coba Lagi"
 
 ---
 
@@ -214,6 +256,48 @@ Jangan ubah file selain yang ada di "File yang Akan Diubah".
 **Update status:**
 - Saat mulai: `Status: In Progress`
 - Saat selesai: `Status: Done` + centang semua Acceptance Criteria
+
+**Generate E2E test dari BDD scenario:**
+```
+Baca specs/001-checkout.md bagian Acceptance Criteria,
+lalu buat Playwright test untuk setiap scenario Given/When/Then.
+Simpan di: tests/e2e/[nama-fitur].spec.ts
+```
+
+**Contoh output Playwright dari BDD:**
+```typescript
+// tests/e2e/login.spec.ts
+import { test, expect } from '@playwright/test'
+
+// Scenario 1: Login berhasil
+test('login berhasil dengan kredensial valid', async ({ page }) => {
+  // Given
+  await page.goto('/login')
+
+  // When
+  await page.fill('[name="email"]', 'user@mail.com')
+  await page.fill('[name="password"]', 'password123')
+  await page.click('button[type="submit"]')
+
+  // Then
+  await expect(page).toHaveURL('/dashboard')
+})
+
+// Scenario 2: Login gagal password salah
+test('tampil error saat password salah', async ({ page }) => {
+  // Given
+  await page.goto('/login')
+
+  // When
+  await page.fill('[name="email"]', 'user@mail.com')
+  await page.fill('[name="password"]', 'salah')
+  await page.click('button[type="submit"]')
+
+  // Then
+  await expect(page.locator('[role="alert"]')).toContainText('Email atau password salah')
+  await expect(page).toHaveURL('/login')
+})
+```
 
 ---
 

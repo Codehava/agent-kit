@@ -9,7 +9,7 @@
   "_tiers": {
     "tier1_wajib": ["context7", "github", "brave-search", "sequential-thinking"],
     "tier2_sangat_berguna": ["postgresql", "playwright", "sentry", "docker"],
-    "tier3_opsional": ["firecrawl", "figma", "google-stitch"]
+    "tier3_opsional": ["firecrawl", "figma", "google-stitch", "remotion"]
   },
 
   "mcpServers": {
@@ -141,6 +141,17 @@
       "env": {
         "GOOGLE_CLOUD_PROJECT_ID": "[PROJECT_ID_GCP]"
       }
+    },
+
+    "remotion": {
+      "_tier": "TIER 3 — OPSIONAL",
+      "_description": "Docs Remotion realtime + AI bisa buat, edit, dan render video programatik dengan React/TypeScript langsung dari IDE.",
+      "_usage": "Contoh: 'Buat animasi intro logo dengan Remotion', 'Generate video laporan penjualan otomatis', 'Buat slideshow dari data JSON'",
+      "_setup": "Tidak perlu API key — langsung aktif. Pastikan Node.js v18+ terinstall.",
+      "_when_to_use": "Ketika project butuh fitur video/animasi programatik — laporan otomatis, social media content, onboarding video, dsb.",
+      "command": "npx",
+      "args": ["@remotion/mcp@latest"],
+      "env": {}
     }
   }
 }

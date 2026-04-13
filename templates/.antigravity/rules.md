@@ -41,13 +41,32 @@ UU PDP adalah Undang-Undang Perlindungan Data Pribadi Indonesia — wajib dipatu
 - User harus bisa hapus akun dan download data pribadi mereka (REQ wajib di PRD)
 - Firebase: hanya gunakan `firebase_messaging` — JANGAN aktifkan Analytics/Crashlytics
 
-## Sebelum coding (Human-in-the-Loop)
+## Sebelum coding (Human-in-the-Loop — NON-PROGRAMMER FIRST)
 
-- **WAJIB Validasi:** JANGAN langsung menulis file panjang secara agresif. Buat Implementation Plan singkat di chat, MINTA USER mengetik "Lanjut/Approve" sebelum edit/buat file.
+**WAJIB: Tampilkan Rencana Eksekusi sebelum setiap task besar.**
+Format WAJIB sebelum membuat atau mengubah file:
+
+```
+📋 Rencana Task [T-XXX]: [nama task]
+
+File yang akan DIBUAT:
+  • [path/ke/file.ts] — [penjelasan singkat dalam bahasa Indonesia awam]
+
+File yang akan DIUBAH:
+  • [path/ke/file.ts] — [apa yang berubah, kenapa]
+
+File yang TIDAK akan disentuh:
+  • [daftar file penting yang aman]
+
+Ketik "Lanjut" untuk mulai, atau "Stop" untuk batalkan.
+```
+
+Aturan tambahan:
 - Cek komponen di `/components/ui/` sebelum buat baru
 - Untuk fitur size M atau L: cek apakah ada spec di `specs/` dulu
 - Satu fokus per sesi — jangan ubah hal di luar scope yang diminta
 - Konfirmasi sebelum hapus atau refactor kode yang sudah ada
+- DILARANG membuat lebih dari 3 file sekaligus tanpa konfirmasi ulang
 
 ## Git & commit
 
@@ -131,3 +150,6 @@ JANGAN mencari `SKILLS_INDEX.md` — file itu adalah routing mechanism, bukan li
 - **NO DUMPING ERRORS:** DILARANG paste stack trace ke user dan tanya "Bagaimana cara fix?"
 - **SILENT SELF-HEALING:** Panggil `@systematic-debugging`, fix sendiri, baru lapor hasilnya
 - **VIBE FIRST:** Berikan user localhost preview atau hasil yang memukau — bukan config errors
+- **BAHASA INDONESIA AWAM:** Semua laporan ke user harus dalam bahasa Indonesia sederhana — tidak ada jargon teknis kecuali diminta
+- **RINGKAS:** Jawab singkat dan jelas. Jika perlu detail teknis, taruh di bagian "Untuk yang ingin tahu lebih" dan bisa di-skip
+- **PROGRESS REPORT:** Setelah selesai setiap task, laporkan: ✅ Apa yang sudah jadi, 🔗 Di mana bisa dicoba/dilihat, ⏭️ Task berikutnya apa

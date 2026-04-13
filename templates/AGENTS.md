@@ -7,19 +7,23 @@
 
 ## 🎯 Identitas Proyek
 
+> Anggap user adalah **non-coder** kecuali jelas sebaliknya.
+> Contoh stack, infra, dan snippet di bawah adalah **referensi**, bukan checklist wajib.
+> Jangan memaksakan mobile app, payment, realtime, Redis, BullMQ, Flutter, atau stack kompleks lain jika kebutuhan belum menuntut itu.
+
 - **Nama Proyek:** [nama proyek]
 - **Tipe:** [Web App / Mobile / Marketplace]
-- **Stack:** Next.js **16.1** (App Router) + Flutter **3.41.2** + PostgreSQL **17** + Prisma **7** + Better Auth **1.5**
-- **Runtime:** Node.js **22 LTS**
-- **Data Fetching:** Server Components (default) + TanStack Query (client mutations/realtime)
-- **Arsitektur:** Modular Monolith — 1 Next.js app + 1 BullMQ worker container
-- **Payment:** Xendit (split payment / disbursement) — hanya app dengan transaksi keuangan
-- **Realtime:** Socket.io + BullMQ **5.x** (Redis **7.4 LTS**, shared instance)
-- **Push Notif:** Firebase FCM — **hanya `firebase_messaging`**, Analytics/Crashlytics JANGAN diaktifkan
-- **Storage:** NEO Object Storage Biznet Gio (S3-compatible, Indonesia)
-- **CDN:** Cloudflare Free (DPA wajib di-accept) + NEO untuk serve file upload
-- **Deploy:** Coolify di VPS Biznet Gio (Indonesia — comply UU PDP)
-- **IDE:** Antigravity
+- **Stack:** [isi setelah planning selesai. Default: pilih stack paling sederhana yang memenuhi MVP]
+- **Runtime:** [isi jika sudah dipilih]
+- **Data Fetching:** [Server-first / client-heavy / mixed]
+- **Arsitektur:** [Monolith / modular monolith / API + frontend / mobile only]
+- **Payment:** [jika perlu]
+- **Realtime:** [jika perlu]
+- **Push Notif:** [jika perlu]
+- **Storage:** [jika perlu]
+- **CDN:** [jika perlu]
+- **Deploy:** [isi setelah planning selesai]
+- **IDE:** [Antigravity / Cursor / Claude Code / lainnya]
 - **Stack diverifikasi:** Maret 2026
 
 ---
@@ -28,12 +32,16 @@
 
 | Dokumen | Lokasi | Berisi |
 |---------|--------|--------|
-| PRD | `docs/01-PRD.md` | Fitur, user stories (REQ-XXX), scope MVP |
-| Tech Design | `docs/02-TECH-DESIGN.md` | Stack, schema DB, API contracts, code patterns |
-| UI Guidelines | `docs/03-UI-GUIDELINES.md` | Komponen shadcn, warna, Flutter design |
-| Backlog | `docs/04-BACKLOG.md` | Task aktif sprint ini |
-| Deployment | `docs/05-DEPLOYMENT.md` | Coolify, Dockerfile, CI/CD, backup |
-| Dev Log | `docs/06-DEVELOPMENT-LOG.md` | Kenapa setiap keputusan teknis dibuat |
+| Docs Index | `docs/README.md` | Urutan baca dan peta dokumen |
+| Project Charter | `docs/01-project-charter.md` | Tujuan proyek, sponsor, milestone |
+| BRD | `docs/02-business-requirements.md` | Scope bisnis, objectives, proses |
+| SRS | `docs/03-srs.md` | Functional & non-functional requirements lebih detail |
+| PRD | `docs/04-PRD.md` | Fitur, user stories (REQ-XXX), scope MVP |
+| Tech Design | `docs/05-TECH-DESIGN.md` | Stack, schema DB, API contracts, code patterns |
+| UI Guidelines | `docs/06-UI-GUIDELINES.md` | Komponen shadcn, warna, Flutter design |
+| Backlog | `docs/07-BACKLOG.md` | Task aktif sprint ini |
+| Deployment | `docs/08-DEPLOYMENT.md` | Coolify, Dockerfile, CI/CD, backup |
+| Dev Log | `docs/09-DEVELOPMENT-LOG.md` | Kenapa setiap keputusan teknis dibuat |
 | Feature Specs | `specs/NNN-nama-fitur.md` | Blueprint fitur sebelum coding |
 
 **Antigravity agent config:**
@@ -41,9 +49,25 @@
 | File | Fungsi |
 |------|--------|
 | `.antigravity/rules.md` | Rules selalu aktif tiap sesi |
-| `.agent/skills/` | 455 Elite Skills — auto-discover & auto-load |
-| `.agent/workflows/` | 6 workflows — panggil via `/nama` |
-| `.agent/mcp_config.json` | Config 4 Vibe MCP servers |
+| `.agent/skills/` | Kumpulan skill spesialis — auto-discover saat relevan |
+| `.agent/workflows/` | Workflow siap pakai — panggil via `/nama` |
+| `.agent/mcp_config.json` | Config MCP server untuk docs, testing, dan tools lain |
+
+---
+
+## 🧭 Mode Non-Coder
+
+Aturan ini wajib jika user bukan programmer:
+
+1. Selalu jelaskan keputusan dalam bahasa sederhana.
+2. Jangan pakai istilah teknis tanpa menjelaskan artinya singkat.
+3. Tawarkan opsi paling sederhana lebih dulu.
+4. Jangan mengaktifkan fitur kompleks jika belum diminta atau belum dibutuhkan PRD.
+5. Setelah setiap tahap, rangkum:
+   - apa yang diputuskan
+   - apa yang belum jelas
+   - apa risikonya jika tetap lanjut
+6. Jika template berisi bagian yang tidak relevan, hapus atau abaikan.
 
 ---
 
@@ -217,12 +241,16 @@ use context7
 
 ## ⚡ Workflows
 
-### Planning (sebelum coding)
+### 5 Command Inti
 | Command | Gunakan ketika |
 |---------|----------------|
 | `/vibe-plan` | **Mulai project baru** — research → PRD → tech design → build plan |
+| `/launch` | Setelah planning disetujui — init state agar build lebih terarah |
+| `/apply` | Mulai mengerjakan task dari plan |
+| `/unify` | Tutup sesi build dan rapikan hasil |
+| `/progress` | Saat bingung harus lanjut apa |
 
-### Build (saat coding)
+### Workflow Lanjutan
 | Command | Gunakan ketika |
 |---------|----------------|
 | `/new-feature` | Mulai fitur baru size M/L |
@@ -232,7 +260,7 @@ use context7
 | `/git-commit` | Commit dengan format benar |
 | `/dev-reset` | Environment dev bermasalah |
 
-## 🔌 Vibe MCP Servers (Auto-Active)
+## 🔌 Vibe MCP Servers (Opsional Sesuai Kebutuhan)
 
 - **Brave Search** — Web scraping & live docs untuk menghindari halusinasi
 - **Sequential Thinking** — Pengereman AI untuk logika memecahkan masalah rumit

@@ -1,95 +1,122 @@
 # Codehava Agent Kit V3.0 🚀
+> **Untuk siapa saja** — coder maupun non-coder — yang ingin membangun aplikasi web dan mobile dengan bantuan AI.
 
-The ultimate **Vibe Coding** Agent Kit — transforms plain-text ideas into production-ready Web and Mobile applications. Injects superhuman coding capabilities into Cursor, Antigravity, or Claude Code via the **SEED + PAUL** execution architecture.
+Ubah ide plain-text menjadi aplikasi production-ready. Menginjeksikan kemampuan coding superhuman ke Antigravity, Cursor, atau Claude Code via arsitektur **SEED + PAUL**.
 
 ---
 
-## What's Inside?
+## 🙋 Baru Pertama Kali? Mulai di Sini
 
-### 🌱 SEED-Style Typed Incubation
-Five project types with different rigor levels (Application, API/Backend, Campaign, Utility, Workflow). No more one-size-fits-all PRD — each type gets type-aware discovery questions, constraints, and quality gates before any code is written.
+🧭 **[START-HERE.md](./START-HERE.md)** — Panduan utama untuk mulai  
+🗂️ **[KEYWORDS-CHEATSHEET.md](./KEYWORDS-CHEATSHEET.md)** — Command dan prompt yang aman dipakai  
+🔌 **[MCP-SETUP.md](./MCP-SETUP.md)** — Cara setup plugin AI (dengan panduan API key langkah demi langkah)
 
-### 🔄 PAUL Execution Loop (Token-Efficient)
-**Plan → Apply → Unify** — single-session execution with mandatory reconciliation. No token-heavy parallel subagents (~70% quality). Each session closes with a SUMMARY.md capturing planned vs. actual outcomes. No orphaned work. No state drift.
+---
+
+## Apa yang Ada di Dalam Kit Ini?
+
+### 🌱 SEED — Tanya Dulu, Coding Belakangan
+Lima jenis project (Aplikasi, API/Backend, Kampanye, Alat Bantu, Workflow) dengan pertanyaan yang berbeda-beda. AI tidak akan langsung coding sebelum kebutuhan kamu jelas — ini yang membuat hasilnya tepat sasaran.
+
+### 🔄 PAUL Loop — Siklus Kerja yang Teratur
+Untuk non-coder, jalur paling aman adalah:
+**Plan → Launch → Apply → Unify → Progress**
+
+```
+/vibe-plan  →  AI tanya & buat rencana kerja
+/launch     →  kunci hasil planning jadi titik mulai project
+/apply      →  AI coding task per task
+/unify      →  AI rangkum & simpan hasil sesi ini
+/progress   →  AI beri tahu langkah berikutnya
+/vibe-recap →  Kompres sesi panjang → lanjut di chat baru
+```
+
+### 🛡️ Non-Programmer Shield
+- AI **tidak akan dump error** ke kamu dan tanya "bagaimana fix?"
+- AI **fix sendiri** secara diam-diam, baru lapor hasilnya
+- AI bicara dalam **bahasa Indonesia awam** — tidak ada jargon teknis
+- AI **tampilkan rencana** sebelum mengubah file apapun
 
 ### 🤖 Auto-Discovery Engine (600+ Elite Skills)
-~600 hand-picked, elite-tier skills auto-routed based on your natural language request — no memorization required. Keyword-based search with concrete algorithm defined in SKILLS_INDEX.md.
+Ketik request dalam bahasa Indonesia biasa → AI otomatis temukan dan aktifkan skill yang relevan. Kamu tidak perlu hafal nama skill apapun.
 
-### 🧠 Long-Term Memory Protocol
-`.agent/MEMORY.md` preserves colors, schemas, tech decisions, and constraints across sessions. `.agent/STATE.md` tracks current loop position. `docs/handoffs/` enables zero-context session resumption.
+### 🧠 Memory Lintas Sesi
+- `.agent/MEMORY.md` — ingat warna, keputusan teknis, stack
+- `.agent/STATE.md` — tahu lagi di sprint dan task nomor berapa
+- `docs/handoffs/` — jika sesi terpotong, AI lanjut dari titik yang sama
 
-### ✅ 4-Level Verification (from GSD)
-Every task verified at 4 levels: **Exists → Substantive → Wired → Data Flows** — before any DONE status is reported. Escalation status (DONE / DONE_WITH_CONCERNS / NEEDS_CONTEXT / BLOCKED) replaces binary pass/fail.
+### ✅ Verifikasi 4 Level
+Setiap task diverifikasi: **Ada → Berisi → Terhubung → Data Mengalir** — sebelum dinyatakan selesai.
 
-### 🔧 Self-Healing Protocol
-Autonomously fixes errors using `@systematic-debugging` and `@lint-and-validate`. Never asks users "how to fix?" — fixes silently, delivers working output.
-
-### 📊 Model Profiles
-**Quality** (Opus/Opus), **Balanced** (Opus/Sonnet, default), **Budget** (Sonnet/Haiku) — match compute to task complexity.
-
-### 🔌 Built-in Vibe MCP Servers
-Context7 (real-time docs), GitHub, Brave Search, Sequential Thinking, PostgreSQL, Playwright, Sentry, Docker — pre-configured in `mcp_config.json`.
+### 🔌 9 MCP Servers Siap Pakai
+Context7, GitHub, Brave Search, Sequential Thinking, PostgreSQL, Playwright, Sentry, Docker, Figma — sudah dikonfigurasi, tinggal isi API key.
 
 ---
 
-## Installation & Usage
+## Cara Install
 
 ```bash
 npx codehava-agent-kit init
 ```
 
-This creates `.agent/`, `docs/`, and `specs/` directories in your project root.
+Ini akan membuat folder `.agent/`, `docs/`, dan `specs/` di project kamu.
 
-**Then place:**
-- `.agent/` → your project root
-- `docs/` → your project root
-- `specs/` → your project root
-- `.antigravity/rules.md` → if using Antigravity IDE
+Lalu salin:
+- `.agent/` → root project
+- `docs/` → root project
+- `specs/` → root project
+- `.antigravity/rules.md` → jika pakai Antigravity IDE
 
 ---
 
-## The PAUL Loop: How to "Vibe Code"
+## Cara Pakai (Ringkas)
 
 ```
-1. /vibe-plan     Start here for any new project or feature
-                  → Detects project type, asks the right questions
-                  → Outputs PLANNING.md with BDD acceptance criteria
+1. /vibe-plan     → AI tanya kebutuhanmu → buat PLANNING.md
+                    Jawab dalam bahasa Indonesia biasa!
 
-2. /apply         Execute the plan, task by task
-                  → Auto-discovers relevant skills from 600+ library
-                  → Qualify each task before moving on
+2. /launch        → setelah planning disetujui, init state project
 
-3. /unify         Close the loop (mandatory after every /apply)
-                  → Documents planned vs. actual outcomes
-                  → Updates STATE.md and MEMORY.md
+3. /apply         → AI coding satu task per satu
 
-4. /vibe-recap    Context compaction when context gets long
-                  → Creates recap.md → open fresh chat to continue
+4. /unify         → WAJIB setelah /apply — tutup sesi dengan benar
+
+5. /progress      → jika bingung harus lanjut apa
+
+6. /vibe-recap    → Jika chat makin panjang & AI mulai lambat
+                    → buat ringkasan → buka chat baru → lanjutkan
 ```
 
-**Example:**
-> "Saya ingin buat aplikasi manajemen inventory untuk toko kecil"
-> → `/vibe-plan` detects Application type → asks 8 targeted questions → produces PLANNING.md
-> → `/apply` executes sprint 1 tasks → qualifies each with 4-level verification
-> → `/unify` documents what was done, deferred issues, tech decisions
-> → repeat for sprint 2
+**Contoh nyata:**
+> "Saya ingin buat aplikasi manajemen laundry untuk toko kecil"
+> → `/vibe-plan` deteksi tipe Aplikasi → tanya 8 pertanyaan → buat PLANNING.md
+> → `/launch` kunci planning jadi titik mulai
+> → `/apply` eksekusi sprint 1 → verifikasi 4 level
+> → `/unify` dokumentasi yang sudah dibuat, keputusan teknis, deferred issues
+> → ulangi untuk sprint 2
 
 ---
 
-## Why SEED + PAUL (not GSD)?
+## Kenapa PAUL Lebih Baik dari Parallel Agents?
 
-| Approach | Token Cost | Quality | Crash Recovery |
-|----------|-----------|---------|----------------|
-| Parallel Subagents (GSD) | Heavy | ~70% | Lock files needed |
-| Single Session (PAUL) | Efficient | ~95% | HANDOFF files |
+| Pendekatan | Token | Kualitas | Recovery jika error |
+|-----------|-------|----------|---------------------|
+| Parallel Subagents | Boros | ~70% | Butuh lock files |
+| **PAUL (Single Session)** | **Efisien** | **~95%** | **HANDOFF files** |
 
-PAUL's single-session approach delivers higher quality at lower token cost. SEED's typed incubation prevents hallucinated code from vague specs.
+PAUL bekerja dalam satu sesi, terurut, dengan memory yang dijaga. Tidak ada "orphaned work" atau state drift.
 
 ---
 
-## What Was Pruned
+## Dokumen Referensi
 
-Over 800+ niche/outdated community skills were pruned to keep the kit incredibly light and fast during initialization. Only elite, battle-tested skills remain.
+| Dokumen | Isi |
+|---------|-----|
+| `docs/README.md` | Peta dan urutan baca dokumen |
+| `START-HERE.md` | Panduan onboarding utama untuk non-coder |
+| `KEYWORDS-CHEATSHEET.md` | Command dan prompt yang sudah divalidasi |
+| `MCP-SETUP.md` | 🆕 Panduan API key step-by-step |
+| `AGENTS.md` | Instruksi AI untuk project ini |
 
 ---
 

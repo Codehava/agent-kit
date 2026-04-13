@@ -14,7 +14,7 @@ const program = new Command();
 program
   .name('codehava-agent-kit')
   .description('CLI to scaffold the Codehava Agent Kit environment')
-  .version('2.0.0');
+  .version('3.0.0');
 
 program
   .command('init')
@@ -42,7 +42,8 @@ program
         filter: (src) => !src.includes('.DS_Store') && !src.includes('skills-archive')
       });
       
-      console.log(chalk.green('\n✅ Selamat! Codehava Antigravity Agent Kit Connected\n'));
+      console.log(chalk.green('\n✅ Selamat! Codehava Agent Kit berhasil di-install.\n'));
+      console.log(chalk.cyan('Langkah berikutnya: buka START-HERE.md lalu mulai dari /vibe-plan.\n'));
       
     } catch (err) {
       console.error(chalk.red('❌ Failed to initialize Agent Kit:'), err);

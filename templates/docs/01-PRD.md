@@ -1,122 +1,124 @@
-# 01 — Product Requirements Document (PRD)
-> Isi dokumen ini sebelum mulai coding sprint pertama.
-> AI membaca ini sebagai konteks utama untuk memahami produk yang dibangun.
+# 01 — Deskripsi Produk (PRD)
+> Aplikasi: [Nama Aplikasi] | Dibuat: [tanggal]
+> Berdasarkan: docs/00-research.md + hasil diskusi dengan user
+> Status: [Draft / Disetujui]
 
 ---
 
-## 1. Ringkasan Produk
+## Ringkasan Produk
 
-| Field | Isi |
-|-------|-----|
-| **Nama Produk** | [nama aplikasi] |
-| **Tipe** | [Web App / Mobile App / Marketplace] |
-| **Versi** | v0.1 — MVP |
-| **Tanggal** | [tanggal] |
-| **Owner** | [nama PIC] |
+**Satu kalimat:**
+[Nama Aplikasi] adalah [jenis produk] yang membantu [target pengguna] untuk [melakukan apa] sehingga [manfaat utama].
 
-### Elevator Pitch
-> Aplikasi ini membantu **[siapa]** untuk **[melakukan apa]** sehingga **[manfaat utama]**.
+**Masalah yang diselesaikan:**
+[2-3 kalimat menjelaskan masalah nyata]
+
+**Siapa penggunanya:**
+[Deskripsi singkat target pengguna — bukan demografi teknis]
 
 ---
 
-## 2. Masalah & Target Pengguna
+## Fitur Utama
 
-### Problem Statement
-[Jelaskan masalah nyata yang ada. Apa pain point pengguna saat ini?]
+### Fitur 1: [Nama Fitur]
+**REQ-001**
 
-### Target Pengguna
-| Segmen | Deskripsi | Pain Point Utama |
-|--------|-----------|--------------------|
-| User Utama | [contoh: pemilik toko online] | [contoh: susah kelola pesanan] |
-| User Sekunder | [contoh: pelanggan toko] | [contoh: checkout ribet] |
-| Admin | [contoh: operator platform] | [contoh: rekonsiliasi manual] |
+**Apa yang bisa dilakukan user:**
+[Deskripsi dari sudut pandang pengguna — tanpa jargon teknis]
 
----
+**Alur penggunaan:**
+```
+User membuka [halaman] → [melakukan apa] → [melihat apa] → [hasil]
+```
 
-## 3. Fitur MVP
+**Syarat keberhasilan:**
+- User bisa [kondisi 1 yang bisa dicek]
+- User bisa [kondisi 2 yang bisa dicek]
+- Jika [kondisi gagal]: [pesan yang ditampilkan]
 
-> **Prinsip:** Hanya fitur yang WAJIB untuk validasi bisnis. Sisanya masuk backlog.
-
-### ✅ In Scope
-| ID | Fitur | Deskripsi | Prioritas |
-|----|-------|-----------|-----------| 
-| F01 | Autentikasi | Login email, Google OAuth, session 7 hari | P0 |
-| F02 | [nama fitur] | [deskripsi singkat] | P0 |
-| F03 | [nama fitur] | [deskripsi singkat] | P1 |
-| F04 | Pembayaran | Xendit payment link, webhook, split payment | P0 |
-| F05 | Notifikasi | FCM push notif, email via Resend | P1 |
-
-### ❌ Out of Scope MVP
-- [fitur yang sengaja ditunda]
-- [fitur nice-to-have]
+**4 kondisi UI yang wajib ada:**
+- Tampilan normal: [deskripsi]
+- Saat memuat: [deskripsi — loading indicator, dll]
+- Saat berhasil: [deskripsi — konfirmasi, pesan sukses]
+- Saat gagal: [deskripsi — pesan error yang mudah dipahami]
 
 ---
 
-## 4. User Stories
+### Fitur 2: [Nama Fitur]
+**REQ-002**
 
-> Format: **Sebagai [siapa], saya ingin [aksi], agar [tujuan].**
+**Apa yang bisa dilakukan user:**
+[Deskripsi]
 
-### Autentikasi
-- [ ] **REQ-001** Sebagai pengguna baru, saya ingin mendaftar dengan email/Google, agar bisa akses aplikasi
-- [ ] **REQ-002** Sebagai pengguna, saya ingin login dan sesi tersimpan 7 hari, agar tidak perlu login ulang
-- [ ] **REQ-003** Sebagai pengguna, saya ingin reset password via email, agar bisa akses akun jika lupa
+**Alur penggunaan:**
+```
+[Langkah 1] → [Langkah 2] → [Hasil]
+```
 
-### [Modul Utama — ganti sesuai aplikasi]
-- [ ] **REQ-010** Sebagai [role], saya ingin [aksi], agar [tujuan]
-- [ ] **REQ-011** Sebagai [role], saya ingin [aksi], agar [tujuan]
+**Syarat keberhasilan:**
+- [kondisi yang bisa dicek]
+- [kondisi yang bisa dicek]
 
-### Pembayaran (Xendit)
-- [ ] **REQ-020** Sebagai pembeli, saya ingin membayar via VA/QRIS/e-wallet
-- [ ] **REQ-021** Sebagai penjual, saya ingin dana langsung masuk rekening saya (split)
-- [ ] **REQ-022** Sebagai admin, saya ingin melihat status semua transaksi
-
-### Notifikasi
-- [ ] **REQ-030** Sebagai pengguna, saya ingin dapat push notif saat ada update penting
-- [ ] **REQ-031** Sebagai pengguna, saya ingin dapat email konfirmasi pembayaran
-
-### UU PDP — Hak Pengguna (Wajib sesuai UU PDP No. 27/2022)
-- [ ] **REQ-040** Sebagai pengguna, saya ingin dapat menghapus akun + semua data saya
-- [ ] **REQ-041** Sebagai pengguna, saya ingin dapat mengunduh semua data pribadi saya
-- [ ] **REQ-042** Sebagai pengguna, saya ingin dapat mencabut consent marketing kapan saja
+**4 kondisi UI yang wajib ada:**
+- Tampilan normal: [deskripsi]
+- Saat memuat: [deskripsi]
+- Saat berhasil: [deskripsi]
+- Saat gagal: [deskripsi]
 
 ---
 
-## 5. Non-Functional Requirements
+### Fitur 3: [Nama Fitur]
+**REQ-003**
 
-| Kategori | Requirement | Target |
-|----------|-------------|--------|
-| Performance | Load halaman utama | < 2 detik |
-| Availability | Uptime | 99.9% |
-| Security | Auth | Session DB (Better Auth 1.5) |
-| Security | Payment | Xendit callback token verified |
-| Security | Data sensitif | Enkripsi at-rest (pgcrypto) |
-| Scalability | Concurrent users (MVP) | 100 users |
-| Mobile | Platform | Android + iOS (Flutter 3.41.2) |
-| Storage | File upload max | 5 MB |
-| Regulasi | Compliance | UU PDP No. 27/2022 |
+[Isi sesuai pola di atas]
 
 ---
 
-## 6. Success Metrics
+## Notifikasi
 
-| Metric | Target MVP (Bulan 1) | Cara Ukur |
-|--------|---------------------|-----------|
-| Registrasi user | [target] | DB count |
-| Transaksi berhasil | [target] | Xendit dashboard |
-| Uptime | 99.9% | Uptime Kuma |
+| Kejadian | Siapa yang Diberitahu | Cara | Isi Pesan |
+|----------|----------------------|------|-----------|
+| [event 1] | [pengguna / admin] | Email / Push / SMS | [isi notifikasi] |
+| [event 2] | [pengguna / admin] | Email / Push / SMS | [isi notifikasi] |
 
 ---
 
-## 7. Constraints & Asumsi
+## Konten yang Dibutuhkan
 
-### Constraints
-- Tim: 2–3 orang
-- Timeline MVP: [target tanggal]
-- Budget infra: [estimasi/bulan]
-- Regulasi: UU PDP No. 27/2022 (berlaku penuh Oktober 2024)
+| Halaman / Bagian | Konten yang Perlu Disiapkan | Siapa yang Siapkan |
+|------------------|----------------------------|--------------------|
+| Halaman utama | [copywriting, gambar] | [user / AI] |
+| Email sambutan | [teks email] | [user / AI] |
+| [halaman lain] | [konten] | [user / AI] |
 
-### Asumsi
-- User memiliki smartphone Android/iOS
-- Merchant sudah terdaftar sebagai sub-merchant di Xendit
-- Semua user WNI — tidak perlu multi-currency untuk MVP
-- Primary database di Indonesia (Biznet Gio) untuk comply data residency
+---
+
+## Yang Sengaja Tidak Dimasukkan (MVP)
+
+Fitur berikut **tidak** ada di versi pertama — akan ditambahkan nanti setelah ada pengguna:
+
+- [Fitur yang ditunda] — alasan: [kenapa ditunda]
+- [Fitur yang ditunda] — alasan: [kenapa ditunda]
+
+---
+
+## Batasan & Aturan Penting
+
+- [Batasan 1 — contoh: hanya tersedia di Indonesia]
+- [Batasan 2 — contoh: pengguna harus berusia 17+]
+- [Aturan privasi — contoh: data tidak dibagikan ke pihak ketiga]
+
+---
+
+## Checklist Sebelum Lanjut ke Desain Teknis
+
+- [ ] Semua fitur utama punya syarat keberhasilan yang jelas
+- [ ] Semua fitur punya 4 kondisi UI (normal / muat / berhasil / gagal)
+- [ ] Fitur yang ditunda sudah dicatat alasannya
+- [ ] User sudah menyetujui daftar fitur ini
+- [ ] Tidak ada fitur yang masih ambigu atau belum jelas alurnya
+
+---
+
+*Dokumen ini adalah kontrak antara tim dan stakeholder tentang apa yang akan dibangun.*
+*Ubah dokumen ini jika ada perubahan scope — jangan ubah kode langsung tanpa mengubah dokumen ini dulu.*
